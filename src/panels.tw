@@ -1,0 +1,386 @@
+:: 1A [panel]
+// CONDEMNED TO THE DEPTHS
+
+p.art.path('ASSETS/1A/');
+
+$('body').attr('currentpassage', '1A');
+
+p.art.assets(
+  ["title", "title.png"]
+);
+
+p.art.layers('art');
+
+p.step.create(
+	{a: 'title', l: 'art', u: 1500}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'title', l: 'art',
+	e: jinx.effects.extend('fadeOut', {position: [0, -200, 0]}),
+	u: 2500, p: 'remove'}
+);
+
+p.destination.main = "[[1B]]";
+
+
+
+
+
+:: 1B [panel]
+// I CAST THE TRASH OF MY MEAL INTO THE OCEAN
+
+p.art.path('ASSETS/1B/');
+
+p.art.assets(
+  ["boat", "boat.png"],
+  ["trash", "trash.png"],
+  ["text", "text.png"]
+);
+
+p.art.layers('art');
+
+p.step.create(
+	{a: 'boat', l: 'art', u: 2500, e: 'easeUp',
+	xy: [210,34]
+	},
+	{a: 'trash', l: 'art', u: 2500, d: 800,
+	e: jinx.effects.extend('fadeIn',
+	   {fromPosition: [30, 50, 0], position: [0,0,0]}),
+	xy: [227,133]
+	},
+	{a: 'text', l: 'art', u: 2500, e: 'easeDown', d: 1900,
+	xy: [120,40]
+	}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'boat', l: 'art', e: "easeOutUp", p: 'remove',
+	u: 800,
+	xy: [210,34]
+	},
+	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
+	d: 50, u: 800,
+	xy: [227,133]
+	},
+	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
+	d: 50, u: 800,
+	xy: [120,40]
+	}
+);
+
+p.destination.main = "[[1C]]";
+
+
+
+
+
+:: 1C [panel]
+// I FIND I NOW TRUST ONLY THAT WHICH THE SEA HAS TAKEN TO BE TRULY GONE
+
+p.art.path('ASSETS/1C/');
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["text", "text.png"]
+);
+
+p.art.layers("art");
+
+p.step.create(
+	{a: 'trash', l: 'art', u: 2500, d: 800,
+	 e: 'trash',
+	 xy: [227,173]
+	},
+	{a: 'text', l: 'art', u: 2500, d: 1900,
+	 e: jinx.effects.extend('easeDown',
+	   {fromPosition: [0, -25, 0]}),
+	 xy: [174,63]
+	}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [227,173]
+	},
+	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [174,63]
+	}
+);
+
+p.destination.main = "[[1D]]";
+
+
+
+
+
+:: 1D [panel]
+// TOO MANY THINGS BOURNE BY LAND AND AIR HAVE THOUGH I BELIEVED THEM GONE INVARIABLY RETURNED TO HAUNT ME—
+
+p.art.path('ASSETS/1D/');
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["text", "text.png"],
+  {name: "jellies",
+   src: "jellies-unshaded.gif",
+   type: "asset"}
+);
+
+/* jelly css setup */
+
+var jellySrc = p.art.getAsset('jellies').getSrc();
+var jellyRule = ".asset[assetname='jellies']{background-image:url('"+jellySrc+"')}";
+var jellyStyle = document.createElement('style');
+jellyStyle.id = "jelly-styles"
+jellyStyle.textContent += jellyRule;
+$('body').append(jellyStyle);
+
+p.art.layers("full-art", "art");
+
+p.step.create(
+	{a: 'trash', l: 'art', u: 2500, d: 400,
+	 e: 'trash',
+	 xy: [240,195]
+	},
+	{a: 'jellies', l: 'full-art', e: "easeUp", u: 2500, d: 800},
+	{a: 'text', l: 'art', u: 2500, d: 1500,
+	 e: jinx.effects.extend('easeDown',
+	   {fromPosition: [0, -25, 0]}),
+	 xy: [395,125]
+	}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [395,125]
+	},
+	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [240,195]
+	},
+	{a: 'jellies', l: 'full-art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800}
+);
+
+p.destination.main = "[[2A]]";
+
+
+
+
+
+:: 2A [panel]
+// 2A MY DEBTS
+
+p.art.path('ASSETS/2A/');
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["text", "text.png"],
+  {name: "fishes",
+   src: "fishesShaded.png",
+   type: "asset"}
+);
+
+/* jelly css setup */
+
+var fishesSrc = p.art.getAsset('fishes').getSrc();
+var fishesRule = ".asset[assetname='fishes']{background-image:url('"+fishesSrc+"')}";
+var fishesStyle = document.createElement('style');
+fishesStyle.id = "fish-styles"
+fishesStyle.textContent += fishesRule;
+$('body').append(fishesStyle);
+
+p.art.layers("full-art", "art");
+
+p.step.create(
+	{a: 'trash', l: 'art', u: 2500, d: 400,
+	 e: 'trash',
+	 xy: [240,195]
+	},
+	{a: 'fishes', l: 'full-art', e: "easeUp", u: 2500, d: 800},
+	{a: 'text', l: 'art', u: 2500, d: 1500,
+	 e: jinx.effects.extend('easeDown',
+	   {fromPosition: [0, -25, 0]}),
+	 xy: [395,125]
+	}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [395,125]
+	},
+	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [240,195]
+	},
+	{a: 'fishes', l: 'full-art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800}
+);
+
+p.destination.main = "[[2B]]";
+
+
+
+
+
+:: 2B [panel]
+// PAST LOVES WHO LEARNED AT LAST TO SHUN MY AFFECTIONS
+
+p.art.path('ASSETS/2B/');
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["text", "text.png"],
+
+  ["shark", "shark-iso.png"],
+  ["barracuda", "barracuda.png"],
+  ["upfish", "upfish.png"],
+  ["downfish", "downfish.png"],
+
+  // HACK todo: asset instantiation
+
+  ["barracuda#1", "barracuda.png"],
+  ["barracuda#2", "barracuda.png"]
+);
+
+p.art.layers("art");
+
+p.step.create(
+	{a: 'trash', l: 'art', e: 'trash', d: 600, u: 2500,
+	xy: [510, 182]},
+	{a: 'downfish', l: 'art', e: "easeUp", u: 2500, d: 800,
+	xy: [774,31]},
+	{a: 'shark', l: 'art', e: "easeUp", u: 2500, s: 'with',
+	xy: [774,31]},
+	{a: 'upfish', l: 'art', e: "easeUp", u: 2500, s: 'with',
+	xy: [774,31]},
+
+	{a: 'barracuda#1', l: 'art', e: "easeUp", u: 2500, d: 800,
+	xy: [-391,54]},
+	{a: 'barracuda#2', l: 'art', e: "easeUp", u: 2500, d: 300,
+	xy: [-225,216]},
+
+	{a: 'text', l: 'art', d: 800, u: 4000, e: "easeDown",
+	xy: [417, 47]}
+);
+
+p.step.create(
+	s.autoAdvance(p)
+);
+
+p.destination.main = "[[2C]]";
+
+
+
+
+
+:: 2C [panel]
+// THE LONG EYE OF THE LAW AND THE ARM THAT FOLLOWS...
+
+p.art.path('ASSETS/2C/');
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["trash-shadow", "trash-shadow.png"],
+  ["text", "text.png"],
+
+  ['behemoth','behemoth-color.png']
+);
+
+p.art.layers('art');
+
+p.step.create(
+	{a: 'behemoth', l: 'art', e: 'hidden'},
+	{a: 'trash-shadow', l: 'art', e: 'hidden'},
+
+	{a: 'trash', l: 'art', e: 'trash', d: 1000, u: 2500,
+	 xy: [499,178]},
+	{a: 'behemoth', l: 'art', u: 4000, d: 1000, e: 'easeRight',
+	 xy: [-499,-95], p: 'effect'},
+	{a: 'trash-shadow', l: 'art', e: 'trash', u: 2500,
+	 xy: [461, 202], p: 'effect'},
+	{a: 'text', l: 'art', u: 4000, d: 1200, e: 'easeDown',
+	 xy: [755,105]},
+);
+
+p.step.create(
+	s.autoAdvance(p)
+);
+
+p.destination.main = "[[2D]]";
+
+
+
+
+
+:: 2D [panel]
+// WOULD THAT MY MEMORIES COULD BE CAST INTO THE COLD EMBRACE OF THE DEEP
+
+p.art.path('ASSETS/2D/');
+
+var whaleDuration = 2500;
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["text", "text.png"],
+
+  {name: "bg-tile",
+   src: "background tile-bigger.png",
+   type: "asset"},
+  {name: "bg-mtn",
+   src: "background mountains.png",
+   type: "asset"},
+
+  ["corpse", "corpse-huge.png"],
+  ["lefteel", "lefteel-huge.png"],
+  ["righteel", "righteel-huge.png"]
+);
+
+/* css setup */
+
+var bgSrc = p.art.assets['bg-tile'].getSrc();
+var bgRule = ".asset[assetname='bg-tile']{background-image:url('"+bgSrc+"'); background-position: center;}";
+
+var mtnSrc = p.art.assets['bg-mtn'].getSrc();
+var mtnRule = ".asset[assetname='bg-mtn']{background-image:url('"+mtnSrc+"'); background-position: center;}";
+
+var styleEl = document.createElement('style');
+styleEl.id = "mtn-styles";
+styleEl.textContent += bgRule + mtnRule;
+$('body').append(styleEl);
+
+p.art.layers("full-art", "art");
+
+p.step.create(
+	{a: 'bg-tile', l: 'full-art', e: "easeUp", u: 2500, d: 800,
+	xy: [0, -30]},
+	{a: 'bg-mtn', l: 'full-art', e: "easeUp", u: 2500,
+	xy: [0, -4]},
+
+	{a: 'corpse', l: 'art', e: jinx.effects.extend("easeUp", {fromPosition: [0,15,0]}),
+	u: whaleDuration, d: 800,
+	 xy: [-236,-48]},
+	{a: 'lefteel', l: 'art', e: jinx.effects.extend("easeUp", {fromPosition: [0,15,0]}),
+	 u: whaleDuration,
+	 xy: [566,46]},
+	{a: 'righteel', l: 'art', e: jinx.effects.extend("easeUp", {fromPosition: [0,15,0]}),
+	 u: whaleDuration,
+	 xy: [1238,-48]},
+
+    {a: 'trash', l: 'art', e: 'trash', u: 5000, d: 1500,
+	 xy: [191,100]},
+	{a: 'text', l: 'art', u: 4000, d: 400, e: 'easeDown',
+	 xy: [25,25]},
+);
+
+p.destination.main = "[[1A]]"

@@ -1,0 +1,248 @@
+html, body, #passages {
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
+}
+
+body {
+	background-color: #5a3232 !important;
+}
+
+#passages {
+	align-items: center;
+	justify-content: center;
+	max-width: none;
+	z-index: 1;
+	overflow: hidden;
+}
+
+#passages .passage {
+	width: 100%;
+	height: 400px;
+}
+
+.passage .panel {
+	height: 400px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.layer.art, .layer.front {
+	flex: 0 0 auto;
+	width: 1200px;
+	position: relative;
+}
+
+.layer.full-art {
+	flex: 1 1 auto;
+	width: 100%;
+}
+
+/********** sealayer setup **********/
+
+.sealayers {
+	position: relative;
+	width: 100%;
+	height: auto;
+
+	transition: top 3s cubic-bezier(.2,0,0,1);
+}
+
+.sealayer-wrapper {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+
+.sealayer {
+	position: absolute;
+	display: flex;
+	flex-flow: column nowrap;
+
+	height: calc(80vh + 50px);
+	width: 100%;
+}
+
+.sealayers .skylayer {
+	height: calc(130vh + 96px + 50px);
+	background-color: white;
+}
+
+.sealayers .sealayer.layer-1 {
+	top: calc(130vh + 96px);
+}
+
+.sealayer.layer-1 .top {
+	opacity: 0;
+}
+
+.sealayer.layer-1 {
+	height: calc(120vh + 50px);
+}
+
+.sealayer .top {
+	flex: 0 0 auto;
+	width: 100%;
+	height: 50px;
+}
+
+.sealayer .body {
+	flex: 1 1 auto;
+	width: 100%;
+	height: 100%;
+	background-position-y: 7px;
+}
+
+/* wand */
+
+.wand {
+	border-bottom: none;
+	transition: box-shadow .1s;
+	/*box-shadow: 0 4px #ddd;*/
+}
+
+.wand.active {
+	/*box-shadow: 0 4px #f08;*/
+}
+
+.wand.active:hover {
+	/*box-shadow: 0 8px #f08;*/
+}
+
+/* test shit */
+
+body[currentpassage="1A"],
+body[currentpassage="1B"],
+body[currentpassage="1C"],
+body[currentpassage="1D"] {
+	color: black;
+	text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white;
+}
+
+body[currentpassage="2A"],
+body[currentpassage="2B"],
+body[currentpassage="2C"],
+body[currentpassage="2C+"],
+body[currentpassage="2D"] {
+	color: white;
+	text-shadow: 0 0 5px black, 0 0 5px black, 0 0 5px black;
+}
+
+@-webkit-keyframes looping-background-jellies {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: -535px; }
+}
+@-moz-keyframes looping-background-jellies {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: -535px; }
+}
+@-o-keyframes looping-background-jellies {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: -535px; }
+}
+@keyframes looping-background-jellies {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: -535px; }
+}
+
+@-webkit-keyframes looping-background-fishes {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: 1191px; }
+}
+@-moz-keyframes looping-background-fishes {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: 1191px; }
+}
+@-o-keyframes looping-background-fishes {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: 1191px; }
+}
+@keyframes looping-background-fishes {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: 1191px; }
+}
+
+.asset[assetname='fishes'] {
+	-webkit-animation: looping-background-fishes 36s infinite linear;
+  -moz-animation:    looping-background-fishes 36s infinite linear;
+  -o-animation:      looping-background-fishes 36s infinite linear;
+  animation:         looping-background-fishes 36s infinite linear;
+}
+
+.asset[assetname='jellies'] {
+	-webkit-animation: looping-background-jellies 18s infinite linear;
+  -moz-animation:    looping-background-jellies 18s infinite linear;
+  -o-animation:      looping-background-jellies 18s infinite linear;
+  animation:         looping-background-jellies 18s infinite linear;
+}
+
+.layer.full-art .asset {
+	width: 100%;
+	height: 400px;
+}
+
+.layer.full-art .asset[assetname="bg-tile"] {
+	height: 600px;
+	background-position: top;
+	background-repeat-y: no-repeat;
+}
+
+.layer.full-art .asset img
+{
+	display: none;
+}
+
+/* Float Animations */
+
+@keyframes float-right-med {
+  0%, 100%   { left: 0px; }
+	50%  { left: 10px; }
+}
+
+@keyframes float-down-small {
+  0%, 100%   { top: 0px; }
+	50%  { top: 7px; }
+}
+
+@keyframes float-up-small {
+  0%, 100%   { top: 0px; }
+	50%  { top: -7px; }
+}
+
+@keyframes float-trash-shadow {
+  0%, 100%   { left: 0px; top: 0px; }
+	50%  { left: -4px; top: 10px; }
+}
+
+.asset[assetname='behemoth'],
+.asset[assetname='downfish'],
+.asset[assetname='righteel'] {
+	animation: float-down-small 4s infinite both;
+}
+.asset[assetname='upfish'],
+.asset[assetname='lefteel'] {
+	animation: float-up-small 4s infinite both;
+	animation-delay: -1.5s;
+}
+
+.asset[assetname='trash-shadow'] {
+	animation: float-trash-shadow 4s infinite both;
+}
+
+.asset[assetname='barracuda#1'] {
+	animation: float-right-med 4s infinite both;
+}
+.asset[assetname='barracuda#2'] {
+	animation: float-right-med 4s infinite both;
+	animation-delay: -1s;
+}
+
+.art-bottom, .full-art-bottom {
+	top: calc(50vh - 200px);
+}

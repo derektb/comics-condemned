@@ -1,0 +1,33 @@
+:: StoryTitle
+Condemned to the Depths
+
+:: Start
+
+<%
+  $(function(){
+	  var sealayers = story.passage('sealayers').source;
+	  $(sealayers).insertBefore('#passages');
+	}
+  );
+%>
+
+[[start->1A]]
+
+:: StoryData
+{
+	"ifid": "FA37417C-FCF7-4BB0-BA9F-52152179AAA4"
+}
+
+
+
+:: sealayers [not-panel]
+
+<div class="sealayer-wrapper">
+  <div class="sealayers">
+	<div class ="skylayer"></div>
+	<div class="sealayer layer-1">
+		<div class="top"></div>
+		<div class="body"></div>
+	</div>
+  </div>
+</div>
