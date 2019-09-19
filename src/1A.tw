@@ -1,6 +1,5 @@
 :: 1A [panel]
 // CONDEMNED TO THE DEPTHS
-// Title Panel
 
 p.art.path('ASSETS/1A/');
 
@@ -8,47 +7,26 @@ p.art.assets(
   {
     name: "title",
     src: "title.png",
-    classList: ["float-vertical-1"]
+    classList: [""]
   },
   {
     name: "subtitle",
     src: "subtitle.png",
-    classList: ["float-vertical-2"]
+    classList: [""]
   }
 );
 
 p.art.layers('art');
 
 p.step.create(
-  {
-    a: 'title', l: 'art',
-    u: s.time.XLONG
-  },
-  {
-    a: 'subtitle', l: 'art',
-    d: s.time.MEDIUM,
-    u: s.time.XLONG
-  },
+	{a: 'title', l: 'art', u: 1500}
 );
 
-p.step.transition( // to replace autoAdvance, and to serve as the "pre-transition"
-  {
-    a: 'subtitle', l: 'art',
-    p: 'remove',
-    e: jinx.effects.extend(
-      'fadeOut', {position: [0, -200, 0]}
-    ),
-    u: s.time.MEDIUM,
-  },
-  {
-    a: 'title', l: 'art',
-    p: 'remove',
-    e: jinx.effects.extend(
-      'fadeOut', {position: [0, -200, 0]}
-    ),
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-  },
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'title', l: 'art',
+	e: jinx.effects.extend('fadeOut', {position: [0, -200, 0]}),
+	u: 2500, p: 'remove'}
 );
 
 p.destination.main = "[[1B]]";

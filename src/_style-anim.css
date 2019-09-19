@@ -1,21 +1,37 @@
-/* Get a preprocessor for CSS.  consider NPM taskrunner? */
-
 @keyframes looping-background-jellies {
   0%   { background-position-x: 0px; }
   100% { background-position-x: -535px; }
 }
 
+@-webkit-keyframes looping-background-fishes {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: 1191px; }
+}
+@-moz-keyframes looping-background-fishes {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: 1191px; }
+}
+@-o-keyframes looping-background-fishes {
+  0%   { background-position-x: 0px; }
+  100% { background-position-x: 1191px; }
+}
 @keyframes looping-background-fishes {
   0%   { background-position-x: 0px; }
   100% { background-position-x: 1191px; }
 }
 
 .asset[assetname='fishes'] {
-  animation: looping-background-fishes 36s infinite linear;
+	-webkit-animation: looping-background-fishes 36s infinite linear;
+  -moz-animation:    looping-background-fishes 36s infinite linear;
+  -o-animation:      looping-background-fishes 36s infinite linear;
+  animation:         looping-background-fishes 36s infinite linear;
 }
 
 .asset[assetname='jellies'] {
-  animation: looping-background-jellies 18s infinite linear;
+	-webkit-animation: looping-background-jellies 18s infinite linear;
+  -moz-animation:    looping-background-jellies 18s infinite linear;
+  -o-animation:      looping-background-jellies 18s infinite linear;
+  animation:         looping-background-jellies 18s infinite linear;
 }
 
 .layer.full-art .asset {
@@ -55,9 +71,6 @@
   0%, 100%   { left: 0px; top: 0px; }
 	50%  { left: -4px; top: 10px; }
 }
-
-/* good for notes, but we can deprecate this specific stuff now that
-   classnames can be applied directly to assets */
 
 .asset[assetname='behemoth'],
 .asset[assetname='downfish'],
