@@ -1,0 +1,46 @@
+:: 2B [panel]
+// PAST LOVES WHO LEARNED AT LAST TO SHUN MY AFFECTIONS
+
+p.art.path('ASSETS/2B/');
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["text", "text.png"],
+
+  ["shark", "shark-iso.png"],
+  ["barracuda", "barracuda.png"],
+  ["upfish", "upfish.png"],
+  ["downfish", "downfish.png"],
+
+  // HACK todo: asset instantiation
+
+  ["barracuda#1", "barracuda.png"],
+  ["barracuda#2", "barracuda.png"]
+);
+
+p.art.layers("art");
+
+p.step.create(
+	{a: 'trash', l: 'art', e: 'trash', d: 600, u: 2500,
+	xy: [510, 182]},
+	{a: 'downfish', l: 'art', e: "easeUp", u: 2500, d: 800,
+	xy: [774,31]},
+	{a: 'shark', l: 'art', e: "easeUp", u: 2500, s: 'with',
+	xy: [774,31]},
+	{a: 'upfish', l: 'art', e: "easeUp", u: 2500, s: 'with',
+	xy: [774,31]},
+
+	{a: 'barracuda#1', l: 'art', e: "easeUp", u: 2500, d: 800,
+	xy: [-391,54]},
+	{a: 'barracuda#2', l: 'art', e: "easeUp", u: 2500, d: 300,
+	xy: [-225,216]},
+
+	{a: 'text', l: 'art', d: 800, u: 4000, e: "easeDown",
+	xy: [417, 47]}
+);
+
+p.step.create(
+	s.autoAdvance(p)
+);
+
+p.destination.main = "[[2C]]";

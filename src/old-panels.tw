@@ -1,4 +1,4 @@
-:: 1A [panel]
+:: 1A-old [panel]
 // CONDEMNED TO THE DEPTHS
 
 p.art.path('ASSETS/1A/');
@@ -22,13 +22,13 @@ p.step.create(
 	u: 2500, p: 'remove'}
 );
 
-p.destination.main = "[[1B]]";
+p.destination.main = "[[1B-old]]";
 
 
 
 
 
-:: 1B [panel]
+:: 1B-old [panel]
 // I CAST THE TRASH OF MY MEAL INTO THE OCEAN
 
 p.art.path('ASSETS/1B/');
@@ -71,13 +71,13 @@ p.step.create(
 	}
 );
 
-p.destination.main = "[[1C]]";
+p.destination.main = "[[1C-old]]";
 
 
 
 
 
-:: 1C [panel]
+:: 1C-old [panel]
 // I FIND I NOW TRUST ONLY THAT WHICH THE SEA HAS TAKEN TO BE TRULY GONE
 
 p.art.path('ASSETS/1C/');
@@ -113,13 +113,13 @@ p.step.create(
 	}
 );
 
-p.destination.main = "[[1D]]";
+p.destination.main = "[[1D-old]]";
 
 
 
 
 
-:: 1D [panel]
+:: 1D-old [panel]
 // TOO MANY THINGS BOURNE BY LAND AND AIR HAVE THOUGH I BELIEVED THEM GONE INVARIABLY RETURNED TO HAUNT ME—
 
 p.art.path('ASSETS/1D/');
@@ -170,13 +170,13 @@ p.step.create(
 	  d: 50, u: 800}
 );
 
-p.destination.main = "[[2A]]";
+p.destination.main = "[[2A-old]]";
 
 
 
 
 
-:: 2A [panel]
+:: 2A-old [panel]
 // 2A MY DEBTS
 
 p.art.path('ASSETS/2A/');
@@ -227,13 +227,13 @@ p.step.create(
 	  d: 50, u: 800}
 );
 
-p.destination.main = "[[2B]]";
+p.destination.main = "[[2B-old]]";
 
 
 
 
 
-:: 2B [panel]
+:: 2B-old [panel]
 // PAST LOVES WHO LEARNED AT LAST TO SHUN MY AFFECTIONS
 
 p.art.path('ASSETS/2B/');
@@ -278,13 +278,13 @@ p.step.create(
 	s.autoAdvance(p)
 );
 
-p.destination.main = "[[2C]]";
+p.destination.main = "[[2C-old]]";
 
 
 
 
 
-:: 2C [panel]
+:: 2C-old [panel]
 // THE LONG EYE OF THE LAW AND THE ARM THAT FOLLOWS...
 
 p.art.path('ASSETS/2C/');
@@ -317,13 +317,13 @@ p.step.create(
 	s.autoAdvance(p)
 );
 
-p.destination.main = "[[2D]]";
+p.destination.main = "[[2D-old]]";
 
 
 
 
 
-:: 2D [panel]
+:: 2D-old [panel]
 // WOULD THAT MY MEMORIES COULD BE CAST INTO THE COLD EMBRACE OF THE DEEP
 
 p.art.path('ASSETS/2D/');
@@ -383,4 +383,4 @@ p.step.create(
 	 xy: [25,25]},
 );
 
-p.destination.main = "[[1A]]"
+p.destination.main = "[[1A-old]]"

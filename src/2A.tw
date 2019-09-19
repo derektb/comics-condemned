@@ -1,0 +1,52 @@
+:: 2A [panel]
+// 2A MY DEBTS
+
+p.art.path('ASSETS/2A/');
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["text", "text.png"],
+  {name: "fishes",
+   src: "fishesShaded.png",
+   type: "asset"}
+);
+
+/* jelly css setup */
+
+var fishesSrc = p.art.getAsset('fishes').getSrc();
+var fishesRule = ".asset[assetname='fishes']{background-image:url('"+fishesSrc+"')}";
+var fishesStyle = document.createElement('style');
+fishesStyle.id = "fish-styles"
+fishesStyle.textContent += fishesRule;
+$('body').append(fishesStyle);
+
+p.art.layers("full-art", "art");
+
+p.step.create(
+	{a: 'trash', l: 'art', u: 2500, d: 400,
+	 e: 'trash',
+	 xy: [240,195]
+	},
+	{a: 'fishes', l: 'full-art', e: "easeUp", u: 2500, d: 800},
+	{a: 'text', l: 'art', u: 2500, d: 1500,
+	 e: jinx.effects.extend('easeDown',
+	   {fromPosition: [0, -25, 0]}),
+	 xy: [395,125]
+	}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [395,125]
+	},
+	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [240,195]
+	},
+	{a: 'fishes', l: 'full-art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800}
+);
+
+p.destination.main = "[[2B]]";

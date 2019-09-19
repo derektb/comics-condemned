@@ -1,0 +1,32 @@
+:: 1A [panel]
+// CONDEMNED TO THE DEPTHS
+
+p.art.path('ASSETS/1A/');
+
+p.art.assets(
+  {
+    name: "title",
+    src: "title.png",
+    classList: [""]
+  },
+  {
+    name: "subtitle",
+    src: "subtitle.png",
+    classList: [""]
+  }
+);
+
+p.art.layers('art');
+
+p.step.create(
+	{a: 'title', l: 'art', u: 1500}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'title', l: 'art',
+	e: jinx.effects.extend('fadeOut', {position: [0, -200, 0]}),
+	u: 2500, p: 'remove'}
+);
+
+p.destination.main = "[[1B]]";

@@ -1,0 +1,37 @@
+:: 1C [panel]
+// I FIND I NOW TRUST ONLY THAT WHICH THE SEA HAS TAKEN TO BE TRULY GONE
+
+p.art.path('ASSETS/1C/');
+
+p.art.assets(
+  ["trash", "trash.png"],
+  ["text", "text.png"]
+);
+
+p.art.layers("art");
+
+p.step.create(
+	{a: 'trash', l: 'art', u: 2500, d: 800,
+	 e: 'trash',
+	 xy: [227,173]
+	},
+	{a: 'text', l: 'art', u: 2500, d: 1900,
+	 e: jinx.effects.extend('easeDown',
+	   {fromPosition: [0, -25, 0]}),
+	 xy: [174,63]
+	}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [227,173]
+	},
+	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
+	  d: 50, u: 800,
+	 xy: [174,63]
+	}
+);
+
+p.destination.main = "[[1D]]";

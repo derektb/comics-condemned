@@ -1,0 +1,44 @@
+:: 1B [panel]
+// I CAST THE TRASH OF MY MEAL INTO THE OCEAN
+
+p.art.path('ASSETS/1B/');
+
+p.art.assets(
+  ["boat", "boat.png"],
+  ["trash", "trash.png"],
+  ["text", "text.png"]
+);
+
+p.art.layers('art');
+
+p.step.create(
+	{a: 'boat', l: 'art', u: 2500, e: 'easeUp',
+	xy: [210,34]
+	},
+	{a: 'trash', l: 'art', u: 2500, d: 800,
+	e: jinx.effects.extend('fadeIn',
+	   {fromPosition: [30, 50, 0], position: [0,0,0]}),
+	xy: [227,133]
+	},
+	{a: 'text', l: 'art', u: 2500, e: 'easeDown', d: 1900,
+	xy: [120,40]
+	}
+);
+
+p.step.create(
+	s.autoAdvance(p),
+	{a: 'boat', l: 'art', e: "easeOutUp", p: 'remove',
+	u: 800,
+	xy: [210,34]
+	},
+	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
+	d: 50, u: 800,
+	xy: [227,133]
+	},
+	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
+	d: 50, u: 800,
+	xy: [120,40]
+	}
+);
+
+p.destination.main = "[[1C]]";
