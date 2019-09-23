@@ -5,39 +5,85 @@ p.art.path('ASSETS/1B/');
 
 p.art.assets(
   ["boat", "boat.png"],
-  ["trash", "trash.png"],
-  ["text", "text.png"]
+  ["text", "text.png"],
+  // trashes
+  {
+    name: "bag",
+    src: "bag.png",
+    classNames: []
+  },
+  {
+    name: "canA",
+    src: "canA.png",
+    classNames: []
+  },
+  {
+    name: "canB",
+    src: "canB.png",
+    classNames: []
+  },
+  {
+    name: "milk",
+    src: "milk.png",
+    classNames: []
+  }
 );
 
 p.art.layers('art');
 
 p.step.create(
-	{a: 'boat', l: 'art', u: 2500, e: 'easeUp',
-	xy: [210,34]
+	{
+    a: 'boat', l: 'art',
+    e: 'easeUp',
+    u: s.time.XLONG
 	},
-	{a: 'trash', l: 'art', u: 2500, d: 800,
-	e: jinx.effects.extend('fadeIn',
-	   {fromPosition: [30, 50, 0], position: [0,0,0]}),
-	xy: [227,133]
+  // TRASH
+  {
+    a: 'bag', l: 'art',
+  	e: jinx.effects.extend('fadeIn',
+  	   {fromPosition: [30, 50, 0], position: [0,0,0]}),
+    d: s.time.LONG,
+    u: s.time.SHORT,
 	},
-	{a: 'text', l: 'art', u: 2500, e: 'easeDown', d: 1900,
-	xy: [120,40]
+  {
+    a: 'c', l: 'art',
+  	e: jinx.effects.extend('fadeIn',
+  	   {fromPosition: [30, 50, 0], position: [0,0,0]}),
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  {
+    a: 'trash', l: 'art',
+  	e: jinx.effects.extend('fadeIn',
+  	   {fromPosition: [30, 50, 0], position: [0,0,0]}),
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  {
+    a: 'trash', l: 'art',
+  	e: jinx.effects.extend('fadeIn',
+  	   {fromPosition: [30, 50, 0], position: [0,0,0]}),
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  // TEXT
+	{
+    a: 'text', l: 'art',
+    e: 'easeDown',
+    d: s.time.XLONG,
+    u: s.time.XLONG,
 	}
 );
 
-p.step.create(
-	s.autoAdvance(p),
+p.step.transition(
 	{a: 'boat', l: 'art', e: "easeOutUp", p: 'remove',
 	u: 800,
-	xy: [210,34]
 	},
 	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
 	d: 50, u: 800,
-	xy: [227,133]
 	},
 	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
 	d: 50, u: 800,
-	xy: [120,40]
 	}
 );
 

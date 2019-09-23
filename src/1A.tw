@@ -8,12 +8,12 @@ p.art.assets(
   {
     name: "title",
     src: "title.png",
-    classList: ["float-vertical-1"]
+    classNames: ["float-vertical-1"]
   },
   {
     name: "subtitle",
     src: "subtitle.png",
-    classList: ["float-vertical-2"]
+    classNames: ["float-vertical-2"]
   }
 );
 
