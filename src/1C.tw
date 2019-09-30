@@ -4,33 +4,100 @@
 p.art.path('ASSETS/1C/');
 
 p.art.assets(
-  ["trash", "trash.png"],
-  ["text", "text.png"]
+  ["text", "text.png"],
+  // trashes
+  {
+    name: "bag",
+    src: "bag.png",
+    // classNames: ["anim-float-down-1"]
+  },
+  {
+    name: "bubs",
+    src: "bubs.png",
+    // classNames: ["anim-float-down-1"]
+  },
+  {
+    name: "cup",
+    src: "cup.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },
+  {
+    name: "milk",
+    src: "milk.png",
+    classNames: ["anim-float-down-2"],
+    type: "asset"
+  },
 );
 
 p.art.layers("art");
 
 p.step.create(
-	{a: 'trash', l: 'art', u: 2500, d: 800,
-	 e: 'trash',
-	 xy: [227,173]
+  {
+    a: 'bag', l: 'art',
+  	e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
 	},
-	{a: 'text', l: 'art', u: 2500, d: 1900,
-	 e: jinx.effects.extend('easeDown',
+  {
+    a: 'bubs', l: 'art',
+  	e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  {
+    a: 'cup', l: 'art',
+  	e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  {
+    a: 'milk', l: 'art',
+  	e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  // TEXT
+	{
+    a: 'text', l: 'art',
+    e: jinx.effects.extend('easeDown',
 	   {fromPosition: [0, -25, 0]}),
-	 xy: [174,63]
+    d: s.time.MEDIUM,
+    u: s.time.XLONG
 	}
 );
 
-p.step.create(
-	s.autoAdvance(p),
-	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
-	  d: 50, u: 800,
-	 xy: [227,173]
+p.step.transition(
+	{
+    a: 'milk', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.SHORT,
 	},
-	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
-	  d: 50, u: 800,
-	 xy: [174,63]
+	{
+    a: 'cup', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+	{
+    a: 'bubs', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+	{
+    a: 'bag', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+
+	{
+    a: 'text', l: 'art', p: 'remove',
+    e: "easeOutUp",
+	  d: s.time.XSHORT,
+    u: s.time.MEDIUM,
 	}
 );
 

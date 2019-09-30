@@ -7,6 +7,8 @@ jinx.effects.create("hidden", {
 	opacity: 0
 });
 
+// general
+
 var easeTransitionAmount = 50;
 jinx.effects.extend("fadeIn", "easeDown", {
 	fromPosition: [0, -1*easeTransitionAmount, 0],
@@ -34,4 +36,11 @@ jinx.effects.extend('easeDown', 'trash', {
 	fromPosition: [0,-100,0],
 	fromRotation: [0,0,.25],
 	rotation: [0,0,0]
+});
+
+//
+
+jinx.effects.extend('fadeIn', 'fadeInTrash', {
+	fromPosition: [30, 50, 0],
+	position: [0,0,0]
 });

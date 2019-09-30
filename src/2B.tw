@@ -7,15 +7,39 @@ p.art.assets(
   ["trash", "trash.png"],
   ["text", "text.png"],
 
-  ["shark", "shark-iso.png"],
-  ["barracuda", "barracuda.png"],
-  ["upfish", "upfish.png"],
-  ["downfish", "downfish.png"],
+  {
+    name: "shark",
+    src: "shark-iso.png",
+    classNames: ["anim-float-left-3"],
+    type: "asset"
+  },
+  {
+    name: "upfish",
+    src: "shark-upfish.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },
+  {
+    name: "downfish",
+    src: "shark-downfish.png",
+    classNames: ["anim-float-down-2"],
+    type: "asset"
+  },
 
   // HACK todo: asset instantiation
 
-  ["barracuda#1", "barracuda.png"],
-  ["barracuda#2", "barracuda.png"]
+  {
+    name: "barracuda#1",
+    src: "barracuda.png",
+    classNames: ["anim-float-right-1"],
+    type: "asset"
+  },
+  {
+    name: "barracuda#2",
+    src: "barracuda.png",
+    classNames: ["anim-float-right-2"],
+    type: "asset"
+  }
 );
 
 p.art.layers("art");

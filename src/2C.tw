@@ -8,27 +8,20 @@ p.art.assets(
   ["trash-shadow", "trash-shadow.png"],
   ["text", "text.png"],
 
-  ['behemoth','behemoth-color.png']
+  ['whale','whale.png']
 );
 
 p.art.layers('art');
 
 p.step.create(
-	{a: 'behemoth', l: 'art', e: 'hidden'},
-	{a: 'trash-shadow', l: 'art', e: 'hidden'},
-
 	{a: 'trash', l: 'art', e: 'trash', d: 1000, u: 2500,
 	 xy: [499,178]},
-	{a: 'behemoth', l: 'art', u: 4000, d: 1000, e: 'easeRight',
-	 xy: [-499,-95], p: 'effect'},
+	{a: 'whale', l: 'art', u: 4000, d: 1000, e: 'easeRight',
+	 xy: [-499,-95]},
 	{a: 'trash-shadow', l: 'art', e: 'trash', u: 2500,
-	 xy: [461, 202], p: 'effect'},
+	 xy: [461, 202]},
 	{a: 'text', l: 'art', u: 4000, d: 1200, e: 'easeDown',
 	 xy: [755,105]},
-);
-
-p.step.create(
-	s.autoAdvance(p)
 );
 
 p.destination.main = "[[2D]]";

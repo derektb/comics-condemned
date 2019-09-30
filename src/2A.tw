@@ -4,49 +4,169 @@
 p.art.path('ASSETS/2A/');
 
 p.art.assets(
-  ["trash", "trash.png"],
   ["text", "text.png"],
-  {name: "fishes",
-   src: "fishesShaded.png",
-   type: "asset"}
+  {
+    name: "fishes",
+    src: "animated-fishes-10.gif",
+    classNames: ['looping-fishes'],
+    type: "asset",
+    size: [0, 450]
+  },
+  // TRASH
+  {
+    name: "bag",
+    src: "bag.png",
+    // classNames: ["anim-float-down-1"]
+  },
+  {
+    name: "bag-bubs-a",
+    src: "bag-bubs-a.png",
+    classNames: ["anim-float-up-1"],
+    type: "asset",
+  },
+  {
+    name: "bag-bubs-b",
+    src: "bag-bubs-b.png",
+    classNames: ["anim-float-up-2"],
+    type: "asset",
+  },
+  {
+    name: "fries",
+    src: "fries.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset",
+  },
+  {
+    name: "ketchup",
+    src: "ketchup.png",
+    classNames: ["anim-float-down-2"],
+    type: "asset",
+  },
+  {
+    name: "sauce",
+    src: "sauce.png",
+    classNames: ["anim-float-down-3"],
+    type: "asset",
+  },
 );
-
-/* jelly css setup */
-
-var fishesSrc = p.art.getAsset('fishes').getSrc();
-var fishesRule = ".asset[assetname='fishes']{background-image:url('"+fishesSrc+"')}";
-var fishesStyle = document.createElement('style');
-fishesStyle.id = "fish-styles"
-fishesStyle.textContent += fishesRule;
-$('body').append(fishesStyle);
 
 p.art.layers("full-art", "art");
 
+// fish css setup
+
+const fishesSrc = p.art.getAsset('fishes').getSrc();
+const fishesRule = (
+`.asset.looping-fishes {
+  background-image: url("${fishesSrc}");
+}`
+);
+const fishesStyleEl = document.createElement('style');
+fishesStyleEl.id = "fishes-styles";
+fishesStyleEl.textContent = fishesRule;
+$('body').append(fishesStyleEl);
+
 p.step.create(
-	{a: 'trash', l: 'art', u: 2500, d: 400,
-	 e: 'trash',
-	 xy: [240,195]
+	{
+    a: 'fishes', l: 'full-art',
+    e: 'easeUp',
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: [0, -25]
+  },
+  // TRASH
+  {
+    a: 'bag', l: 'art',
+  	e: 'easeUp',
+    d: s.time.MEDIUM,
+    u: s.time.SHORT,
 	},
-	{a: 'fishes', l: 'full-art', e: "easeUp", u: 2500, d: 800},
-	{a: 'text', l: 'art', u: 2500, d: 1500,
-	 e: jinx.effects.extend('easeDown',
-	   {fromPosition: [0, -25, 0]}),
-	 xy: [395,125]
+  {
+    a: 'bag-bubs-a', l: 'art',
+  	e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  {
+    a: 'bag-bubs-b', l: 'art',
+  	e: 'easeUp',
+    u: s.time.SHORT,
+	},
+  {
+    a: 'fries', l: 'art',
+  	e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  {
+    a: 'ketchup', l: 'art',
+  	e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  {
+    a: 'sauce', l: 'art',
+  	e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+  // JELLIES & TEXT
+	{
+    a: 'text', l: 'art',
+  	e: 'easeDown',
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
 	}
 );
 
-p.step.create(
-	s.autoAdvance(p),
-	{a: 'text', l: 'art', e: "easeOutUp", p: 'remove',
-	  d: 50, u: 800,
-	 xy: [395,125]
+p.step.transition(
+  {
+    a: 'text', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    u: s.time.MEDIUM,
+  },
+
+	{
+    a: 'sauce', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.MEDIUM,
+    u: s.time.SHORT,
 	},
-	{a: 'trash', l: 'art', e: "easeOutUp", p: 'remove',
-	  d: 50, u: 800,
-	 xy: [240,195]
+	{
+    a: 'fries', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.SHORT,
 	},
-	{a: 'fishes', l: 'full-art', e: "easeOutUp", p: 'remove',
-	  d: 50, u: 800}
+	{
+    a: 'ketchup', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+	{
+    a: 'bag-bubs-a', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+	{
+    a: 'bag-bubs-b', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    u: s.time.SHORT,
+	},
+	{
+    a: 'bag', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.SHORT,
+	},
+
+	{
+    a: 'fishes', l: 'full-art', p: 'remove',
+    e: "easeOutUp",
+	  d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+	}
 );
 
 p.destination.main = "[[2B]]";
