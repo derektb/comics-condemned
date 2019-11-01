@@ -4,11 +4,11 @@ Condemned to the Depths
 :: Start
 
 <%
-  $(function(){
+  /*$(function(){
 	  var sealayers = story.passage('sealayers').source;
 	  $(sealayers).insertBefore('#passages');
 	}
-  );
+  );*/
 %>
 
 [[start->1A]]

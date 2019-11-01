@@ -18,7 +18,8 @@
 
 .anim-float-down-1 img,
 .anim-float-down-2 img,
-.anim-float-down-3 img {
+.anim-float-down-3 img,
+.anim-float-down-4 img {
   position: relative;
   -webkit-animation: float-down-small 4s infinite both;
   -moz-animation: float-down-small 4s infinite both;
@@ -88,6 +89,22 @@
 }
 
 .anim-float-right-2 img {
+  -webkit-animation-delay: -0.75s;
+  -moz-animation-delay: -0.75s;
+  -o-animation-delay: -0.75s;
+  animation-delay: -0.75s;
+}
+
+.anim-float-right-sm-1 img,
+.anim-float-right-sm-2 img {
+  position: relative;
+  -webkit-animation: float-right-sm 4s infinite both;
+  -moz-animation: float-right-sm 4s infinite both;
+  -o-animation: float-right-sm 4s infinite both;
+  animation: float-right-sm 4s infinite both;
+}
+
+.anim-float-right-sm-2 img {
   -webkit-animation-delay: -0.75s;
   -moz-animation-delay: -0.75s;
   -o-animation-delay: -0.75s;

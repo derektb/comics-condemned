@@ -47,19 +47,36 @@
 
 @-webkit-keyframes float-right-med {
   0%, 100%   { left: 0; }
-  50%       { left: 12px; }
+  50%       { left: 14px; }
 }
 @-moz-keyframes float-right-med {
   0%, 100%   { left: 0; }
-  50%       { left: 12px; }
+  50%       { left: 14px; }
 }
 @-o-keyframes float-right-med {
   0%, 100%   { left: 0; }
-  50%       { left: 12px; }
+  50%       { left: 14px; }
 }
 @keyframes float-right-med {
   0%, 100%   { left: 0; }
-  50%       { left: 12px; }
+  50%       { left: 14px; }
+}
+
+@-webkit-keyframes float-right-sm {
+  0%, 100%   { left: 0; }
+  50%       { left: 7px; }
+}
+@-moz-keyframes float-right-sm {
+  0%, 100%   { left: 0; }
+  50%       { left: 7px; }
+}
+@-o-keyframes float-right-sm {
+  0%, 100%   { left: 0; }
+  50%       { left: 7px; }
+}
+@keyframes float-right-sm {
+  0%, 100%   { left: 0; }
+  50%       { left: 7px; }
 }
 
 @-webkit-keyframes float-left-small {

@@ -3,59 +3,100 @@
 
 p.art.path('ASSETS/2D/');
 
-var whaleDuration = 2500;
-
 p.art.assets(
-  ["trash", "trash.png"],
+  ["bag", "../2C/bag.png"],
   ["text", "text.png"],
 
-  {name: "bg-tile",
-   src: "background tile-bigger.png",
-   type: "asset"},
-  {name: "bg-mtn",
-   src: "background mountains.png",
-   type: "asset"},
+  {
+    name: "bg-tile",
+    src: "background-tile.png",
+    classNames: ['bg-tile'],
+    type: "asset"
+  },{
+    name: "bg-mtn",
+    src: "background-mountains.png",
+    classNames: ['bg-mtn'],
+    type: "asset"
+  },
 
-  ["corpse", "corpse-huge.png"],
-  ["lefteel", "lefteel-huge.png"],
-  ["righteel", "righteel-huge.png"]
+  ["corpse", "whalefall.png"],
+  {
+    name: "lefteel",
+    src: "whalefall-lefteel.png",
+    classNames: ["anim-float-right-sm-1"],
+    type: "asset"
+  },{
+    name: "righteel",
+    src: "whalefall-righteel.png",
+    classNames: ["anim-float-right-sm-2"],
+    type: "asset"
+  }
 );
 
 /* css setup */
 
-var bgSrc = p.art.assets['bg-tile'].getSrc();
-var bgRule = ".asset[assetname='bg-tile']{background-image:url('"+bgSrc+"'); background-position: center;}";
-
-var mtnSrc = p.art.assets['bg-mtn'].getSrc();
-var mtnRule = ".asset[assetname='bg-mtn']{background-image:url('"+mtnSrc+"'); background-position: center;}";
-
+var bgSrc = p.art.getAsset('bg-tile').getSrc();
+var mtnSrc = p.art.getAsset('bg-mtn').getSrc();
+var styleRules = (
+`.asset.bg-tile {
+  background-image: url('${bgSrc}');
+  background-position: center;
+}
+.asset.bg-mtn {
+  background-image: url('${mtnSrc}');
+  background-position: center;
+}`);
 var styleEl = document.createElement('style');
 styleEl.id = "mtn-styles";
-styleEl.textContent += bgRule + mtnRule;
+styleEl.textContent += styleRules;
 $('body').append(styleEl);
 
 p.art.layers("full-art", "art");
 
+const whaleDuration = s.time.XLONG;
+
+const whalePosition = [-236,-48];
+
 p.step.create(
-	{a: 'bg-tile', l: 'full-art', e: "easeUp", u: 2500, d: 800,
-	xy: [0, -30]},
-	{a: 'bg-mtn', l: 'full-art', e: "easeUp", u: 2500,
-	xy: [0, -4]},
+  // trashes
+	{
+    a: 'bg-tile', l: 'full-art',
+    e: "easeUp",
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
+    xy: [0, -30]
+  },
+	{
+    a: 'bg-mtn', l: 'full-art',
+    e: "easeUp",
+    u: s.time.XLONG,
+    xy: [0, -8]
+  },
 
-	{a: 'corpse', l: 'art', e: jinx.effects.extend("easeUp", {fromPosition: [0,15,0]}),
-	u: whaleDuration, d: 800,
-	 xy: [-236,-48]},
-	{a: 'lefteel', l: 'art', e: jinx.effects.extend("easeUp", {fromPosition: [0,15,0]}),
-	 u: whaleDuration,
-	 xy: [566,46]},
-	{a: 'righteel', l: 'art', e: jinx.effects.extend("easeUp", {fromPosition: [0,15,0]}),
-	 u: whaleDuration,
-	 xy: [1238,-48]},
-
-    {a: 'trash', l: 'art', e: 'trash', u: 5000, d: 1500,
-	 xy: [191,100]},
-	{a: 'text', l: 'art', u: 4000, d: 400, e: 'easeDown',
-	 xy: [25,25]},
+  // whale & text
+	{
+    a: 'corpse', l: 'art',
+    e: "easeUp",
+    d: s.time.MEDIUM,
+	  u: whaleDuration,
+	  xy: whalePosition,
+  },{
+    a: 'lefteel', l: 'art',
+    e: "easeUp",
+    u: whaleDuration,
+	  xy: whalePosition,
+  },{
+    a: 'righteel', l: 'art',
+    e: "easeUp",
+    u: whaleDuration,
+    xy: whalePosition,
+  },{
+    a: 'text', l: 'art',
+    e: 'easeDown',
+    d: s.time.LONG,
+    u: s.time.XLONG,
+  	xy: [230,10]
+  },
 );
 
 p.destination.main = "[[1A]]"

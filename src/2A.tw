@@ -66,13 +66,6 @@ fishesStyleEl.textContent = fishesRule;
 $('body').append(fishesStyleEl);
 
 p.step.create(
-	{
-    a: 'fishes', l: 'full-art',
-    e: 'easeUp',
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-    xy: [0, -25]
-  },
   // TRASH
   {
     a: 'bag', l: 'art',
@@ -109,7 +102,14 @@ p.step.create(
     d: s.time.XSHORT,
     u: s.time.SHORT,
 	},
-  // JELLIES & TEXT
+  // FISH & TEXT
+	{
+    a: 'fishes', l: 'full-art',
+    e: 'easeUp',
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: [0, -25]
+  },
 	{
     a: 'text', l: 'art',
   	e: 'easeDown',
@@ -119,6 +119,7 @@ p.step.create(
 );
 
 p.step.transition(
+	s.autoAdvance(p),
   {
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",

@@ -13,7 +13,8 @@ jinx.setDefaults({
 const defaultTiming = 400;
 
 window.story.state.time = {
-	XSHORT: defaultTiming*0.4,
+	XXSHORT: defaultTiming*0.1,
+  XSHORT: defaultTiming*0.4,
 	SHORT:  defaultTiming,
 	MEDIUM: defaultTiming*2,
 	LONG:   defaultTiming*4,

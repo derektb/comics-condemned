@@ -55,17 +55,11 @@ $('body').append(jellyStyleEl);
 // steps
 
 p.step.create(
-	{
-    a: 'jellies', l: 'full-art',
-    e: "easeUp",
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-  },
   // TRASH
   {
     a: 'bag', l: 'art',
   	e: 'easeUp',
-    d: s.time.MEDIUM,
+    d: s.time.SHORT,
     u: s.time.SHORT,
 	},
   {
@@ -88,9 +82,15 @@ p.step.create(
 	},
   // JELLIES & TEXT
 	{
+    a: 'jellies', l: 'full-art',
+    e: "easeUp",
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
+  },
+	{
     a: 'text', l: 'art',
   	e: 'easeDown',
-    d: s.time.MEDIUM,
+    d: s.time.SHORT,
     u: s.time.XLONG,
 	}
 );
@@ -98,6 +98,7 @@ p.step.create(
 
 
 p.step.transition(
+	s.autoAdvance(p),
   {
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",

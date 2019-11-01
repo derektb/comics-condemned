@@ -4,7 +4,6 @@
 p.art.path('ASSETS/2B/');
 
 p.art.assets(
-  ["trash", "trash.png"],
   ["text", "text.png"],
 
   {
@@ -33,11 +32,39 @@ p.art.assets(
     src: "barracuda.png",
     classNames: ["anim-float-right-1"],
     type: "asset"
-  },
-  {
+  },{
     name: "barracuda#2",
     src: "barracuda.png",
     classNames: ["anim-float-right-2"],
+    type: "asset"
+  },
+
+  // trashes
+
+  {
+    name: "bag",
+    src: "bag.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "banana",
+    src: "banana.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "cheese",
+    src: "cheese.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "crust",
+    src: "crust1.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "orangepeel",
+    src: "orangepeel.png",
+    classNames: ["anim-float-down-1"],
     type: "asset"
   }
 );
@@ -45,25 +72,76 @@ p.art.assets(
 p.art.layers("art");
 
 p.step.create(
-	{a: 'trash', l: 'art', e: 'trash', d: 600, u: 2500,
-	xy: [510, 182]},
-	{a: 'downfish', l: 'art', e: "easeUp", u: 2500, d: 800,
-	xy: [774,31]},
-	{a: 'shark', l: 'art', e: "easeUp", u: 2500, s: 'with',
-	xy: [774,31]},
-	{a: 'upfish', l: 'art', e: "easeUp", u: 2500, s: 'with',
-	xy: [774,31]},
+  // TRASH
+  {
+    a: 'bag', l: 'art',
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+  	xy: [510, 182]
+  },{
+    a: 'banana', l: 'art',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+  	xy: [510, 182]
+  },{
+    a: 'cheese', l: 'art',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+  	xy: [510, 182]
+  },{
+    a: 'crust', l: 'art',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+  	xy: [510, 182]
+  },{
+    a: 'orangepeel', l: 'art',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+  	xy: [510, 182]
+  },
+  // FISH & TEXT
+	{
+    a: 'downfish', l: 'art',
+    e: "easeUp",
+    u: s.time.XLONG,
+    d: s.time.MEDIUM,
+    xy: [774,31]
+  },{
+    a: 'shark', l: 'art',
+    e: "easeUp", s: 'with',
+    u: s.time.XLONG,
+    xy: [774,31]
+  },{
+    a: 'upfish', l: 'art',
+    e: "easeUp", s: 'with',
+    u: s.time.XLONG,
+    xy: [774,31]
+  },
 
-	{a: 'barracuda#1', l: 'art', e: "easeUp", u: 2500, d: 800,
-	xy: [-391,54]},
-	{a: 'barracuda#2', l: 'art', e: "easeUp", u: 2500, d: 300,
-	xy: [-225,216]},
+	{
+    a: 'barracuda#1', l: 'art',
+    e: "easeUp",
+    u: s.time.XLONG,
+    d: s.time.MEDIUM,
+    xy: [-391,54]
+  },{
+    a: 'barracuda#2', l: 'art',
+    e: "easeUp",
+    u: s.time.XLONG,
+    d: s.time.SHORT,
+    xy: [-225,216]
+  },
 
-	{a: 'text', l: 'art', d: 800, u: 4000, e: "easeDown",
-	xy: [417, 47]}
+	{
+    a: 'text', l: 'art',
+    e: "easeDown",
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
+  	xy: [417, 47]
+  }
 );
 
-p.step.create(
+p.step.transition(
 	s.autoAdvance(p)
 );
 

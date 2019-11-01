@@ -4,24 +4,130 @@
 p.art.path('ASSETS/2C/');
 
 p.art.assets(
-  ["trash", "trash.png"],
-  ["trash-shadow", "trash-shadow.png"],
   ["text", "text.png"],
-
-  ['whale','whale.png']
+  {
+    name: "whale",
+    src: "whale.png",
+    // classNames: ["anim-float-left-1"],
+    type: "asset"
+  },
+  // trashes
+  {
+    name: "bag",
+    src: "bag.png",
+    // classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "bubs-a",
+    src: "bubs.png",
+    classNames: ["anim-float-down-2"],
+    type: "asset"
+  },{
+    name: "bubs-b",
+    src: "bag-bubs-a.png",
+    classNames: ["anim-float-down-3"],
+    type: "asset"
+  },{
+    name: "bubs-c",
+    src: "bag-bubs-b.png",
+    classNames: ["anim-float-down-4"],
+    type: "asset"
+  },{
+    name: "chixleg",
+    src: "chixleg.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "crust1",
+    src: "crust2.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "crust2",
+    src: "crust3.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "fish1",
+    src: "fish1.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },{
+    name: "fish2",
+    src: "fish2.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  }
 );
 
-p.art.layers('art');
+p.art.layers('back-art', 'art');
 
 p.step.create(
-	{a: 'trash', l: 'art', e: 'trash', d: 1000, u: 2500,
-	 xy: [499,178]},
-	{a: 'whale', l: 'art', u: 4000, d: 1000, e: 'easeRight',
-	 xy: [-499,-95]},
-	{a: 'trash-shadow', l: 'art', e: 'trash', u: 2500,
-	 xy: [461, 202]},
-	{a: 'text', l: 'art', u: 4000, d: 1200, e: 'easeDown',
-	 xy: [755,105]},
+  {
+    a: 'chixleg', l: 'art',
+    e: 'easeDown',
+    u: s.time.XLONG,
+    xy: [499,178]
+  },{
+    a: 'crust1', l: 'art',
+    e: 'easeDown',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+    xy: [499,178]
+  },{
+    a: 'crust2', l: 'art',
+    e: 'easeDown',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+    xy: [499,178]
+  },{
+    a: 'fish1', l: 'art',
+    e: 'easeDown',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+    xy: [499,178]
+  },{
+    a: 'bubs-a', l: 'art',
+    e: 'easeDown',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+    xy: [499,178]
+  },{
+    a: 'bubs-b', l: 'art',
+    e: 'easeDown',
+    u: s.time.XLONG, s: 'with',
+    xy: [499,178]
+  },{
+    a: 'bubs-c', l: 'art',
+    e: 'easeDown',
+    u: s.time.XLONG, s: 'with',
+    xy: [499,178]
+  },{
+    a: 'bag', l: 'art',
+    e: 'easeDown',
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+    xy: [499,178]
+  },
+  // WHALE & TEXT
+	{
+    a: 'whale', l: 'back-art',
+    e: 'easeRight',
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
+    xy: [-499,-95]
+  },
+	{
+    a: 'text', l: 'art',
+    e: 'easeDown',
+    d: s.time.LONG,
+    u: s.time.XLONG,
+   xy: [755,105]
+ },
+);
+
+p.step.transition(
+	s.autoAdvance(p)
 );
 
 p.destination.main = "[[2D]]";

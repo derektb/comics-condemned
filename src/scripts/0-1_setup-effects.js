@@ -29,13 +29,13 @@ jinx.effects.extend("fadeIn", "easeRight", {
 
 jinx.effects.extend("fadeOut", "easeOutUp", {
 	fromPosition: [0,0,0],
-	position: [0, -1*easeTransitionAmount, 0]
+	position: [0, -1*easeTransitionAmount, 0],
+  easing: function (t) { return t*t*t },
 });
 
-jinx.effects.extend('easeDown', 'trash', {
-	fromPosition: [0,-100,0],
-	fromRotation: [0,0,.25],
-	rotation: [0,0,0]
+jinx.effects.extend('easeDown', 'easeDownTitle', {
+	fromScale: [0.9,0.9,0],
+  scale: [1,1,1]
 });
 
 //

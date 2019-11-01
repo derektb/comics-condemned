@@ -22,32 +22,35 @@ p.art.layers('art');
 p.step.create(
   {
     a: 'title', l: 'art',
-    u: s.time.XLONG
+    e: "easeDownTitle",
+    u: s.time.XLONG,
+    xy: [481,-65]
   },
   {
     a: 'subtitle', l: 'art',
+    e: "easeDownTitle",
     d: s.time.MEDIUM,
-    u: s.time.XLONG
+    u: s.time.XLONG,
+    xy: [462,508]
   },
 );
 
 p.step.transition( // to replace autoAdvance, and to serve as the "pre-transition"
+	s.autoAdvance(p),
   {
     a: 'subtitle', l: 'art',
     p: 'remove',
-    e: jinx.effects.extend(
-      'fadeOut', {position: [0, -200, 0]}
-    ),
+    e: 'easeOutUp',
     u: s.time.MEDIUM,
+    xy: [481,-65]
   },
   {
     a: 'title', l: 'art',
     p: 'remove',
-    e: jinx.effects.extend(
-      'fadeOut', {position: [0, -200, 0]}
-    ),
-    d: s.time.SHORT,
+    e: 'easeOutUp',
+    d: s.time.XSHORT,
     u: s.time.MEDIUM,
+    xy: [462,508]
   },
 );
 
