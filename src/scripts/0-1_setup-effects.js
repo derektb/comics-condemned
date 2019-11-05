@@ -38,6 +38,10 @@ jinx.effects.extend('easeDown', 'easeDownTitle', {
   scale: [1,1,1]
 });
 
+jinx.effects.create('easeBoth', {
+  easing: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+})
+
 //
 
 jinx.effects.extend('fadeIn', 'fadeInTrash', {

@@ -25,6 +25,25 @@ p.art.assets(
     type: "asset"
   },
 
+  {
+    name: "shark-white",
+    src: "shark-iso-white.png",
+    classNames: ["anim-float-left-3"],
+    type: "asset"
+  },
+  {
+    name: "upfish-white",
+    src: "shark-upfish-white.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },
+  {
+    name: "downfish-white",
+    src: "shark-downfish-white.png",
+    classNames: ["anim-float-down-2"],
+    type: "asset"
+  },
+
   // HACK todo: asset instantiation
 
   {
@@ -42,94 +61,136 @@ p.art.assets(
   // trashes
 
   {
-    name: "bag",
-    src: "bag.png",
-    classNames: ["anim-float-down-1"],
-    type: "asset"
-  },{
-    name: "banana",
-    src: "banana.png",
-    classNames: ["anim-float-down-1"],
-    type: "asset"
-  },{
-    name: "cheese",
-    src: "cheese.png",
-    classNames: ["anim-float-down-1"],
-    type: "asset"
-  },{
     name: "crust",
     src: "crust1.png",
     classNames: ["anim-float-down-1"],
     type: "asset"
-  },{
+  },
+  {
+    name: "cheese",
+    src: "cheese.png",
+    classNames: ["anim-float-down-2"],
+    type: "asset"
+  },
+  {
     name: "orangepeel",
     src: "orangepeel.png",
-    classNames: ["anim-float-down-1"],
+    classNames: ["anim-float-down-3"],
     type: "asset"
-  }
+  },
+  {
+    name: "banana",
+    src: "banana.png",
+    classNames: ["anim-float-down-4"],
+    type: "asset"
+  },
+  {
+    name: "bag",
+    src: "bag.png",
+    // classNames: ["anim-float-down-1"],
+    type: "asset"
+  },
 );
 
 p.art.layers("art");
 
+const xy = {
+  bag: [746,288],
+  banana: [585,290],
+  barracuda1: [-300,100],
+  barracuda2: [-157,241],
+  cheese: [578,210],
+  crust: [450,151],
+  orangepeel: [690,239],
+  shark: [835,41],
+  text: [483,22],
+}
+
 p.step.create(
   // TRASH
   {
-    a: 'bag', l: 'art',
+    a: 'crust', l: 'art',
+    e: "easeDown",
     d: s.time.SHORT,
     u: s.time.XLONG,
-  	xy: [510, 182]
-  },{
-    a: 'banana', l: 'art',
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-  	xy: [510, 182]
-  },{
+    xy: xy.crust
+  },
+  {
     a: 'cheese', l: 'art',
-    d: s.time.XSHORT,
+    e: "easeDown",
+    d: s.time.SHORT,
     u: s.time.XLONG,
-  	xy: [510, 182]
-  },{
-    a: 'crust', l: 'art',
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-  	xy: [510, 182]
-  },{
+  	xy: xy.cheese
+  },
+  {
     a: 'orangepeel', l: 'art',
-    d: s.time.XSHORT,
+    e: "easeDown",
+    d: s.time.SHORT,
     u: s.time.XLONG,
-  	xy: [510, 182]
+  	xy: xy.orangepeel
+  },
+  {
+    a: 'banana', l: 'art',
+    e: "easeDown",
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.banana
+  },
+  {
+    a: 'bag', l: 'art',
+    e: "easeDown",
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.bag
   },
   // FISH & TEXT
-	{
+  // outlines
+  {
+    a: 'downfish-white', l: 'art',
+    e: "easeUp",
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },{
+    a: 'shark-white', l: 'art',
+    e: "easeUp", s: 'with',
+    u: s.time.XLONG,
+    xy: xy.shark
+  },{
+    a: 'upfish-white', l: 'art',
+    e: "easeUp", s: 'with',
+    u: s.time.XLONG,
+    xy: xy.shark
+  },
+  {
     a: 'downfish', l: 'art',
     e: "easeUp",
     u: s.time.XLONG,
-    d: s.time.MEDIUM,
-    xy: [774,31]
+    xy: xy.shark
   },{
     a: 'shark', l: 'art',
     e: "easeUp", s: 'with',
     u: s.time.XLONG,
-    xy: [774,31]
+    xy: xy.shark
   },{
     a: 'upfish', l: 'art',
     e: "easeUp", s: 'with',
     u: s.time.XLONG,
-    xy: [774,31]
+    xy: xy.shark
   },
 
 	{
     a: 'barracuda#1', l: 'art',
     e: "easeUp",
+    d: s.time.XSHORT,
     u: s.time.XLONG,
-    d: s.time.MEDIUM,
-    xy: [-391,54]
+    xy: xy.barracuda1
   },{
     a: 'barracuda#2', l: 'art',
     e: "easeUp",
-    u: s.time.XLONG,
     d: s.time.SHORT,
-    xy: [-225,216]
+    u: s.time.XLONG,
+    xy: xy.barracuda2
   },
 
 	{
@@ -137,7 +198,7 @@ p.step.create(
     e: "easeDown",
     d: s.time.MEDIUM,
     u: s.time.XLONG,
-  	xy: [417, 47]
+  	xy: xy.text
   }
 );
 

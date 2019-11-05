@@ -9,53 +9,89 @@ p.art.assets(
   {
     name: "bag",
     src: "bag.png",
-    // classNames: ["anim-float-down-1"]
   },
   {
-    name: "bubs",
-    src: "bubs.png",
-    // classNames: ["anim-float-down-1"]
+    name: "bubs-a",
+    src: "bubs-a.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset",
+  },
+  {
+    name: "bubs-b",
+    src: "bubs-b.png",
+    classNames: ["anim-float-down-2"],
+    type: "asset",
+  },
+  {
+    name: "bubs-c",
+    src: "bubs-c.png",
+    classNames: ["anim-float-down-3"],
+    type: "asset",
   },
   {
     name: "cup",
     src: "cup.png",
-    classNames: ["anim-float-down-1"],
+    classNames: ["anim-float-down-4"],
     type: "asset"
   },
   {
     name: "milk",
     src: "milk.png",
-    classNames: ["anim-float-down-2"],
+    classNames: ["anim-float-down-4"],
     type: "asset"
   },
 );
 
 p.art.layers("art");
 
+const xy = {
+  bag: [367,305],
+  bubs: [325,93],
+  milk: [404,55],
+  cup: [226,142],
+  text: [538,182],
+};
+
 p.step.create(
   {
     a: 'bag', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
+  	e: 'easeDown',
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.bag
 	},
   {
-    a: 'bubs', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
+    a: 'bubs-a', l: 'art',
+  	e: 'easeDown',
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.bubs
+	},
+  {
+    a: 'bubs-b', l: 'art',
+  	e: 'easeDown',
+    u: s.time.SHORT,
+    xy: xy.bubs
+	},
+  {
+    a: 'bubs-c', l: 'art',
+  	e: 'easeDown',
+    u: s.time.SHORT,
+    xy: xy.bubs
 	},
   {
     a: 'cup', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
+  	e: 'easeDown',
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.cup
 	},
   {
     a: 'milk', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
+  	e: 'easeDown',
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.milk
 	},
   // TEXT
 	{
@@ -63,7 +99,8 @@ p.step.create(
     e: jinx.effects.extend('easeDown',
 	   {fromPosition: [0, -25, 0]}),
     d: s.time.MEDIUM,
-    u: s.time.XLONG
+    u: s.time.XLONG,
+    xy: xy.text
 	}
 );
 
@@ -74,24 +111,40 @@ p.step.transition(
     e: "easeOutUp",
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.milk
 	},
 	{
     a: 'cup', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.cup
 	},
 	{
-    a: 'bubs', l: 'art', p: 'remove',
+    a: 'bubs-c', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.bubs
+	},
+	{
+    a: 'bubs-b', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    u: s.time.SHORT,
+    xy: xy.bubs
+	},
+	{
+    a: 'bubs-a', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    u: s.time.SHORT,
+    xy: xy.bubs
 	},
 	{
     a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.bag
 	},
 
 	{
@@ -99,6 +152,7 @@ p.step.transition(
     e: "easeOutUp",
 	  d: s.time.XXSHORT,
     u: s.time.MEDIUM,
+    xy: xy.text
 	}
 );
 

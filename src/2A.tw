@@ -6,6 +6,11 @@ p.art.path('ASSETS/2A/');
 p.art.assets(
   ["text", "text.png"],
   {
+    name: "asset-gel",
+    classNames: ['asset-2a-gel'],
+    type: "text",
+  },
+  {
     name: "fishes",
     src: "animated-fishes-10.gif",
     classNames: ['looping-fishes'],
@@ -65,56 +70,82 @@ fishesStyleEl.id = "fishes-styles";
 fishesStyleEl.textContent = fishesRule;
 $('body').append(fishesStyleEl);
 
+const xy = {
+  fishes: [0,25],
+  bag: [319,204],
+  fries: [301,84],
+  ketchup: [169,182],
+  sauce: [207,58],
+  text: [552,17],
+  gel: [150,40],
+}
+
 p.step.create(
+  {
+    a: "asset-gel", l: "art",
+    e: "fadeIn",
+    d: s.time.SHORT*5, s: "async",
+    u: s.time.LONG,
+    xy: xy.gel,
+  },
   // TRASH
   {
-    a: 'bag', l: 'art',
-  	e: 'easeUp',
-    d: s.time.MEDIUM,
+    a: 'sauce', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
-	},
-  {
-    a: 'bag-bubs-a', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
-	},
-  {
-    a: 'bag-bubs-b', l: 'art',
-  	e: 'easeUp',
-    u: s.time.SHORT,
-	},
+    xy: xy.sauce
+  },
   {
     a: 'fries', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
+    e: 'easeDown',
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
-	},
+    xy: xy.fries
+  },
   {
     a: 'ketchup', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
+    e: 'easeDown',
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
-	},
+    xy: xy.ketchup
+  },
   {
-    a: 'sauce', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
+    a: 'bag-bubs-a', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.bag
+  },
+  {
+    a: 'bag-bubs-b', l: 'art',
+    e: 'easeDown',
+    u: s.time.SHORT,
+    xy: xy.bag
+  },
+  {
+    a: 'bag', l: 'art',
+  	e: 'easeDown',
+    d: s.time.SHORT*0.5,
+    u: s.time.SHORT,
+    xy: xy.bag
 	},
+
   // FISH & TEXT
+
 	{
     a: 'fishes', l: 'full-art',
     e: 'easeUp',
-    d: s.time.SHORT,
+    d: s.time.MEDIUM,
     u: s.time.XLONG,
-    xy: [0, -25]
+    xy: xy.fishes
   },
 	{
     a: 'text', l: 'art',
   	e: 'easeDown',
     d: s.time.MEDIUM,
     u: s.time.XLONG,
+    xy: xy.text
 	}
 );
 
@@ -124,49 +155,63 @@ p.step.transition(
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",
     u: s.time.MEDIUM,
+    xy: xy.text
   },
 
-	{
-    a: 'sauce', l: 'art', p: 'remove',
+  {
+    a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.MEDIUM,
+    d: s.time.XSHORT,
     u: s.time.SHORT,
-	},
-	{
-    a: 'fries', l: 'art', p: 'remove',
-    e: "easeOutUp",
-  	d: s.time.XSHORT,
-    u: s.time.SHORT,
-	},
-	{
-    a: 'ketchup', l: 'art', p: 'remove',
-    e: "easeOutUp",
-  	d: s.time.XSHORT,
-    u: s.time.SHORT,
-	},
-	{
+    xy: xy.bag
+  },
+  {
     a: 'bag-bubs-a', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XSHORT,
+    d: s.time.XSHORT,
     u: s.time.SHORT,
-	},
-	{
+    xy: xy.bag
+  },
+  {
     a: 'bag-bubs-b', l: 'art', p: 'remove',
     e: "easeOutUp",
     u: s.time.SHORT,
-	},
+    xy: xy.bag
+  },
+  {
+    a: 'ketchup', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+    xy: xy.ketchup
+  },
+  {
+    a: 'fries', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+    xy: xy.fries
+  },
 	{
-    a: 'bag', l: 'art', p: 'remove',
+    a: 'sauce', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XSHORT,
     u: s.time.SHORT,
+    xy: xy.sauce
 	},
+  {
+    a: "asset-gel", l: "art", p: "remove",
+    e: "fadeOut",
+    u: s.time.MEDIUM,
+    xy: xy.gel,
+  },
 
 	{
     a: 'fishes', l: 'full-art', p: 'remove',
     e: "easeOutUp",
 	  d: s.time.XSHORT,
     u: s.time.MEDIUM,
+    xy: xy.fishes
 	}
 );
 

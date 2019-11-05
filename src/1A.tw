@@ -19,38 +19,69 @@ p.art.assets(
 
 p.art.layers('art');
 
+const xy = {
+  title: [481,-65],
+  subtitle: [462,508],
+};
+
+function createTitleBubbles() {
+  if (s.GENERATE_TITLE_BUBBLES) {
+
+    console.log("bubble!")
+
+    const nextBubble = (
+      200 +
+      (Math.random()*200 + Math.random()*200) +
+      (Math.random()*1000 + Math.random()*1000)
+    );
+    window.setTimeout(createTitleBubbles, nextBubble);
+  }
+}
+
 p.step.create(
   {
+    code: function(){
+      s.GENERATE_TITLE_BUBBLES = true;
+      createTitleBubbles();
+    }
+  },
+  {
     a: 'title', l: 'art',
-    e: "easeDownTitle",
-    u: s.time.XLONG,
-    xy: [481,-65]
+    e: "easeUp",
+    u: s.time.XLONG*1.2,
+    xy: xy.title
   },
   {
     a: 'subtitle', l: 'art',
-    e: "easeDownTitle",
+    e: "easeUp",
     d: s.time.MEDIUM,
-    u: s.time.XLONG,
-    xy: [462,508]
+    u: s.time.XLONG*1.2,
+    xy: xy.subtitle
   },
 );
 
 p.step.transition( // to replace autoAdvance, and to serve as the "pre-transition"
 	s.autoAdvance(p),
   {
-    a: 'subtitle', l: 'art',
-    p: 'remove',
-    e: 'easeOutUp',
-    u: s.time.MEDIUM,
-    xy: [481,-65]
+    code: function(){
+      s.GENERATE_TITLE_BUBBLES = false;
+    },
+    s: "after"
   },
   {
     a: 'title', l: 'art',
     p: 'remove',
     e: 'easeOutUp',
-    d: s.time.XSHORT,
-    u: s.time.MEDIUM,
-    xy: [462,508]
+    u: s.time.LONG,
+    xy: xy.title
+  },
+  {
+    a: 'subtitle', l: 'art',
+    p: 'remove',
+    e: 'easeOutUp',
+    d: s.time.SHORT,
+    u: s.time.LONG,
+    xy: xy.subtitle
   },
 );
 

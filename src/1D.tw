@@ -18,21 +18,27 @@ p.art.assets(
     // classNames: ["anim-float-down-1"]
   },
   {
-    name: "bubs",
-    src: "bubs.png",
-    classNames: ["anim-float-up-1"],
-    type: 'asset',
-  },
-  {
     name: "rings",
     src: "rings.png",
-    classNames: ["anim-float-down-2"],
+    classNames: ["anim-float-down-1"],
     type: 'asset',
   },
   {
     name: "silver",
     src: "silver.png",
+    classNames: ["anim-float-down-2"],
+    type: 'asset',
+  },
+  {
+    name: "bubs-a",
+    src: "bubs-a.png",
     classNames: ["anim-float-down-3"],
+    type: 'asset',
+  },
+  {
+    name: "bubs-b",
+    src: "bubs-b.png",
+    classNames: ["anim-float-down-4"],
     type: 'asset',
   },
 );
@@ -52,33 +58,52 @@ jellyStyleEl.id = "jelly-styles";
 jellyStyleEl.textContent = jellyRule;
 $('body').append(jellyStyleEl);
 
+const xy = {
+  bag: [340,362],
+  jellies: [0,50],
+  bubs: [280,171],
+  rings: [148,187],
+  silver: [230,12],
+  text: [467,160],
+}
+
 // steps
 
 p.step.create(
   // TRASH
   {
     a: 'bag', l: 'art',
-  	e: 'easeUp',
+  	e: 'easeDown',
     d: s.time.SHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bag
 	},
   {
-    a: 'bubs', l: 'art',
+    a: 'bubs-a', l: 'art',
   	e: 'easeUp',
     d: s.time.XSHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+	},
+  {
+    a: 'bubs-b', l: 'art',
+  	e: 'easeUp',
+    u: s.time.MEDIUM,
+    xy: xy.bubs
 	},
   {
     a: 'rings', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
+  	e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.rings
 	},
   {
     a: 'silver', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
+  	e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.silver
 	},
   // JELLIES & TEXT
 	{
@@ -86,16 +111,16 @@ p.step.create(
     e: "easeUp",
     d: s.time.MEDIUM,
     u: s.time.XLONG,
+    xy: xy.jellies
   },
 	{
     a: 'text', l: 'art',
   	e: 'easeDown',
     d: s.time.SHORT,
     u: s.time.XLONG,
+    xy: xy.text
 	}
 );
-
-
 
 p.step.transition(
 	s.autoAdvance(p),
@@ -103,6 +128,7 @@ p.step.transition(
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",
     u: s.time.MEDIUM,
+    xy: xy.text
   },
 
 	{
@@ -110,24 +136,34 @@ p.step.transition(
     e: "easeOutUp",
   	d: s.time.MEDIUM,
     u: s.time.SHORT,
+    xy: xy.silver
 	},
 	{
     a: 'rings', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XSHORT,
     u: s.time.SHORT,
+    xy: xy.rings
 	},
 	{
-    a: 'bubs', l: 'art', p: 'remove',
+    a: 'bubs-b', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XSHORT,
     u: s.time.SHORT,
+    xy: xy.bubs
+	},
+	{
+    a: 'bubs-a', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    u: s.time.SHORT,
+    xy: xy.bubs
 	},
 	{
     a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XSHORT,
     u: s.time.SHORT,
+    xy: xy.bag
 	},
 
 	{
@@ -135,6 +171,7 @@ p.step.transition(
     e: "easeOutUp",
 	  d: s.time.XSHORT,
     u: s.time.MEDIUM,
+    xy: xy.jellies
 	}
 );
 

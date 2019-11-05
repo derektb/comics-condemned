@@ -15,7 +15,6 @@ p.art.assets(
   },{
     name: "bg-mtn",
     src: "background-mountains.png",
-    classNames: ['bg-mtn'],
     type: "asset"
   },
 
@@ -30,6 +29,12 @@ p.art.assets(
     src: "whalefall-righteel.png",
     classNames: ["anim-float-right-sm-2"],
     type: "asset"
+  },
+
+  {
+    name: "credits",
+    type: "text",
+    text: story.render("CREDITS"),
   }
 );
 
@@ -55,7 +60,12 @@ p.art.layers("full-art", "art");
 
 const whaleDuration = s.time.XLONG;
 
-const whalePosition = [-236,-48];
+const xy = {
+  mountains: [-200,15],
+  tile: [0,-6],
+  whale: [-113,14],
+  text: [350,35],
+}
 
 p.step.create(
   // trashes
@@ -64,13 +74,13 @@ p.step.create(
     e: "easeUp",
     d: s.time.MEDIUM,
     u: s.time.XLONG,
-    xy: [0, -30]
+    xy: xy.tile
   },
 	{
-    a: 'bg-mtn', l: 'full-art',
+    a: 'bg-mtn', l: 'art',
     e: "easeUp",
     u: s.time.XLONG,
-    xy: [0, -8]
+    xy: xy.mountains
   },
 
   // whale & text
@@ -79,24 +89,97 @@ p.step.create(
     e: "easeUp",
     d: s.time.MEDIUM,
 	  u: whaleDuration,
-	  xy: whalePosition,
+	  xy: xy.whale,
   },{
     a: 'lefteel', l: 'art',
     e: "easeUp",
     u: whaleDuration,
-	  xy: whalePosition,
+	  xy: xy.whale,
   },{
     a: 'righteel', l: 'art',
     e: "easeUp",
     u: whaleDuration,
-    xy: whalePosition,
+    xy: xy.whale,
   },{
     a: 'text', l: 'art',
     e: 'easeDown',
     d: s.time.LONG,
     u: s.time.XLONG,
-  	xy: [230,10]
+  	xy: xy.text
   },
 );
+
+const outOfFrame = -750;
+const exitDuration = 2300;
+
+p.step.create(
+  {
+    a: 'bg-tile', l: 'full-art', p: "effect",
+    e: jinx.effects.extend("easeBoth", {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.tile,
+  },
+	{
+    a: 'bg-mtn', l: 'art', p: "effect",
+    e: jinx.effects.extend("easeBoth", {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.mountains,
+  },
+{
+    a: 'corpse', l: 'art', p: "effect",
+    e: jinx.effects.extend("easeBoth", {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+	  u: exitDuration,
+    xy: xy.whale,
+  },{
+    a: 'lefteel', l: 'art', p: "effect",
+    e: jinx.effects.extend("easeBoth", {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.whale,
+  },{
+    a: 'righteel', l: 'art', p: "effect",
+    e: jinx.effects.extend("easeBoth", {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.whale,
+  },{
+    a: 'text', l: 'art', p: "effect",
+    e: jinx.effects.extend('easeBoth', {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.text,
+  },
+
+  {
+    a: "credits", l: "art",
+    e: "easeUp",
+    d: exitDuration/2,
+    u: s.time.LONG,
+  },
+  {
+    s: "after",
+    code: function() {
+      jinx.wand.away();
+      $(document).one("restart-story", function(){
+        $(document).trigger("panel-clicked", p)
+      });
+    }
+  }
+)
 
 p.destination.main = "[[1A]]"

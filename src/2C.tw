@@ -15,115 +15,134 @@ p.art.assets(
   {
     name: "bag",
     src: "bag.png",
-    // classNames: ["anim-float-down-1"],
     type: "asset"
-  },{
-    name: "bubs-a",
+  },
+  {
+    name: "bubs",
     src: "bubs.png",
+    classNames: ["anim-float-down-1"],
+    type: "asset"
+  },
+  {
+    name: "bag-bubs-a",
+    src: "bag-bubs-a.png",
     classNames: ["anim-float-down-2"],
     type: "asset"
-  },{
-    name: "bubs-b",
-    src: "bag-bubs-a.png",
+  },
+  {
+    name: "bag-bubs-b",
+    src: "bag-bubs-b.png",
     classNames: ["anim-float-down-3"],
     type: "asset"
-  },{
-    name: "bubs-c",
-    src: "bag-bubs-b.png",
-    classNames: ["anim-float-down-4"],
-    type: "asset"
-  },{
+  },
+  {
     name: "chixleg",
     src: "chixleg.png",
-    classNames: ["anim-float-down-1"],
+    classNames: ["anim-float-down-2"],
     type: "asset"
-  },{
+  },
+  {
     name: "crust1",
     src: "crust2.png",
-    classNames: ["anim-float-down-1"],
+    classNames: ["anim-float-down-3"],
     type: "asset"
-  },{
+  },
+  {
     name: "crust2",
     src: "crust3.png",
     classNames: ["anim-float-down-1"],
     type: "asset"
-  },{
+  },
+  {
     name: "fish1",
     src: "fish1.png",
-    classNames: ["anim-float-down-1"],
+    classNames: ["anim-float-down-4"],
     type: "asset"
-  },{
-    name: "fish2",
-    src: "fish2.png",
-    classNames: ["anim-float-down-1"],
-    type: "asset"
-  }
+  },
 );
 
-p.art.layers('back-art', 'art');
+p.art.layers('art');
+
+const xy = {
+  bag: [1074,352],
+  bubs: [1030,343],
+  chixleg: [1043,17],
+  crust1: [931,59],
+  crust2: [887,215],
+  fish1: [1032,256],
+  whale: [-599,-95],
+  text: [903,139],
+}
 
 p.step.create(
   {
+    a: 'whale', l: 'art',
+    e: 'easeRight',
+    u: s.time.XLONG,
+    xy: xy.whale
+  },
+
+  {
     a: 'chixleg', l: 'art',
     e: 'easeDown',
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: 'crust1', l: 'art',
-    e: 'easeDown',
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: 'crust2', l: 'art',
-    e: 'easeDown',
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: 'fish1', l: 'art',
-    e: 'easeDown',
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: 'bubs-a', l: 'art',
-    e: 'easeDown',
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: 'bubs-b', l: 'art',
-    e: 'easeDown',
-    u: s.time.XLONG, s: 'with',
-    xy: [499,178]
-  },{
-    a: 'bubs-c', l: 'art',
-    e: 'easeDown',
-    u: s.time.XLONG, s: 'with',
-    xy: [499,178]
-  },{
-    a: 'bag', l: 'art',
-    e: 'easeDown',
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },
-  // WHALE & TEXT
-	{
-    a: 'whale', l: 'back-art',
-    e: 'easeRight',
     d: s.time.MEDIUM,
     u: s.time.XLONG,
-    xy: [-499,-95]
+    xy: xy.chixleg
   },
-	{
+  {
+    a: 'crust1', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.crust1
+  },
+  {
     a: 'text', l: 'art',
     e: 'easeDown',
-    d: s.time.LONG,
+    d: s.time.SHORT,
     u: s.time.XLONG,
-   xy: [755,105]
- },
+    xy: xy.text
+  },
+  {
+    a: 'crust2', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.crust2
+  },
+  {
+    a: 'fish1', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.fish1
+  },
+  {
+    a: 'bubs', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.bubs
+  },
+  {
+    a: 'bag-bubs-a', l: 'art',
+    e: 'easeDown',
+    u: s.time.XLONG, s: 'with',
+    xy: xy.bag
+  },
+  {
+    a: 'bag-bubs-b', l: 'art',
+    e: 'easeDown',
+    u: s.time.XLONG, s: 'with',
+    xy: xy.bag
+  },
+  {
+    a: 'bag', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.bag
+  },
 );
 
 p.step.transition(

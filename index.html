@@ -11,7 +11,7 @@ Condemned to the Depths
 
 <div id="passages"></div>
 
-<!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="9" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-35" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "_css_animations.css" */
+<!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="10" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-35" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "_css_animations.css" */
 /* special assets */
 
 .asset.looping-fishes {
@@ -314,7 +314,7 @@ html, body, #passages {
 }
 
 body {
-	background-color: #5a3232 !important;
+	background-color: rgb(163,0,61);
 }
 
 #passages {
@@ -342,12 +342,26 @@ body {
 	width: 1500px;
 	position: relative;
   /* debug: */
-  box-shadow: inset 0 0 0 1px black;
+  /* box-shadow: inset 0 0 0 1px black; */
 }
 
 .layer.full-art {
 	flex: 1 1 auto;
 	width: 100%;
+}
+
+.asset.asset-2a-gel {
+  height: 430px;
+  width: 340px;
+  border-radius: 100px;
+  filter: blur(20px);
+  background-color: rgb(255,0,66,0.6);
+}
+
+.layer.full-art .asset.bg-tile {
+	height: 800px;
+	background-position: top center;
+	background-repeat-y: no-repeat;
 }
 
 /********** sealayer setup **********/
@@ -449,12 +463,6 @@ body[currentpassage="2D"] {
 	height: 400px;
 }
 
-.layer.full-art .asset[assetname="bg-tile"] {
-	height: 600px;
-	background-position: top;
-	background-repeat-y: no-repeat;
-}
-
 .layer.full-art .asset img
 {
 	display: none;
@@ -504,6 +512,10 @@ jinx.effects.extend('easeDown', 'easeDownTitle', {
 	fromScale: [0.9,0.9,0],
   scale: [1,1,1]
 });
+
+jinx.effects.create('easeBoth', {
+  easing: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+})
 
 //
 
@@ -641,38 +653,69 @@ p.art.assets(
 
 p.art.layers(&#39;art&#39;);
 
+const xy = {
+  title: [481,-65],
+  subtitle: [462,508],
+};
+
+function createTitleBubbles() {
+  if (s.GENERATE_TITLE_BUBBLES) {
+
+    console.log(&quot;bubble!&quot;)
+
+    const nextBubble = (
+      200 +
+      (Math.random()*200 + Math.random()*200) +
+      (Math.random()*1000 + Math.random()*1000)
+    );
+    window.setTimeout(createTitleBubbles, nextBubble);
+  }
+}
+
 p.step.create(
   {
+    code: function(){
+      s.GENERATE_TITLE_BUBBLES = true;
+      createTitleBubbles();
+    }
+  },
+  {
     a: &#39;title&#39;, l: &#39;art&#39;,
-    e: &quot;easeDownTitle&quot;,
-    u: s.time.XLONG,
-    xy: [481,-65]
+    e: &quot;easeUp&quot;,
+    u: s.time.XLONG*1.2,
+    xy: xy.title
   },
   {
     a: &#39;subtitle&#39;, l: &#39;art&#39;,
-    e: &quot;easeDownTitle&quot;,
+    e: &quot;easeUp&quot;,
     d: s.time.MEDIUM,
-    u: s.time.XLONG,
-    xy: [462,508]
+    u: s.time.XLONG*1.2,
+    xy: xy.subtitle
   },
 );
 
 p.step.transition( // to replace autoAdvance, and to serve as the &quot;pre-transition&quot;
 	s.autoAdvance(p),
   {
-    a: &#39;subtitle&#39;, l: &#39;art&#39;,
-    p: &#39;remove&#39;,
-    e: &#39;easeOutUp&#39;,
-    u: s.time.MEDIUM,
-    xy: [481,-65]
+    code: function(){
+      s.GENERATE_TITLE_BUBBLES = false;
+    },
+    s: &quot;after&quot;
   },
   {
     a: &#39;title&#39;, l: &#39;art&#39;,
     p: &#39;remove&#39;,
     e: &#39;easeOutUp&#39;,
-    d: s.time.XSHORT,
-    u: s.time.MEDIUM,
-    xy: [462,508]
+    u: s.time.LONG,
+    xy: xy.title
+  },
+  {
+    a: &#39;subtitle&#39;, l: &#39;art&#39;,
+    p: &#39;remove&#39;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.SHORT,
+    u: s.time.LONG,
+    xy: xy.subtitle
   },
 );
 
@@ -704,12 +747,21 @@ p.art.assets(
 
 p.art.layers(&#39;art&#39;);
 
+const xy = {
+  bag: [570,83],
+  boat: [699,51],
+  canA: [465,121],
+  canB: [517,203],
+  milk: [409,192],
+  text: [109,13]
+};
+
 p.step.create(
 	{
     a: &#39;boat&#39;, l: &#39;art&#39;,
     e: &#39;easeUp&#39;,
     u: s.time.XLONG,
-    xy: [699,51]
+    xy: xy.boat
 	},
   // TRASH
   {
@@ -717,28 +769,28 @@ p.step.create(
   	e: &#39;fadeInTrash&#39;,
     d: s.time.LONG,
     u: s.time.SHORT,
-    xy: [570,83]
+    xy: xy.bag
 	},
   {
     a: &#39;canA&#39;, l: &#39;art&#39;,
   	e: &#39;fadeInTrash&#39;,
     d: s.time.XSHORT,
     u: s.time.SHORT,
-    xy: [465,121]
+    xy: xy.canA
 	},
   {
     a: &#39;canB&#39;, l: &#39;art&#39;,
   	e: &#39;fadeInTrash&#39;,
     d: s.time.XSHORT,
     u: s.time.SHORT,
-    xy: [517,203]
+    xy: xy.canB
 	},
   {
     a: &#39;milk&#39;, l: &#39;art&#39;,
   	e: &#39;fadeInTrash&#39;,
     d: s.time.XSHORT,
     u: s.time.SHORT,
-    xy: [409,192]
+    xy: xy.milk
 	},
   // TEXT
 	{
@@ -746,7 +798,7 @@ p.step.create(
     e: &#39;easeDown&#39;,
     d: s.time.MEDIUM,
     u: s.time.XLONG,
-    xy: [109,13]
+    xy: xy.text
 	}
 );
 
@@ -756,30 +808,35 @@ p.step.transition(
     a: &#39;boat&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	u: s.time.MEDIUM,
+    xy: xy.boat
 	},
 	{
     a: &#39;milk&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.milk
 	},
 	{
     a: &#39;canB&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.canB
 	},
 	{
     a: &#39;canA&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.canA
 	},
 	{
     a: &#39;bag&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.bag
 	},
 
 	{
@@ -787,6 +844,7 @@ p.step.transition(
     e: &quot;easeOutUp&quot;,
 	  d: s.time.XXSHORT,
     u: s.time.MEDIUM,
+    xy: xy.text
 	}
 );
 
@@ -800,53 +858,89 @@ p.art.assets(
   {
     name: &quot;bag&quot;,
     src: &quot;bag.png&quot;,
-    // classNames: [&quot;anim-float-down-1&quot;]
   },
   {
-    name: &quot;bubs&quot;,
-    src: &quot;bubs.png&quot;,
-    // classNames: [&quot;anim-float-down-1&quot;]
+    name: &quot;bubs-a&quot;,
+    src: &quot;bubs-a.png&quot;,
+    classNames: [&quot;anim-float-down-1&quot;],
+    type: &quot;asset&quot;,
+  },
+  {
+    name: &quot;bubs-b&quot;,
+    src: &quot;bubs-b.png&quot;,
+    classNames: [&quot;anim-float-down-2&quot;],
+    type: &quot;asset&quot;,
+  },
+  {
+    name: &quot;bubs-c&quot;,
+    src: &quot;bubs-c.png&quot;,
+    classNames: [&quot;anim-float-down-3&quot;],
+    type: &quot;asset&quot;,
   },
   {
     name: &quot;cup&quot;,
     src: &quot;cup.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
+    classNames: [&quot;anim-float-down-4&quot;],
     type: &quot;asset&quot;
   },
   {
     name: &quot;milk&quot;,
     src: &quot;milk.png&quot;,
-    classNames: [&quot;anim-float-down-2&quot;],
+    classNames: [&quot;anim-float-down-4&quot;],
     type: &quot;asset&quot;
   },
 );
 
 p.art.layers(&quot;art&quot;);
 
+const xy = {
+  bag: [367,305],
+  bubs: [325,93],
+  milk: [404,55],
+  cup: [226,142],
+  text: [538,182],
+};
+
 p.step.create(
   {
     a: &#39;bag&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
+  	e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.bag
 	},
   {
-    a: &#39;bubs&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
+    a: &#39;bubs-a&#39;, l: &#39;art&#39;,
+  	e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.bubs
+	},
+  {
+    a: &#39;bubs-b&#39;, l: &#39;art&#39;,
+  	e: &#39;easeDown&#39;,
+    u: s.time.SHORT,
+    xy: xy.bubs
+	},
+  {
+    a: &#39;bubs-c&#39;, l: &#39;art&#39;,
+  	e: &#39;easeDown&#39;,
+    u: s.time.SHORT,
+    xy: xy.bubs
 	},
   {
     a: &#39;cup&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
+  	e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.cup
 	},
   {
     a: &#39;milk&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
+  	e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.milk
 	},
   // TEXT
 	{
@@ -854,7 +948,8 @@ p.step.create(
     e: jinx.effects.extend(&#39;easeDown&#39;,
 	   {fromPosition: [0, -25, 0]}),
     d: s.time.MEDIUM,
-    u: s.time.XLONG
+    u: s.time.XLONG,
+    xy: xy.text
 	}
 );
 
@@ -865,24 +960,40 @@ p.step.transition(
     e: &quot;easeOutUp&quot;,
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.milk
 	},
 	{
     a: &#39;cup&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.cup
 	},
 	{
-    a: &#39;bubs&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    a: &#39;bubs-c&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.bubs
+	},
+	{
+    a: &#39;bubs-b&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    e: &quot;easeOutUp&quot;,
+    u: s.time.SHORT,
+    xy: xy.bubs
+	},
+	{
+    a: &#39;bubs-a&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    e: &quot;easeOutUp&quot;,
+    u: s.time.SHORT,
+    xy: xy.bubs
 	},
 	{
     a: &#39;bag&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XXSHORT,
     u: s.time.SHORT,
+    xy: xy.bag
 	},
 
 	{
@@ -890,6 +1001,7 @@ p.step.transition(
     e: &quot;easeOutUp&quot;,
 	  d: s.time.XXSHORT,
     u: s.time.MEDIUM,
+    xy: xy.text
 	}
 );
 
@@ -912,21 +1024,27 @@ p.art.assets(
     // classNames: [&quot;anim-float-down-1&quot;]
   },
   {
-    name: &quot;bubs&quot;,
-    src: &quot;bubs.png&quot;,
-    classNames: [&quot;anim-float-up-1&quot;],
-    type: &#39;asset&#39;,
-  },
-  {
     name: &quot;rings&quot;,
     src: &quot;rings.png&quot;,
-    classNames: [&quot;anim-float-down-2&quot;],
+    classNames: [&quot;anim-float-down-1&quot;],
     type: &#39;asset&#39;,
   },
   {
     name: &quot;silver&quot;,
     src: &quot;silver.png&quot;,
+    classNames: [&quot;anim-float-down-2&quot;],
+    type: &#39;asset&#39;,
+  },
+  {
+    name: &quot;bubs-a&quot;,
+    src: &quot;bubs-a.png&quot;,
     classNames: [&quot;anim-float-down-3&quot;],
+    type: &#39;asset&#39;,
+  },
+  {
+    name: &quot;bubs-b&quot;,
+    src: &quot;bubs-b.png&quot;,
+    classNames: [&quot;anim-float-down-4&quot;],
     type: &#39;asset&#39;,
   },
 );
@@ -946,33 +1064,52 @@ jellyStyleEl.id = &quot;jelly-styles&quot;;
 jellyStyleEl.textContent = jellyRule;
 $(&#39;body&#39;).append(jellyStyleEl);
 
+const xy = {
+  bag: [340,362],
+  jellies: [0,50],
+  bubs: [280,171],
+  rings: [148,187],
+  silver: [230,12],
+  text: [467,160],
+}
+
 // steps
 
 p.step.create(
   // TRASH
   {
     a: &#39;bag&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
+  	e: &#39;easeDown&#39;,
     d: s.time.SHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bag
 	},
   {
-    a: &#39;bubs&#39;, l: &#39;art&#39;,
+    a: &#39;bubs-a&#39;, l: &#39;art&#39;,
   	e: &#39;easeUp&#39;,
     d: s.time.XSHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+	},
+  {
+    a: &#39;bubs-b&#39;, l: &#39;art&#39;,
+  	e: &#39;easeUp&#39;,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
 	},
   {
     a: &#39;rings&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
+  	e: &#39;easeDown&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.rings
 	},
   {
     a: &#39;silver&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
+  	e: &#39;easeDown&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.silver
 	},
   // JELLIES &amp; TEXT
 	{
@@ -980,16 +1117,16 @@ p.step.create(
     e: &quot;easeUp&quot;,
     d: s.time.MEDIUM,
     u: s.time.XLONG,
+    xy: xy.jellies
   },
 	{
     a: &#39;text&#39;, l: &#39;art&#39;,
   	e: &#39;easeDown&#39;,
     d: s.time.SHORT,
     u: s.time.XLONG,
+    xy: xy.text
 	}
 );
-
-
 
 p.step.transition(
 	s.autoAdvance(p),
@@ -997,6 +1134,7 @@ p.step.transition(
     a: &#39;text&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
     u: s.time.MEDIUM,
+    xy: xy.text
   },
 
 	{
@@ -1004,24 +1142,34 @@ p.step.transition(
     e: &quot;easeOutUp&quot;,
   	d: s.time.MEDIUM,
     u: s.time.SHORT,
+    xy: xy.silver
 	},
 	{
     a: &#39;rings&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XSHORT,
     u: s.time.SHORT,
+    xy: xy.rings
 	},
 	{
-    a: &#39;bubs&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    a: &#39;bubs-b&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XSHORT,
     u: s.time.SHORT,
+    xy: xy.bubs
+	},
+	{
+    a: &#39;bubs-a&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    e: &quot;easeOutUp&quot;,
+    u: s.time.SHORT,
+    xy: xy.bubs
 	},
 	{
     a: &#39;bag&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XSHORT,
     u: s.time.SHORT,
+    xy: xy.bag
 	},
 
 	{
@@ -1029,6 +1177,7 @@ p.step.transition(
     e: &quot;easeOutUp&quot;,
 	  d: s.time.XSHORT,
     u: s.time.MEDIUM,
+    xy: xy.jellies
 	}
 );
 
@@ -1038,6 +1187,11 @@ p.art.path(&#39;ASSETS/2A/&#39;);
 
 p.art.assets(
   [&quot;text&quot;, &quot;text.png&quot;],
+  {
+    name: &quot;asset-gel&quot;,
+    classNames: [&#39;asset-2a-gel&#39;],
+    type: &quot;text&quot;,
+  },
   {
     name: &quot;fishes&quot;,
     src: &quot;animated-fishes-10.gif&quot;,
@@ -1098,56 +1252,82 @@ fishesStyleEl.id = &quot;fishes-styles&quot;;
 fishesStyleEl.textContent = fishesRule;
 $(&#39;body&#39;).append(fishesStyleEl);
 
+const xy = {
+  fishes: [0,25],
+  bag: [319,204],
+  fries: [301,84],
+  ketchup: [169,182],
+  sauce: [207,58],
+  text: [552,17],
+  gel: [150,40],
+}
+
 p.step.create(
+  {
+    a: &quot;asset-gel&quot;, l: &quot;art&quot;,
+    e: &quot;fadeIn&quot;,
+    d: s.time.SHORT*5, s: &quot;async&quot;,
+    u: s.time.LONG,
+    xy: xy.gel,
+  },
   // TRASH
   {
-    a: &#39;bag&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.MEDIUM,
+    a: &#39;sauce&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
-	},
-  {
-    a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
-	},
-  {
-    a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    u: s.time.SHORT,
-	},
+    xy: xy.sauce
+  },
   {
     a: &#39;fries&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
-	},
+    xy: xy.fries
+  },
   {
     a: &#39;ketchup&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
-	},
+    xy: xy.ketchup
+  },
   {
-    a: &#39;sauce&#39;, l: &#39;art&#39;,
-  	e: &#39;easeUp&#39;,
-    d: s.time.XSHORT,
+    a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
     u: s.time.SHORT,
+    xy: xy.bag
+  },
+  {
+    a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    u: s.time.SHORT,
+    xy: xy.bag
+  },
+  {
+    a: &#39;bag&#39;, l: &#39;art&#39;,
+  	e: &#39;easeDown&#39;,
+    d: s.time.SHORT*0.5,
+    u: s.time.SHORT,
+    xy: xy.bag
 	},
+
   // FISH &amp; TEXT
+
 	{
     a: &#39;fishes&#39;, l: &#39;full-art&#39;,
     e: &#39;easeUp&#39;,
-    d: s.time.SHORT,
+    d: s.time.MEDIUM,
     u: s.time.XLONG,
-    xy: [0, -25]
+    xy: xy.fishes
   },
 	{
     a: &#39;text&#39;, l: &#39;art&#39;,
   	e: &#39;easeDown&#39;,
     d: s.time.MEDIUM,
     u: s.time.XLONG,
+    xy: xy.text
 	}
 );
 
@@ -1157,49 +1337,63 @@ p.step.transition(
     a: &#39;text&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
     u: s.time.MEDIUM,
+    xy: xy.text
   },
 
-	{
-    a: &#39;sauce&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+  {
+    a: &#39;bag&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
-  	d: s.time.MEDIUM,
+    d: s.time.XSHORT,
     u: s.time.SHORT,
-	},
-	{
-    a: &#39;fries&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
-    e: &quot;easeOutUp&quot;,
-  	d: s.time.XSHORT,
-    u: s.time.SHORT,
-	},
-	{
-    a: &#39;ketchup&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
-    e: &quot;easeOutUp&quot;,
-  	d: s.time.XSHORT,
-    u: s.time.SHORT,
-	},
-	{
+    xy: xy.bag
+  },
+  {
     a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
-  	d: s.time.XSHORT,
+    d: s.time.XSHORT,
     u: s.time.SHORT,
-	},
-	{
+    xy: xy.bag
+  },
+  {
     a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
     u: s.time.SHORT,
-	},
+    xy: xy.bag
+  },
+  {
+    a: &#39;ketchup&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+    xy: xy.ketchup
+  },
+  {
+    a: &#39;fries&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.XSHORT,
+    u: s.time.SHORT,
+    xy: xy.fries
+  },
 	{
-    a: &#39;bag&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    a: &#39;sauce&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
   	d: s.time.XSHORT,
     u: s.time.SHORT,
+    xy: xy.sauce
 	},
+  {
+    a: &quot;asset-gel&quot;, l: &quot;art&quot;, p: &quot;remove&quot;,
+    e: &quot;fadeOut&quot;,
+    u: s.time.MEDIUM,
+    xy: xy.gel,
+  },
 
 	{
     a: &#39;fishes&#39;, l: &#39;full-art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
 	  d: s.time.XSHORT,
     u: s.time.MEDIUM,
+    xy: xy.fishes
 	}
 );
 
@@ -1229,6 +1423,25 @@ p.art.assets(
     type: &quot;asset&quot;
   },
 
+  {
+    name: &quot;shark-white&quot;,
+    src: &quot;shark-iso-white.png&quot;,
+    classNames: [&quot;anim-float-left-3&quot;],
+    type: &quot;asset&quot;
+  },
+  {
+    name: &quot;upfish-white&quot;,
+    src: &quot;shark-upfish-white.png&quot;,
+    classNames: [&quot;anim-float-down-1&quot;],
+    type: &quot;asset&quot;
+  },
+  {
+    name: &quot;downfish-white&quot;,
+    src: &quot;shark-downfish-white.png&quot;,
+    classNames: [&quot;anim-float-down-2&quot;],
+    type: &quot;asset&quot;
+  },
+
   // HACK todo: asset instantiation
 
   {
@@ -1246,94 +1459,136 @@ p.art.assets(
   // trashes
 
   {
-    name: &quot;bag&quot;,
-    src: &quot;bag.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
-    type: &quot;asset&quot;
-  },{
-    name: &quot;banana&quot;,
-    src: &quot;banana.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
-    type: &quot;asset&quot;
-  },{
-    name: &quot;cheese&quot;,
-    src: &quot;cheese.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
-    type: &quot;asset&quot;
-  },{
     name: &quot;crust&quot;,
     src: &quot;crust1.png&quot;,
     classNames: [&quot;anim-float-down-1&quot;],
     type: &quot;asset&quot;
-  },{
+  },
+  {
+    name: &quot;cheese&quot;,
+    src: &quot;cheese.png&quot;,
+    classNames: [&quot;anim-float-down-2&quot;],
+    type: &quot;asset&quot;
+  },
+  {
     name: &quot;orangepeel&quot;,
     src: &quot;orangepeel.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
+    classNames: [&quot;anim-float-down-3&quot;],
     type: &quot;asset&quot;
-  }
+  },
+  {
+    name: &quot;banana&quot;,
+    src: &quot;banana.png&quot;,
+    classNames: [&quot;anim-float-down-4&quot;],
+    type: &quot;asset&quot;
+  },
+  {
+    name: &quot;bag&quot;,
+    src: &quot;bag.png&quot;,
+    // classNames: [&quot;anim-float-down-1&quot;],
+    type: &quot;asset&quot;
+  },
 );
 
 p.art.layers(&quot;art&quot;);
 
+const xy = {
+  bag: [746,288],
+  banana: [585,290],
+  barracuda1: [-300,100],
+  barracuda2: [-157,241],
+  cheese: [578,210],
+  crust: [450,151],
+  orangepeel: [690,239],
+  shark: [835,41],
+  text: [483,22],
+}
+
 p.step.create(
   // TRASH
   {
-    a: &#39;bag&#39;, l: &#39;art&#39;,
+    a: &#39;crust&#39;, l: &#39;art&#39;,
+    e: &quot;easeDown&quot;,
     d: s.time.SHORT,
     u: s.time.XLONG,
-  	xy: [510, 182]
-  },{
-    a: &#39;banana&#39;, l: &#39;art&#39;,
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-  	xy: [510, 182]
-  },{
+    xy: xy.crust
+  },
+  {
     a: &#39;cheese&#39;, l: &#39;art&#39;,
-    d: s.time.XSHORT,
+    e: &quot;easeDown&quot;,
+    d: s.time.SHORT,
     u: s.time.XLONG,
-  	xy: [510, 182]
-  },{
-    a: &#39;crust&#39;, l: &#39;art&#39;,
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-  	xy: [510, 182]
-  },{
+  	xy: xy.cheese
+  },
+  {
     a: &#39;orangepeel&#39;, l: &#39;art&#39;,
-    d: s.time.XSHORT,
+    e: &quot;easeDown&quot;,
+    d: s.time.SHORT,
     u: s.time.XLONG,
-  	xy: [510, 182]
+  	xy: xy.orangepeel
+  },
+  {
+    a: &#39;banana&#39;, l: &#39;art&#39;,
+    e: &quot;easeDown&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.banana
+  },
+  {
+    a: &#39;bag&#39;, l: &#39;art&#39;,
+    e: &quot;easeDown&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.bag
   },
   // FISH &amp; TEXT
-	{
+  // outlines
+  {
+    a: &#39;downfish-white&#39;, l: &#39;art&#39;,
+    e: &quot;easeUp&quot;,
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },{
+    a: &#39;shark-white&#39;, l: &#39;art&#39;,
+    e: &quot;easeUp&quot;, s: &#39;with&#39;,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },{
+    a: &#39;upfish-white&#39;, l: &#39;art&#39;,
+    e: &quot;easeUp&quot;, s: &#39;with&#39;,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },
+  {
     a: &#39;downfish&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
     u: s.time.XLONG,
-    d: s.time.MEDIUM,
-    xy: [774,31]
+    xy: xy.shark
   },{
     a: &#39;shark&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;, s: &#39;with&#39;,
     u: s.time.XLONG,
-    xy: [774,31]
+    xy: xy.shark
   },{
     a: &#39;upfish&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;, s: &#39;with&#39;,
     u: s.time.XLONG,
-    xy: [774,31]
+    xy: xy.shark
   },
 
 	{
     a: &#39;barracuda#1&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
+    d: s.time.XSHORT,
     u: s.time.XLONG,
-    d: s.time.MEDIUM,
-    xy: [-391,54]
+    xy: xy.barracuda1
   },{
     a: &#39;barracuda#2&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
-    u: s.time.XLONG,
     d: s.time.SHORT,
-    xy: [-225,216]
+    u: s.time.XLONG,
+    xy: xy.barracuda2
   },
 
 	{
@@ -1341,7 +1596,7 @@ p.step.create(
     e: &quot;easeDown&quot;,
     d: s.time.MEDIUM,
     u: s.time.XLONG,
-  	xy: [417, 47]
+  	xy: xy.text
   }
 );
 
@@ -1365,115 +1620,134 @@ p.art.assets(
   {
     name: &quot;bag&quot;,
     src: &quot;bag.png&quot;,
-    // classNames: [&quot;anim-float-down-1&quot;],
     type: &quot;asset&quot;
-  },{
-    name: &quot;bubs-a&quot;,
+  },
+  {
+    name: &quot;bubs&quot;,
     src: &quot;bubs.png&quot;,
+    classNames: [&quot;anim-float-down-1&quot;],
+    type: &quot;asset&quot;
+  },
+  {
+    name: &quot;bag-bubs-a&quot;,
+    src: &quot;bag-bubs-a.png&quot;,
     classNames: [&quot;anim-float-down-2&quot;],
     type: &quot;asset&quot;
-  },{
-    name: &quot;bubs-b&quot;,
-    src: &quot;bag-bubs-a.png&quot;,
+  },
+  {
+    name: &quot;bag-bubs-b&quot;,
+    src: &quot;bag-bubs-b.png&quot;,
     classNames: [&quot;anim-float-down-3&quot;],
     type: &quot;asset&quot;
-  },{
-    name: &quot;bubs-c&quot;,
-    src: &quot;bag-bubs-b.png&quot;,
-    classNames: [&quot;anim-float-down-4&quot;],
-    type: &quot;asset&quot;
-  },{
+  },
+  {
     name: &quot;chixleg&quot;,
     src: &quot;chixleg.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
+    classNames: [&quot;anim-float-down-2&quot;],
     type: &quot;asset&quot;
-  },{
+  },
+  {
     name: &quot;crust1&quot;,
     src: &quot;crust2.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
+    classNames: [&quot;anim-float-down-3&quot;],
     type: &quot;asset&quot;
-  },{
+  },
+  {
     name: &quot;crust2&quot;,
     src: &quot;crust3.png&quot;,
     classNames: [&quot;anim-float-down-1&quot;],
     type: &quot;asset&quot;
-  },{
+  },
+  {
     name: &quot;fish1&quot;,
     src: &quot;fish1.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
+    classNames: [&quot;anim-float-down-4&quot;],
     type: &quot;asset&quot;
-  },{
-    name: &quot;fish2&quot;,
-    src: &quot;fish2.png&quot;,
-    classNames: [&quot;anim-float-down-1&quot;],
-    type: &quot;asset&quot;
-  }
+  },
 );
 
-p.art.layers(&#39;back-art&#39;, &#39;art&#39;);
+p.art.layers(&#39;art&#39;);
+
+const xy = {
+  bag: [1074,352],
+  bubs: [1030,343],
+  chixleg: [1043,17],
+  crust1: [931,59],
+  crust2: [887,215],
+  fish1: [1032,256],
+  whale: [-599,-95],
+  text: [903,139],
+}
 
 p.step.create(
   {
+    a: &#39;whale&#39;, l: &#39;art&#39;,
+    e: &#39;easeRight&#39;,
+    u: s.time.XLONG,
+    xy: xy.whale
+  },
+
+  {
     a: &#39;chixleg&#39;, l: &#39;art&#39;,
     e: &#39;easeDown&#39;,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: &#39;crust1&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: &#39;crust2&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: &#39;fish1&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: &#39;bubs-a&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },{
-    a: &#39;bubs-b&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    u: s.time.XLONG, s: &#39;with&#39;,
-    xy: [499,178]
-  },{
-    a: &#39;bubs-c&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    u: s.time.XLONG, s: &#39;with&#39;,
-    xy: [499,178]
-  },{
-    a: &#39;bag&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: [499,178]
-  },
-  // WHALE &amp; TEXT
-	{
-    a: &#39;whale&#39;, l: &#39;back-art&#39;,
-    e: &#39;easeRight&#39;,
     d: s.time.MEDIUM,
     u: s.time.XLONG,
-    xy: [-499,-95]
+    xy: xy.chixleg
   },
-	{
+  {
+    a: &#39;crust1&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.crust1
+  },
+  {
     a: &#39;text&#39;, l: &#39;art&#39;,
     e: &#39;easeDown&#39;,
-    d: s.time.LONG,
+    d: s.time.SHORT,
     u: s.time.XLONG,
-   xy: [755,105]
- },
+    xy: xy.text
+  },
+  {
+    a: &#39;crust2&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.crust2
+  },
+  {
+    a: &#39;fish1&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.fish1
+  },
+  {
+    a: &#39;bubs&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.bubs
+  },
+  {
+    a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    u: s.time.XLONG, s: &#39;with&#39;,
+    xy: xy.bag
+  },
+  {
+    a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    u: s.time.XLONG, s: &#39;with&#39;,
+    xy: xy.bag
+  },
+  {
+    a: &#39;bag&#39;, l: &#39;art&#39;,
+    e: &#39;easeDown&#39;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.bag
+  },
 );
 
 p.step.transition(
@@ -1496,7 +1770,6 @@ p.art.assets(
   },{
     name: &quot;bg-mtn&quot;,
     src: &quot;background-mountains.png&quot;,
-    classNames: [&#39;bg-mtn&#39;],
     type: &quot;asset&quot;
   },
 
@@ -1511,6 +1784,12 @@ p.art.assets(
     src: &quot;whalefall-righteel.png&quot;,
     classNames: [&quot;anim-float-right-sm-2&quot;],
     type: &quot;asset&quot;
+  },
+
+  {
+    name: &quot;credits&quot;,
+    type: &quot;text&quot;,
+    text: story.render(&quot;CREDITS&quot;),
   }
 );
 
@@ -1536,7 +1815,12 @@ p.art.layers(&quot;full-art&quot;, &quot;art&quot;);
 
 const whaleDuration = s.time.XLONG;
 
-const whalePosition = [-236,-48];
+const xy = {
+  mountains: [-200,15],
+  tile: [0,-6],
+  whale: [-113,14],
+  text: [350,35],
+}
 
 p.step.create(
   // trashes
@@ -1545,13 +1829,13 @@ p.step.create(
     e: &quot;easeUp&quot;,
     d: s.time.MEDIUM,
     u: s.time.XLONG,
-    xy: [0, -30]
+    xy: xy.tile
   },
 	{
-    a: &#39;bg-mtn&#39;, l: &#39;full-art&#39;,
+    a: &#39;bg-mtn&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
     u: s.time.XLONG,
-    xy: [0, -8]
+    xy: xy.mountains
   },
 
   // whale &amp; text
@@ -1560,27 +1844,112 @@ p.step.create(
     e: &quot;easeUp&quot;,
     d: s.time.MEDIUM,
 	  u: whaleDuration,
-	  xy: whalePosition,
+	  xy: xy.whale,
   },{
     a: &#39;lefteel&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
     u: whaleDuration,
-	  xy: whalePosition,
+	  xy: xy.whale,
   },{
     a: &#39;righteel&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
     u: whaleDuration,
-    xy: whalePosition,
+    xy: xy.whale,
   },{
     a: &#39;text&#39;, l: &#39;art&#39;,
     e: &#39;easeDown&#39;,
     d: s.time.LONG,
     u: s.time.XLONG,
-  	xy: [230,10]
+  	xy: xy.text
   },
 );
 
-p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" name="Start" tags="" position="1100,100" size="100,100">
+const outOfFrame = -750;
+const exitDuration = 2300;
+
+p.step.create(
+  {
+    a: &#39;bg-tile&#39;, l: &#39;full-art&#39;, p: &quot;effect&quot;,
+    e: jinx.effects.extend(&quot;easeBoth&quot;, {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.tile,
+  },
+	{
+    a: &#39;bg-mtn&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: jinx.effects.extend(&quot;easeBoth&quot;, {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.mountains,
+  },
+{
+    a: &#39;corpse&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: jinx.effects.extend(&quot;easeBoth&quot;, {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+	  u: exitDuration,
+    xy: xy.whale,
+  },{
+    a: &#39;lefteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: jinx.effects.extend(&quot;easeBoth&quot;, {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.whale,
+  },{
+    a: &#39;righteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: jinx.effects.extend(&quot;easeBoth&quot;, {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.whale,
+  },{
+    a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: jinx.effects.extend(&#39;easeBoth&#39;, {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame,0]
+    }),
+    u: exitDuration,
+    xy: xy.text,
+  },
+
+  {
+    a: &quot;credits&quot;, l: &quot;art&quot;,
+    e: &quot;easeUp&quot;,
+    d: exitDuration/2,
+    u: s.time.LONG,
+  },
+  {
+    s: &quot;after&quot;,
+    code: function() {
+      jinx.wand.away();
+      $(document).one(&quot;restart-story&quot;, function(){
+        $(document).trigger(&quot;panel-clicked&quot;, p)
+      });
+    }
+  }
+)
+
+p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" name="CREDITS" tags="" position="1100,100" size="100,100">
+&lt;h1&gt;CONDEMNED to the DEPTHS&lt;/h1&gt;
+
+&lt;a id=&quot;restart-story&quot; href=&quot;javascript:void(0)&quot;&gt;Play Again&lt;/a&gt;
+
+&lt;p&gt;Written and drawn for Twine by Derek Timm-Brock with the Jinx engine. Released November 2019.&lt;/p&gt;
+
+&lt;p&gt;Thanks to the patrons of Wizard Town for making this comic possible&lt;/p&gt;
+
+&lt;p&gt;PATRONS&lt;/p&gt;
+
+&lt;a href=&quot;http://www.patreon.com/wizardtown&quot;&gt;Support Wizard Town&lt;/a&gt;
+&lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;</tw-passagedata><tw-passagedata pid="10" name="Start" tags="" position="1225,100" size="100,100">
 &lt;%
   /*$(function(){
 	  var sealayers = story.passage(&#39;sealayers&#39;).source;
@@ -1589,7 +1958,7 @@ p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" 
   );*/
 %&gt;
 
-[[start-&gt;1A]]</tw-passagedata><tw-passagedata pid="10" name="sealayers" tags="not-panel" position="1225,100" size="100,100">
+[[start-&gt;1A]]</tw-passagedata><tw-passagedata pid="11" name="sealayers" tags="not-panel" position="100,225" size="100,100">
 &lt;div class=&quot;sealayer-wrapper&quot;&gt;
   &lt;div class=&quot;sealayers&quot;&gt;
 	&lt;div class =&quot;skylayer&quot;&gt;&lt;/div&gt;
@@ -1598,7 +1967,7 @@ p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" 
 		&lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
 	&lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="1A-old" tags="panel" position="100,225" size="100,100">// CONDEMNED TO THE DEPTHS
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="1A-old" tags="panel" position="225,225" size="100,100">// CONDEMNED TO THE DEPTHS
 
 p.art.path(&#39;ASSETS/1A/&#39;);
 
@@ -1621,7 +1990,7 @@ p.step.create(
 	u: 2500, p: &#39;remove&#39;}
 );
 
-p.destination.main = &quot;[[1B-old]]&quot;;</tw-passagedata><tw-passagedata pid="12" name="1B-old" tags="panel" position="225,225" size="100,100">// I CAST THE TRASH OF MY MEAL INTO THE OCEAN
+p.destination.main = &quot;[[1B-old]]&quot;;</tw-passagedata><tw-passagedata pid="13" name="1B-old" tags="panel" position="350,225" size="100,100">// I CAST THE TRASH OF MY MEAL INTO THE OCEAN
 
 p.art.path(&#39;ASSETS/1B/&#39;);
 
@@ -1663,7 +2032,7 @@ p.step.create(
 	}
 );
 
-p.destination.main = &quot;[[1C-old]]&quot;;</tw-passagedata><tw-passagedata pid="13" name="1C-old" tags="panel" position="350,225" size="100,100">// I FIND I NOW TRUST ONLY THAT WHICH THE SEA HAS TAKEN TO BE TRULY GONE
+p.destination.main = &quot;[[1C-old]]&quot;;</tw-passagedata><tw-passagedata pid="14" name="1C-old" tags="panel" position="475,225" size="100,100">// I FIND I NOW TRUST ONLY THAT WHICH THE SEA HAS TAKEN TO BE TRULY GONE
 
 p.art.path(&#39;ASSETS/1C/&#39;);
 
@@ -1698,7 +2067,7 @@ p.step.create(
 	}
 );
 
-p.destination.main = &quot;[[1D-old]]&quot;;</tw-passagedata><tw-passagedata pid="14" name="1D-old" tags="panel" position="475,225" size="100,100">// TOO MANY THINGS BOURNE BY LAND AND AIR HAVE THOUGH I BELIEVED THEM GONE INVARIABLY RETURNED TO HAUNT ME—
+p.destination.main = &quot;[[1D-old]]&quot;;</tw-passagedata><tw-passagedata pid="15" name="1D-old" tags="panel" position="600,225" size="100,100">// TOO MANY THINGS BOURNE BY LAND AND AIR HAVE THOUGH I BELIEVED THEM GONE INVARIABLY RETURNED TO HAUNT ME—
 
 p.art.path(&#39;ASSETS/1D/&#39;);
 
@@ -1748,7 +2117,7 @@ p.step.create(
 	  d: 50, u: 800}
 );
 
-p.destination.main = &quot;[[2A-old]]&quot;;</tw-passagedata><tw-passagedata pid="15" name="2A-old" tags="panel" position="600,225" size="100,100">// 2A MY DEBTS
+p.destination.main = &quot;[[2A-old]]&quot;;</tw-passagedata><tw-passagedata pid="16" name="2A-old" tags="panel" position="725,225" size="100,100">// 2A MY DEBTS
 
 p.art.path(&#39;ASSETS/2A/&#39;);
 
@@ -1798,7 +2167,7 @@ p.step.create(
 	  d: 50, u: 800}
 );
 
-p.destination.main = &quot;[[2B-old]]&quot;;</tw-passagedata><tw-passagedata pid="16" name="2B-old" tags="panel" position="725,225" size="100,100">// PAST LOVES WHO LEARNED AT LAST TO SHUN MY AFFECTIONS
+p.destination.main = &quot;[[2B-old]]&quot;;</tw-passagedata><tw-passagedata pid="17" name="2B-old" tags="panel" position="850,225" size="100,100">// PAST LOVES WHO LEARNED AT LAST TO SHUN MY AFFECTIONS
 
 p.art.path(&#39;ASSETS/2B/&#39;);
 
@@ -1842,7 +2211,7 @@ p.step.create(
 	s.autoAdvance(p)
 );
 
-p.destination.main = &quot;[[2C-old]]&quot;;</tw-passagedata><tw-passagedata pid="17" name="2C-old" tags="panel" position="850,225" size="100,100">// THE LONG EYE OF THE LAW AND THE ARM THAT FOLLOWS...
+p.destination.main = &quot;[[2C-old]]&quot;;</tw-passagedata><tw-passagedata pid="18" name="2C-old" tags="panel" position="975,225" size="100,100">// THE LONG EYE OF THE LAW AND THE ARM THAT FOLLOWS...
 
 p.art.path(&#39;ASSETS/2C/&#39;);
 
@@ -1874,7 +2243,7 @@ p.step.create(
 	s.autoAdvance(p)
 );
 
-p.destination.main = &quot;[[2D-old]]&quot;;</tw-passagedata><tw-passagedata pid="18" name="2D-old" tags="panel" position="975,225" size="100,100">// WOULD THAT MY MEMORIES COULD BE CAST INTO THE COLD EMBRACE OF THE DEEP
+p.destination.main = &quot;[[2D-old]]&quot;;</tw-passagedata><tw-passagedata pid="19" name="2D-old" tags="panel" position="1100,225" size="100,100">// WOULD THAT MY MEMORIES COULD BE CAST INTO THE COLD EMBRACE OF THE DEEP
 
 p.art.path(&#39;ASSETS/2D/&#39;);
 
