@@ -42,6 +42,12 @@ jinx.effects.create('easeBoth', {
   easing: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
 })
 
+jinx.effects.create("fadeAway", {
+  fromOpacity: 1,
+  opacity: 0,
+  easing: function (t) { return t*t*t },
+});
+
 //
 
 jinx.effects.extend('fadeIn', 'fadeInTrash', {

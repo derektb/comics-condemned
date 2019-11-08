@@ -4,7 +4,12 @@
 p.art.path('ASSETS/1B/');
 
 p.art.assets(
-  ["boat", "boat.png"],
+  {
+    name: "boat",
+    classNames: ["anim-float-down-1"],
+    type: "asset",
+    src: "boat.png"
+  },
   ["text", "text.png"],
   // TRASH
   {
@@ -37,40 +42,59 @@ const xy = {
 };
 
 p.step.create(
+  // sealayers
+  enterSealayer("red-clouds"),
+  enterSealayer("pink-clouds"),
+  enterSealayer("white-sea"),
+  enterSealayer("pink-sea"),
+  //boat
 	{
     a: 'boat', l: 'art',
-    e: 'easeUp',
+    e: 'easeLeft',
+    d: 2500,
     u: s.time.XLONG,
     xy: xy.boat
 	},
   // TRASH
   {
     a: 'bag', l: 'art',
-  	e: 'fadeInTrash',
+  	e: jinx.effects.extend('fadeIn', {
+      fromPosition: [30, 50, 0],
+    	position: [0,0,0]
+    }),
     d: s.time.LONG,
-    u: s.time.SHORT,
+    u: s.time.SHORT+130,
     xy: xy.bag
 	},
   {
     a: 'canA', l: 'art',
-  	e: 'fadeInTrash',
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
+  	e: jinx.effects.extend('fadeIn', {
+      fromPosition: [36, 43, 0],
+    	position: [0,0,0]
+    }),
+    d: 100,
+    u: s.time.SHORT+160,
     xy: xy.canA
 	},
   {
-    a: 'canB', l: 'art',
-  	e: 'fadeInTrash',
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
-    xy: xy.canB
+    a: 'milk', l: 'art',
+  	e: jinx.effects.extend('fadeIn', {
+      fromPosition: [43, 36, 0],
+    	position: [0,0,0]
+    }),
+    d: 140,
+    u: s.time.SHORT+190,
+    xy: xy.milk
 	},
   {
-    a: 'milk', l: 'art',
-  	e: 'fadeInTrash',
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
-    xy: xy.milk
+    a: 'canB', l: 'art',
+  	e: jinx.effects.extend('fadeIn', {
+      fromPosition: [50, 30, 0],
+    	position: [0,0,0]
+    }),
+    d: 180,
+    u: s.time.SHORT+220,
+    xy: xy.canB
 	},
   // TEXT
 	{
@@ -84,6 +108,10 @@ p.step.create(
 
 p.step.transition(
 	s.autoAdvance(p),
+  exitSealayer("pink-sea"),
+  exitSealayer("white-sea"),
+  exitSealayer("pink-clouds"),
+  exitSealayer("red-clouds"),
 	{
     a: 'boat', l: 'art', p: 'remove',
     e: "easeOutUp",

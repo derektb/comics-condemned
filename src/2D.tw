@@ -34,6 +34,7 @@ p.art.assets(
   {
     name: "credits",
     type: "text",
+    classNames: ["credits"],
     text: story.render("CREDITS"),
   }
 );
@@ -72,7 +73,6 @@ p.step.create(
 	{
     a: 'bg-tile', l: 'full-art',
     e: "easeUp",
-    d: s.time.MEDIUM,
     u: s.time.XLONG,
     xy: xy.tile
   },
@@ -117,7 +117,7 @@ p.step.create(
     a: 'bg-tile', l: 'full-art', p: "effect",
     e: jinx.effects.extend("easeBoth", {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame+50,0]
     }),
     u: exitDuration,
     xy: xy.tile,
@@ -126,12 +126,12 @@ p.step.create(
     a: 'bg-mtn', l: 'art', p: "effect",
     e: jinx.effects.extend("easeBoth", {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame+50,0]
     }),
     u: exitDuration,
     xy: xy.mountains,
   },
-{
+  {
     a: 'corpse', l: 'art', p: "effect",
     e: jinx.effects.extend("easeBoth", {
       fromPosition: [0,0,0],
@@ -139,7 +139,8 @@ p.step.create(
     }),
 	  u: exitDuration,
     xy: xy.whale,
-  },{
+  },
+  {
     a: 'lefteel', l: 'art', p: "effect",
     e: jinx.effects.extend("easeBoth", {
       fromPosition: [0,0,0],
@@ -147,7 +148,8 @@ p.step.create(
     }),
     u: exitDuration,
     xy: xy.whale,
-  },{
+  },
+  {
     a: 'righteel', l: 'art', p: "effect",
     e: jinx.effects.extend("easeBoth", {
       fromPosition: [0,0,0],
@@ -155,11 +157,12 @@ p.step.create(
     }),
     u: exitDuration,
     xy: xy.whale,
-  },{
+  },
+  {
     a: 'text', l: 'art', p: "effect",
     e: jinx.effects.extend('easeBoth', {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame-50,0]
     }),
     u: exitDuration,
     xy: xy.text,
@@ -175,11 +178,52 @@ p.step.create(
     s: "after",
     code: function() {
       jinx.wand.away();
-      $(document).one("restart-story", function(){
+      $(document).one("click", "#restart-story", function(){
         $(document).trigger("panel-clicked", p)
       });
     }
   }
 )
+
+p.step.transition(
+	s.autoAdvance(p),
+  {
+    a: 'corpse', l: 'art', p: "effect",
+    e: "fadeAway",
+    u: s.time.MEDIUM,
+  },
+  {
+    a: 'lefteel', l: 'art', p: "effect",
+    e: "fadeAway",
+    u: s.time.MEDIUM,
+  },
+  {
+    a: 'righteel', l: 'art', p: "effect",
+    e: "fadeAway",
+    u: s.time.MEDIUM,
+  },
+  {
+    a: 'bg-tile', l: 'full-art', p: "effect",
+    e: "fadeAway",
+    u: s.time.MEDIUM,
+    d: s.time.SHORT,
+  },
+	{
+    a: 'bg-mtn', l: 'art', p: "effect",
+    e: "fadeAway",
+    u: s.time.MEDIUM,
+  },
+  {
+    a: 'text', l: 'art', p: "effect",
+    e: "fadeAway",
+    u: s.time.MEDIUM,
+  },
+  {
+    a: 'credits', l: 'art', p: "effect",
+    e: "fadeAway",
+    u: s.time.MEDIUM,
+    d: s.time.SHORT
+  }
+);
 
 p.destination.main = "[[1A]]"

@@ -1,0 +1,25 @@
+:: Start [panel]
+
+// setup sealayers
+let sealayers = story.render('SEALAYERS');
+$(sealayers).insertBefore('#passages');
+
+p.art.assets(
+  {
+    name: "text",
+    type: "text",
+    text: "setup step",
+    size: [100,50]
+  }
+)
+
+p.art.layers("art")
+
+p.step.create(
+  {
+    a: "text", l: "art",
+    xy: [500,200]
+  }
+)
+
+p.destination.main = "[[1A]]"

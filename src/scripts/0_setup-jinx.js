@@ -24,4 +24,43 @@ window.story.state.time = {
 // HACK: start preloading the big fish gif:
 const fishGif = new Image();
 fishGif.src = ('ASSETS/2A/animated-fishes-10.gif');
-window.story.preloadedImages = [fishGif];
+
+window.story.preloadedImages = [
+  fishGif
+];
+
+window.enterSealayer = function (which, delay) {
+  const layer = document.getElementById(which);
+  return {
+    code: ()=> {
+      layer.classList.remove("used")
+      layer.classList.add("active")
+    },
+    s: "after",
+    d: delay || 0
+  };
+}
+
+window.exitSealayer = function(which, delay) {
+  const layer = document.getElementById(which);
+  return {
+    code: ()=> {
+      layer.classList.remove("active");
+      layer.classList.add("used")
+    },
+    s: "after",
+    d: delay || 0
+  };
+}
+
+window.resetSealayer = function(which, delay) {
+  const layer = document.getElementById(which);
+  return {
+    code: ()=> {
+      layer.classList.remove("used");
+      layer.classList.remove("active");
+    },
+    s: "after",
+    d: delay || 0
+  };
+}

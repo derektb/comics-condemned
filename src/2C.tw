@@ -78,7 +78,7 @@ p.step.create(
   {
     a: 'whale', l: 'art',
     e: 'easeRight',
-    u: s.time.XLONG,
+    u: 5000,
     xy: xy.whale
   },
 
@@ -146,7 +146,74 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p)
+	s.autoAdvance(p),
+  {
+    a: 'whale', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    u: 2200,
+    xy: xy.whale
+  },
+  {
+    a: 'chixleg', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.chixleg
+  },
+  {
+    a: 'crust1', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust1
+  },
+  {
+    a: 'text', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.text
+  },
+  {
+    a: 'crust2', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust2
+  },
+  {
+    a: 'fish1', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.fish1
+  },
+  {
+    a: 'bubs', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
+  {
+    a: 'bag-bubs-a', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    u: s.time.MEDIUM, s: 'with',
+    xy: xy.bag
+  },
+  {
+    a: 'bag-bubs-b', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    u: s.time.MEDIUM, s: 'with',
+    xy: xy.bag
+  },
+  {
+    a: 'bag', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bag
+  },
 );
 
 p.destination.main = "[[2D]]";

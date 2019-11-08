@@ -11,7 +11,7 @@ Condemned to the Depths
 
 <div id="passages"></div>
 
-<!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="10" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-35" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "_css_animations.css" */
+<!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="11" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-35" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "_css_animations.css" */
 /* special assets */
 
 .asset.looping-fishes {
@@ -305,6 +305,26 @@ Condemned to the Depths
   0%, 100% { top: 0; }
   50% { top: -7px; }
 }
+
+@-webkit-keyframes translate-background--waves {
+  0% { background-position-x: 0 }
+  100%  { background-position-x: 449px; }
+}
+
+@-moz-keyframes translate-background--waves {
+  0% { background-position-x: 0 }
+  100% { background-position-x: 449px; }
+}
+
+@-o-keyframes translate-background--waves {
+  0% { background-position-x: 0 }
+  100% { background-position-x: 449px; }
+}
+
+@keyframes translate-background--waves {
+  0% { background-position-x: 0 }
+  100% { background-position-x: 449px; }
+}
 /* twine-user-stylesheet #3: "_css_main.css" */
 html, body, #passages {
 	margin: 0;
@@ -364,65 +384,6 @@ body {
 	background-repeat-y: no-repeat;
 }
 
-/********** sealayer setup **********/
-
-.sealayers {
-	position: relative;
-	width: 100%;
-	height: auto;
-
-	transition: top 3s cubic-bezier(.2,0,0,1);
-}
-
-.sealayer-wrapper {
-	position: absolute;
-	z-index: -1;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	overflow: hidden;
-}
-
-.sealayer {
-	position: absolute;
-	display: flex;
-	flex-flow: column nowrap;
-
-	height: calc(80vh + 50px);
-	width: 100%;
-}
-
-.sealayers .skylayer {
-	height: calc(130vh + 96px + 50px);
-	background-color: white;
-}
-
-.sealayers .sealayer.layer-1 {
-	top: calc(130vh + 96px);
-}
-
-.sealayer.layer-1 .top {
-	opacity: 0;
-}
-
-.sealayer.layer-1 {
-	height: calc(120vh + 50px);
-}
-
-.sealayer .top {
-	flex: 0 0 auto;
-	width: 100%;
-	height: 50px;
-}
-
-.sealayer .body {
-	flex: 1 1 auto;
-	width: 100%;
-	height: 100%;
-	background-position-y: 7px;
-}
-
 /* wand */
 
 .wand {
@@ -439,25 +400,6 @@ body {
 	/*box-shadow: 0 8px #f08;*/
 }
 
-/* test shit */
-
-body[currentpassage="1A"],
-body[currentpassage="1B"],
-body[currentpassage="1C"],
-body[currentpassage="1D"] {
-	color: black;
-	text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white;
-}
-
-body[currentpassage="2A"],
-body[currentpassage="2B"],
-body[currentpassage="2C"],
-body[currentpassage="2C+"],
-body[currentpassage="2D"] {
-	color: white;
-	text-shadow: 0 0 5px black, 0 0 5px black, 0 0 5px black;
-}
-
 .layer.full-art .asset {
 	width: 100%;
 	height: 400px;
@@ -471,6 +413,170 @@ body[currentpassage="2D"] {
 
 .art-bottom, .full-art-bottom {
 	top: calc(50vh - 200px);
+}
+
+
+
+.credits {
+  color: white;
+  background: rgba(0,0,0,0.8);
+  border-radius: 20px;
+  padding: 1em;
+  width: 30em;
+}
+
+.credits a {
+  color: rgba(255,0,66);
+}
+/* twine-user-stylesheet #4: "_css_sealayers.css" */
+/********** sealayer setup **********/
+
+#sealayers {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+
+.sealayer {
+	position: absolute;
+  display: flex; /* to position head and body */
+  flex-flow: column nowrap;
+  top: 100vh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Defaults */
+.sealayer.active {
+  transition: top 4s cubic-bezier(0.215, 0.61, 0.355, 1); /* cubic ease out */
+}
+.sealayer.used {
+  transition: top 2s cubic-bezier(0.55, 0.055, 0.675, 0.19); /* cubic ease in */
+}
+
+.sealayer .head {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.sealayer .body {
+  flex: 1 1 auto;
+}
+
+/* animation */
+
+.sealayer#red-clouds.active {
+  top: -170px;
+}
+
+.sealayer#pink-clouds {
+  /* parallax */
+  top: calc(100vh + 400px);
+}
+.sealayer#pink-clouds.active {
+  top: calc(50vh - 340px);
+}
+
+.sealayer#white-sea {
+  /* parallax */
+  top: calc(100vh + 800px);
+}
+.sealayer#white-sea.active {
+  top: calc(50vh + 65px);
+}
+
+.sealayer#pink-sea {
+  /* parallax */
+  top: calc(100vh + 1200px);
+}
+.sealayer#pink-sea.active {
+  top: calc(50vh + 300px);
+}
+
+.sealayer#red-sea.active,
+.sealayer#deep-sea.active {
+  top: calc(100vh - 75px);
+}
+
+.sealayer#red-clouds.used {
+  top: -400px;
+}
+
+.sealayer#pink-clouds.used {
+  top: -600px;
+}
+
+.sealayer#white-sea.used {
+  top: -800px;
+}
+
+.sealayer#pink-sea.used {
+  top: -1000px;
+}
+
+.sealayer#red-sea.used,
+.sealayer#deep-sea.used {
+  top: -50px;
+}
+
+
+/* head images */
+
+.sealayer#red-clouds .head {
+  background-image: url("ASSETS/sealayers/red-clouds.png");
+  height: 306px;
+}
+
+.sealayer#pink-clouds .head {
+  background-image: url("ASSETS/sealayers/pink-clouds.png");
+  height: 306px;
+}
+
+.sealayer#white-sea .head {
+  background-image: url("ASSETS/sealayers/white-sea.png");
+  background-position-x: left;
+  animation: translate-background--waves linear 40s infinite;
+  height: 50px;
+}
+
+.sealayer#pink-sea .head {
+  background-image: url("ASSETS/sealayers/pink-sea.png");
+  background-position-x: left;
+  animation: translate-background--waves linear 20s infinite;
+  height: 50px;
+}
+
+.sealayer#red-sea .head {
+
+}
+
+.sealayer#deep-sea .head {
+
+}
+
+/* body colors */
+
+.sealayer#white-sea .body {
+  background-color: #ffffff;
+}
+
+.sealayer#pink-clouds .body,
+.sealayer#pink-sea .body {
+  background-color: rgba(255,144,125)
+}
+
+.sealayer#red-clouds .body,
+.sealayer#red-sea .body {
+  background-color: rgba(255,0,66)
+}
+
+.sealayer#deep-sea .body {
+  background-color: rgba(163,0,61)
 }
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "0-1_setup-effects.js" */
 jinx.effects.create("none", {
@@ -516,6 +622,12 @@ jinx.effects.extend('easeDown', 'easeDownTitle', {
 jinx.effects.create('easeBoth', {
   easing: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
 })
+
+jinx.effects.create("fadeAway", {
+  fromOpacity: 1,
+  opacity: 0,
+  easing: function (t) { return t*t*t },
+});
 
 //
 
@@ -564,7 +676,46 @@ window.story.state.time = {
 // HACK: start preloading the big fish gif:
 const fishGif = new Image();
 fishGif.src = ('ASSETS/2A/animated-fishes-10.gif');
-window.story.preloadedImages = [fishGif];
+
+window.story.preloadedImages = [
+  fishGif
+];
+
+window.enterSealayer = function (which, delay) {
+  const layer = document.getElementById(which);
+  return {
+    code: ()=> {
+      layer.classList.remove("used")
+      layer.classList.add("active")
+    },
+    s: "after",
+    d: delay || 0
+  };
+}
+
+window.exitSealayer = function(which, delay) {
+  const layer = document.getElementById(which);
+  return {
+    code: ()=> {
+      layer.classList.remove("active");
+      layer.classList.add("used")
+    },
+    s: "after",
+    d: delay || 0
+  };
+}
+
+window.resetSealayer = function(which, delay) {
+  const layer = document.getElementById(which);
+  return {
+    code: ()=> {
+      layer.classList.remove("used");
+      layer.classList.remove("active");
+    },
+    s: "after",
+    d: delay || 0
+  };
+}
 /* twine-user-script #4: "1_setupCode.js" */
 /* sealayers positioning style generation */
 
@@ -679,6 +830,12 @@ p.step.create(
       createTitleBubbles();
     }
   },
+  resetSealayer(&quot;red-clouds&quot;),
+  resetSealayer(&quot;pink-clouds&quot;),
+  resetSealayer(&quot;white-sea&quot;),
+  resetSealayer(&quot;pink-sea&quot;),
+  resetSealayer(&quot;red-sea&quot;),
+  resetSealayer(&quot;deep-sea&quot;),
   {
     a: &#39;title&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
@@ -724,7 +881,12 @@ p.destination.main = &quot;[[1B]]&quot;;</tw-passagedata><tw-passagedata pid="2"
 p.art.path(&#39;ASSETS/1B/&#39;);
 
 p.art.assets(
-  [&quot;boat&quot;, &quot;boat.png&quot;],
+  {
+    name: &quot;boat&quot;,
+    classNames: [&quot;anim-float-down-1&quot;],
+    type: &quot;asset&quot;,
+    src: &quot;boat.png&quot;
+  },
   [&quot;text&quot;, &quot;text.png&quot;],
   // TRASH
   {
@@ -757,40 +919,59 @@ const xy = {
 };
 
 p.step.create(
+  // sealayers
+  enterSealayer(&quot;red-clouds&quot;),
+  enterSealayer(&quot;pink-clouds&quot;),
+  enterSealayer(&quot;white-sea&quot;),
+  enterSealayer(&quot;pink-sea&quot;),
+  //boat
 	{
     a: &#39;boat&#39;, l: &#39;art&#39;,
-    e: &#39;easeUp&#39;,
+    e: &#39;easeLeft&#39;,
+    d: 2500,
     u: s.time.XLONG,
     xy: xy.boat
 	},
   // TRASH
   {
     a: &#39;bag&#39;, l: &#39;art&#39;,
-  	e: &#39;fadeInTrash&#39;,
+  	e: jinx.effects.extend(&#39;fadeIn&#39;, {
+      fromPosition: [30, 50, 0],
+    	position: [0,0,0]
+    }),
     d: s.time.LONG,
-    u: s.time.SHORT,
+    u: s.time.SHORT+130,
     xy: xy.bag
 	},
   {
     a: &#39;canA&#39;, l: &#39;art&#39;,
-  	e: &#39;fadeInTrash&#39;,
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
+  	e: jinx.effects.extend(&#39;fadeIn&#39;, {
+      fromPosition: [36, 43, 0],
+    	position: [0,0,0]
+    }),
+    d: 100,
+    u: s.time.SHORT+160,
     xy: xy.canA
 	},
   {
-    a: &#39;canB&#39;, l: &#39;art&#39;,
-  	e: &#39;fadeInTrash&#39;,
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
-    xy: xy.canB
+    a: &#39;milk&#39;, l: &#39;art&#39;,
+  	e: jinx.effects.extend(&#39;fadeIn&#39;, {
+      fromPosition: [43, 36, 0],
+    	position: [0,0,0]
+    }),
+    d: 140,
+    u: s.time.SHORT+190,
+    xy: xy.milk
 	},
   {
-    a: &#39;milk&#39;, l: &#39;art&#39;,
-  	e: &#39;fadeInTrash&#39;,
-    d: s.time.XSHORT,
-    u: s.time.SHORT,
-    xy: xy.milk
+    a: &#39;canB&#39;, l: &#39;art&#39;,
+  	e: jinx.effects.extend(&#39;fadeIn&#39;, {
+      fromPosition: [50, 30, 0],
+    	position: [0,0,0]
+    }),
+    d: 180,
+    u: s.time.SHORT+220,
+    xy: xy.canB
 	},
   // TEXT
 	{
@@ -804,6 +985,10 @@ p.step.create(
 
 p.step.transition(
 	s.autoAdvance(p),
+  exitSealayer(&quot;pink-sea&quot;),
+  exitSealayer(&quot;white-sea&quot;),
+  exitSealayer(&quot;pink-clouds&quot;),
+  exitSealayer(&quot;red-clouds&quot;),
 	{
     a: &#39;boat&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
@@ -942,6 +1127,7 @@ p.step.create(
     u: s.time.SHORT,
     xy: xy.milk
 	},
+  enterSealayer(&quot;red-sea&quot;),
   // TEXT
 	{
     a: &#39;text&#39;, l: &#39;art&#39;,
@@ -950,11 +1136,12 @@ p.step.create(
     d: s.time.MEDIUM,
     u: s.time.XLONG,
     xy: xy.text
-	}
+	},
 );
 
 p.step.transition(
 	s.autoAdvance(p),
+  exitSealayer(&quot;red-sea&quot;),
 	{
     a: &#39;milk&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
@@ -1002,7 +1189,7 @@ p.step.transition(
 	  d: s.time.XXSHORT,
     u: s.time.MEDIUM,
     xy: xy.text
-	}
+	},
 );
 
 p.destination.main = &quot;[[1D]]&quot;;</tw-passagedata><tw-passagedata pid="4" name="1D" tags="panel" position="475,100" size="100,100">// TOO MANY THINGS BOURNE BY LAND AND AIR HAVE THOUGH I BELIEVED THEM GONE INVARIABLY RETURNED TO HAUNT ME—
@@ -1315,6 +1502,7 @@ p.step.create(
 
   // FISH &amp; TEXT
 
+  enterSealayer(&quot;deep-sea&quot;),
 	{
     a: &#39;fishes&#39;, l: &#39;full-art&#39;,
     e: &#39;easeUp&#39;,
@@ -1328,7 +1516,7 @@ p.step.create(
     d: s.time.MEDIUM,
     u: s.time.XLONG,
     xy: xy.text
-	}
+	},
 );
 
 p.step.transition(
@@ -1394,7 +1582,8 @@ p.step.transition(
 	  d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.fishes
-	}
+	},
+  exitSealayer(&quot;deep-sea&quot;),
 );
 
 p.destination.main = &quot;[[2B]]&quot;;</tw-passagedata><tw-passagedata pid="6" name="2B" tags="panel" position="725,100" size="100,100">// PAST LOVES WHO LEARNED AT LAST TO SHUN MY AFFECTIONS
@@ -1601,7 +1790,100 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p)
+	s.autoAdvance(p),
+  // TRASH
+  {
+    a: &#39;crust&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.crust
+  },
+  {
+    a: &#39;cheese&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+  	xy: xy.cheese
+  },
+  {
+    a: &#39;orangepeel&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+  	xy: xy.orangepeel
+  },
+  {
+    a: &#39;banana&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.banana
+  },
+  {
+    a: &#39;bag&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.bag
+  },
+  // FISH &amp; TEXT
+  // outlines
+  {
+    a: &#39;downfish-white&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },{
+    a: &#39;shark-white&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;, s: &#39;with&#39;,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },{
+    a: &#39;upfish-white&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;, s: &#39;with&#39;,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },
+  {
+    a: &#39;downfish&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },{
+    a: &#39;shark&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;, s: &#39;with&#39;,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },{
+    a: &#39;upfish&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;, s: &#39;with&#39;,
+    u: s.time.XLONG,
+    xy: xy.shark
+  },
+
+	{
+    a: &#39;barracuda#1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.XSHORT,
+    u: s.time.XLONG,
+    xy: xy.barracuda1
+  },{
+    a: &#39;barracuda#2&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.barracuda2
+  },
+
+	{
+    a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.MEDIUM,
+    u: s.time.XLONG,
+  	xy: xy.text
+  }
 );
 
 p.destination.main = &quot;[[2C]]&quot;;</tw-passagedata><tw-passagedata pid="7" name="2C" tags="panel" position="850,100" size="100,100">// THE LONG EYE OF THE LAW AND THE ARM THAT FOLLOWS...
@@ -1683,7 +1965,7 @@ p.step.create(
   {
     a: &#39;whale&#39;, l: &#39;art&#39;,
     e: &#39;easeRight&#39;,
-    u: s.time.XLONG,
+    u: 5000,
     xy: xy.whale
   },
 
@@ -1751,7 +2033,74 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p)
+	s.autoAdvance(p),
+  {
+    a: &#39;whale&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    u: 2200,
+    xy: xy.whale
+  },
+  {
+    a: &#39;chixleg&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.chixleg
+  },
+  {
+    a: &#39;crust1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust1
+  },
+  {
+    a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.text
+  },
+  {
+    a: &#39;crust2&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust2
+  },
+  {
+    a: &#39;fish1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.fish1
+  },
+  {
+    a: &#39;bubs&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
+  {
+    a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    u: s.time.MEDIUM, s: &#39;with&#39;,
+    xy: xy.bag
+  },
+  {
+    a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    u: s.time.MEDIUM, s: &#39;with&#39;,
+    xy: xy.bag
+  },
+  {
+    a: &#39;bag&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bag
+  },
 );
 
 p.destination.main = &quot;[[2D]]&quot;;</tw-passagedata><tw-passagedata pid="8" name="2D" tags="panel" position="975,100" size="100,100">// WOULD THAT MY MEMORIES COULD BE CAST INTO THE COLD EMBRACE OF THE DEEP
@@ -1789,6 +2138,7 @@ p.art.assets(
   {
     name: &quot;credits&quot;,
     type: &quot;text&quot;,
+    classNames: [&quot;credits&quot;],
     text: story.render(&quot;CREDITS&quot;),
   }
 );
@@ -1827,7 +2177,6 @@ p.step.create(
 	{
     a: &#39;bg-tile&#39;, l: &#39;full-art&#39;,
     e: &quot;easeUp&quot;,
-    d: s.time.MEDIUM,
     u: s.time.XLONG,
     xy: xy.tile
   },
@@ -1872,7 +2221,7 @@ p.step.create(
     a: &#39;bg-tile&#39;, l: &#39;full-art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&quot;easeBoth&quot;, {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame+50,0]
     }),
     u: exitDuration,
     xy: xy.tile,
@@ -1881,12 +2230,12 @@ p.step.create(
     a: &#39;bg-mtn&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&quot;easeBoth&quot;, {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame+50,0]
     }),
     u: exitDuration,
     xy: xy.mountains,
   },
-{
+  {
     a: &#39;corpse&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&quot;easeBoth&quot;, {
       fromPosition: [0,0,0],
@@ -1894,7 +2243,8 @@ p.step.create(
     }),
 	  u: exitDuration,
     xy: xy.whale,
-  },{
+  },
+  {
     a: &#39;lefteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&quot;easeBoth&quot;, {
       fromPosition: [0,0,0],
@@ -1902,7 +2252,8 @@ p.step.create(
     }),
     u: exitDuration,
     xy: xy.whale,
-  },{
+  },
+  {
     a: &#39;righteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&quot;easeBoth&quot;, {
       fromPosition: [0,0,0],
@@ -1910,11 +2261,12 @@ p.step.create(
     }),
     u: exitDuration,
     xy: xy.whale,
-  },{
+  },
+  {
     a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&#39;easeBoth&#39;, {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame-50,0]
     }),
     u: exitDuration,
     xy: xy.text,
@@ -1930,12 +2282,53 @@ p.step.create(
     s: &quot;after&quot;,
     code: function() {
       jinx.wand.away();
-      $(document).one(&quot;restart-story&quot;, function(){
+      $(document).one(&quot;click&quot;, &quot;#restart-story&quot;, function(){
         $(document).trigger(&quot;panel-clicked&quot;, p)
       });
     }
   }
 )
+
+p.step.transition(
+	s.autoAdvance(p),
+  {
+    a: &#39;corpse&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: s.time.MEDIUM,
+  },
+  {
+    a: &#39;lefteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: s.time.MEDIUM,
+  },
+  {
+    a: &#39;righteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: s.time.MEDIUM,
+  },
+  {
+    a: &#39;bg-tile&#39;, l: &#39;full-art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: s.time.MEDIUM,
+    d: s.time.SHORT,
+  },
+	{
+    a: &#39;bg-mtn&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: s.time.MEDIUM,
+  },
+  {
+    a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: s.time.MEDIUM,
+  },
+  {
+    a: &#39;credits&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: s.time.MEDIUM,
+    d: s.time.SHORT
+  }
+);
 
 p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" name="CREDITS" tags="" position="1100,100" size="100,100">
 &lt;h1&gt;CONDEMNED to the DEPTHS&lt;/h1&gt;
@@ -1949,360 +2342,58 @@ p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" 
 &lt;p&gt;PATRONS&lt;/p&gt;
 
 &lt;a href=&quot;http://www.patreon.com/wizardtown&quot;&gt;Support Wizard Town&lt;/a&gt;
-&lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;</tw-passagedata><tw-passagedata pid="10" name="Start" tags="" position="1225,100" size="100,100">
-&lt;%
-  /*$(function(){
-	  var sealayers = story.passage(&#39;sealayers&#39;).source;
-	  $(sealayers).insertBefore(&#39;#passages&#39;);
-	}
-  );*/
-%&gt;
-
-[[start-&gt;1A]]</tw-passagedata><tw-passagedata pid="11" name="sealayers" tags="not-panel" position="100,225" size="100,100">
-&lt;div class=&quot;sealayer-wrapper&quot;&gt;
-  &lt;div class=&quot;sealayers&quot;&gt;
-	&lt;div class =&quot;skylayer&quot;&gt;&lt;/div&gt;
-	&lt;div class=&quot;sealayer layer-1&quot;&gt;
-		&lt;div class=&quot;top&quot;&gt;&lt;/div&gt;
-		&lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
-	&lt;/div&gt;
+&lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;</tw-passagedata><tw-passagedata pid="10" name="SEALAYERS" tags="" position="1225,100" size="100,100">
+&lt;div id=&quot;sealayers&quot;&gt;
+  &lt;div id=&quot;red-clouds&quot; class=&quot;sealayer&quot;&gt;
+    &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="1A-old" tags="panel" position="225,225" size="100,100">// CONDEMNED TO THE DEPTHS
+  &lt;div id=&quot;pink-clouds&quot; class=&quot;sealayer&quot;&gt;
+    &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
 
-p.art.path(&#39;ASSETS/1A/&#39;);
+  &lt;div id=&quot;white-sea&quot; class=&quot;sealayer&quot;&gt;
+    &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;pink-sea&quot; class=&quot;sealayer&quot;&gt;
+    &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
 
-$(&#39;body&#39;).attr(&#39;currentpassage&#39;, &#39;1A&#39;);
-
-p.art.assets(
-  [&quot;title&quot;, &quot;title.png&quot;]
-);
-
-p.art.layers(&#39;art&#39;);
-
-p.step.create(
-	{a: &#39;title&#39;, l: &#39;art&#39;, u: 1500}
-);
-
-p.step.create(
-	s.autoAdvance(p),
-	{a: &#39;title&#39;, l: &#39;art&#39;,
-	e: jinx.effects.extend(&#39;fadeOut&#39;, {position: [0, -200, 0]}),
-	u: 2500, p: &#39;remove&#39;}
-);
-
-p.destination.main = &quot;[[1B-old]]&quot;;</tw-passagedata><tw-passagedata pid="13" name="1B-old" tags="panel" position="350,225" size="100,100">// I CAST THE TRASH OF MY MEAL INTO THE OCEAN
-
-p.art.path(&#39;ASSETS/1B/&#39;);
-
-p.art.assets(
-  [&quot;boat&quot;, &quot;boat.png&quot;],
-  [&quot;trash&quot;, &quot;trash.png&quot;],
-  [&quot;text&quot;, &quot;text.png&quot;]
-);
-
-p.art.layers(&#39;art&#39;);
-
-p.step.create(
-	{a: &#39;boat&#39;, l: &#39;art&#39;, u: 2500, e: &#39;easeUp&#39;,
-	xy: [210,34]
-	},
-	{a: &#39;trash&#39;, l: &#39;art&#39;, u: 2500, d: 800,
-	e: jinx.effects.extend(&#39;fadeIn&#39;,
-	   {fromPosition: [30, 50, 0], position: [0,0,0]}),
-	xy: [227,133]
-	},
-	{a: &#39;text&#39;, l: &#39;art&#39;, u: 2500, e: &#39;easeDown&#39;, d: 1900,
-	xy: [120,40]
-	}
-);
-
-p.step.create(
-	s.autoAdvance(p),
-	{a: &#39;boat&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	u: 800,
-	xy: [210,34]
-	},
-	{a: &#39;trash&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	d: 50, u: 800,
-	xy: [227,133]
-	},
-	{a: &#39;text&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	d: 50, u: 800,
-	xy: [120,40]
-	}
-);
-
-p.destination.main = &quot;[[1C-old]]&quot;;</tw-passagedata><tw-passagedata pid="14" name="1C-old" tags="panel" position="475,225" size="100,100">// I FIND I NOW TRUST ONLY THAT WHICH THE SEA HAS TAKEN TO BE TRULY GONE
-
-p.art.path(&#39;ASSETS/1C/&#39;);
+  &lt;div id=&quot;red-sea&quot; class=&quot;sealayer&quot;&gt;
+    &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;deep-sea&quot; class=&quot;sealayer&quot;&gt;
+    &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Start" tags="panel" position="100,225" size="100,100">
+// setup sealayers
+let sealayers = story.render(&#39;SEALAYERS&#39;);
+$(sealayers).insertBefore(&#39;#passages&#39;);
 
 p.art.assets(
-  [&quot;trash&quot;, &quot;trash.png&quot;],
-  [&quot;text&quot;, &quot;text.png&quot;]
-);
+  {
+    name: &quot;text&quot;,
+    type: &quot;text&quot;,
+    text: &quot;setup step&quot;,
+    size: [100,50]
+  }
+)
 
-p.art.layers(&quot;art&quot;);
-
-p.step.create(
-	{a: &#39;trash&#39;, l: &#39;art&#39;, u: 2500, d: 800,
-	 e: &#39;trash&#39;,
-	 xy: [227,173]
-	},
-	{a: &#39;text&#39;, l: &#39;art&#39;, u: 2500, d: 1900,
-	 e: jinx.effects.extend(&#39;easeDown&#39;,
-	   {fromPosition: [0, -25, 0]}),
-	 xy: [174,63]
-	}
-);
+p.art.layers(&quot;art&quot;)
 
 p.step.create(
-	s.autoAdvance(p),
-	{a: &#39;trash&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	  d: 50, u: 800,
-	 xy: [227,173]
-	},
-	{a: &#39;text&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	  d: 50, u: 800,
-	 xy: [174,63]
-	}
-);
+  {
+    a: &quot;text&quot;, l: &quot;art&quot;,
+    xy: [500,200]
+  }
+)
 
-p.destination.main = &quot;[[1D-old]]&quot;;</tw-passagedata><tw-passagedata pid="15" name="1D-old" tags="panel" position="600,225" size="100,100">// TOO MANY THINGS BOURNE BY LAND AND AIR HAVE THOUGH I BELIEVED THEM GONE INVARIABLY RETURNED TO HAUNT ME—
-
-p.art.path(&#39;ASSETS/1D/&#39;);
-
-p.art.assets(
-  [&quot;trash&quot;, &quot;trash.png&quot;],
-  [&quot;text&quot;, &quot;text.png&quot;],
-  {name: &quot;jellies&quot;,
-   src: &quot;jellies-unshaded.gif&quot;,
-   type: &quot;asset&quot;}
-);
-
-/* jelly css setup */
-
-var jellySrc = p.art.getAsset(&#39;jellies&#39;).getSrc();
-var jellyRule = &quot;.asset[assetname=&#39;jellies&#39;]{background-image:url(&#39;&quot;+jellySrc+&quot;&#39;)}&quot;;
-var jellyStyle = document.createElement(&#39;style&#39;);
-jellyStyle.id = &quot;jelly-styles&quot;
-jellyStyle.textContent += jellyRule;
-$(&#39;body&#39;).append(jellyStyle);
-
-p.art.layers(&quot;full-art&quot;, &quot;art&quot;);
-
-p.step.create(
-	{a: &#39;trash&#39;, l: &#39;art&#39;, u: 2500, d: 400,
-	 e: &#39;trash&#39;,
-	 xy: [240,195]
-	},
-	{a: &#39;jellies&#39;, l: &#39;full-art&#39;, e: &quot;easeUp&quot;, u: 2500, d: 800},
-	{a: &#39;text&#39;, l: &#39;art&#39;, u: 2500, d: 1500,
-	 e: jinx.effects.extend(&#39;easeDown&#39;,
-	   {fromPosition: [0, -25, 0]}),
-	 xy: [395,125]
-	}
-);
-
-p.step.create(
-	s.autoAdvance(p),
-	{a: &#39;text&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	  d: 50, u: 800,
-	 xy: [395,125]
-	},
-	{a: &#39;trash&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	  d: 50, u: 800,
-	 xy: [240,195]
-	},
-	{a: &#39;jellies&#39;, l: &#39;full-art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	  d: 50, u: 800}
-);
-
-p.destination.main = &quot;[[2A-old]]&quot;;</tw-passagedata><tw-passagedata pid="16" name="2A-old" tags="panel" position="725,225" size="100,100">// 2A MY DEBTS
-
-p.art.path(&#39;ASSETS/2A/&#39;);
-
-p.art.assets(
-  [&quot;trash&quot;, &quot;trash.png&quot;],
-  [&quot;text&quot;, &quot;text.png&quot;],
-  {name: &quot;fishes&quot;,
-   src: &quot;fishesShaded.png&quot;,
-   type: &quot;asset&quot;}
-);
-
-/* jelly css setup */
-
-var fishesSrc = p.art.getAsset(&#39;fishes&#39;).getSrc();
-var fishesRule = &quot;.asset[assetname=&#39;fishes&#39;]{background-image:url(&#39;&quot;+fishesSrc+&quot;&#39;)}&quot;;
-var fishesStyle = document.createElement(&#39;style&#39;);
-fishesStyle.id = &quot;fish-styles&quot;
-fishesStyle.textContent += fishesRule;
-$(&#39;body&#39;).append(fishesStyle);
-
-p.art.layers(&quot;full-art&quot;, &quot;art&quot;);
-
-p.step.create(
-	{a: &#39;trash&#39;, l: &#39;art&#39;, u: 2500, d: 400,
-	 e: &#39;trash&#39;,
-	 xy: [240,195]
-	},
-	{a: &#39;fishes&#39;, l: &#39;full-art&#39;, e: &quot;easeUp&quot;, u: 2500, d: 800},
-	{a: &#39;text&#39;, l: &#39;art&#39;, u: 2500, d: 1500,
-	 e: jinx.effects.extend(&#39;easeDown&#39;,
-	   {fromPosition: [0, -25, 0]}),
-	 xy: [395,125]
-	}
-);
-
-p.step.create(
-	s.autoAdvance(p),
-	{a: &#39;text&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	  d: 50, u: 800,
-	 xy: [395,125]
-	},
-	{a: &#39;trash&#39;, l: &#39;art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	  d: 50, u: 800,
-	 xy: [240,195]
-	},
-	{a: &#39;fishes&#39;, l: &#39;full-art&#39;, e: &quot;easeOutUp&quot;, p: &#39;remove&#39;,
-	  d: 50, u: 800}
-);
-
-p.destination.main = &quot;[[2B-old]]&quot;;</tw-passagedata><tw-passagedata pid="17" name="2B-old" tags="panel" position="850,225" size="100,100">// PAST LOVES WHO LEARNED AT LAST TO SHUN MY AFFECTIONS
-
-p.art.path(&#39;ASSETS/2B/&#39;);
-
-p.art.assets(
-  [&quot;trash&quot;, &quot;trash.png&quot;],
-  [&quot;text&quot;, &quot;text.png&quot;],
-
-  [&quot;shark&quot;, &quot;shark-iso.png&quot;],
-  [&quot;barracuda&quot;, &quot;barracuda.png&quot;],
-  [&quot;upfish&quot;, &quot;upfish.png&quot;],
-  [&quot;downfish&quot;, &quot;downfish.png&quot;],
-
-  // HACK todo: asset instantiation
-
-  [&quot;barracuda#1&quot;, &quot;barracuda.png&quot;],
-  [&quot;barracuda#2&quot;, &quot;barracuda.png&quot;]
-);
-
-p.art.layers(&quot;art&quot;);
-
-p.step.create(
-	{a: &#39;trash&#39;, l: &#39;art&#39;, e: &#39;trash&#39;, d: 600, u: 2500,
-	xy: [510, 182]},
-	{a: &#39;downfish&#39;, l: &#39;art&#39;, e: &quot;easeUp&quot;, u: 2500, d: 800,
-	xy: [774,31]},
-	{a: &#39;shark&#39;, l: &#39;art&#39;, e: &quot;easeUp&quot;, u: 2500, s: &#39;with&#39;,
-	xy: [774,31]},
-	{a: &#39;upfish&#39;, l: &#39;art&#39;, e: &quot;easeUp&quot;, u: 2500, s: &#39;with&#39;,
-	xy: [774,31]},
-
-	{a: &#39;barracuda#1&#39;, l: &#39;art&#39;, e: &quot;easeUp&quot;, u: 2500, d: 800,
-	xy: [-391,54]},
-	{a: &#39;barracuda#2&#39;, l: &#39;art&#39;, e: &quot;easeUp&quot;, u: 2500, d: 300,
-	xy: [-225,216]},
-
-	{a: &#39;text&#39;, l: &#39;art&#39;, d: 800, u: 4000, e: &quot;easeDown&quot;,
-	xy: [417, 47]}
-);
-
-p.step.create(
-	s.autoAdvance(p)
-);
-
-p.destination.main = &quot;[[2C-old]]&quot;;</tw-passagedata><tw-passagedata pid="18" name="2C-old" tags="panel" position="975,225" size="100,100">// THE LONG EYE OF THE LAW AND THE ARM THAT FOLLOWS...
-
-p.art.path(&#39;ASSETS/2C/&#39;);
-
-p.art.assets(
-  [&quot;trash&quot;, &quot;trash.png&quot;],
-  [&quot;trash-shadow&quot;, &quot;trash-shadow.png&quot;],
-  [&quot;text&quot;, &quot;text.png&quot;],
-
-  [&#39;behemoth&#39;,&#39;behemoth-color.png&#39;]
-);
-
-p.art.layers(&#39;art&#39;);
-
-p.step.create(
-	{a: &#39;behemoth&#39;, l: &#39;art&#39;, e: &#39;hidden&#39;},
-	{a: &#39;trash-shadow&#39;, l: &#39;art&#39;, e: &#39;hidden&#39;},
-
-	{a: &#39;trash&#39;, l: &#39;art&#39;, e: &#39;trash&#39;, d: 1000, u: 2500,
-	 xy: [499,178]},
-	{a: &#39;behemoth&#39;, l: &#39;art&#39;, u: 4000, d: 1000, e: &#39;easeRight&#39;,
-	 xy: [-499,-95], p: &#39;effect&#39;},
-	{a: &#39;trash-shadow&#39;, l: &#39;art&#39;, e: &#39;trash&#39;, u: 2500,
-	 xy: [461, 202], p: &#39;effect&#39;},
-	{a: &#39;text&#39;, l: &#39;art&#39;, u: 4000, d: 1200, e: &#39;easeDown&#39;,
-	 xy: [755,105]},
-);
-
-p.step.create(
-	s.autoAdvance(p)
-);
-
-p.destination.main = &quot;[[2D-old]]&quot;;</tw-passagedata><tw-passagedata pid="19" name="2D-old" tags="panel" position="1100,225" size="100,100">// WOULD THAT MY MEMORIES COULD BE CAST INTO THE COLD EMBRACE OF THE DEEP
-
-p.art.path(&#39;ASSETS/2D/&#39;);
-
-var whaleDuration = 2500;
-
-p.art.assets(
-  [&quot;trash&quot;, &quot;trash.png&quot;],
-  [&quot;text&quot;, &quot;text.png&quot;],
-
-  {name: &quot;bg-tile&quot;,
-   src: &quot;background tile-bigger.png&quot;,
-   type: &quot;asset&quot;},
-  {name: &quot;bg-mtn&quot;,
-   src: &quot;background mountains.png&quot;,
-   type: &quot;asset&quot;},
-
-  [&quot;corpse&quot;, &quot;corpse-huge.png&quot;],
-  [&quot;lefteel&quot;, &quot;lefteel-huge.png&quot;],
-  [&quot;righteel&quot;, &quot;righteel-huge.png&quot;]
-);
-
-/* css setup */
-
-var bgSrc = p.art.assets[&#39;bg-tile&#39;].getSrc();
-var bgRule = &quot;.asset[assetname=&#39;bg-tile&#39;]{background-image:url(&#39;&quot;+bgSrc+&quot;&#39;); background-position: center;}&quot;;
-
-var mtnSrc = p.art.assets[&#39;bg-mtn&#39;].getSrc();
-var mtnRule = &quot;.asset[assetname=&#39;bg-mtn&#39;]{background-image:url(&#39;&quot;+mtnSrc+&quot;&#39;); background-position: center;}&quot;;
-
-var styleEl = document.createElement(&#39;style&#39;);
-styleEl.id = &quot;mtn-styles&quot;;
-styleEl.textContent += bgRule + mtnRule;
-$(&#39;body&#39;).append(styleEl);
-
-p.art.layers(&quot;full-art&quot;, &quot;art&quot;);
-
-p.step.create(
-	{a: &#39;bg-tile&#39;, l: &#39;full-art&#39;, e: &quot;easeUp&quot;, u: 2500, d: 800,
-	xy: [0, -30]},
-	{a: &#39;bg-mtn&#39;, l: &#39;full-art&#39;, e: &quot;easeUp&quot;, u: 2500,
-	xy: [0, -4]},
-
-	{a: &#39;corpse&#39;, l: &#39;art&#39;, e: jinx.effects.extend(&quot;easeUp&quot;, {fromPosition: [0,15,0]}),
-	u: whaleDuration, d: 800,
-	 xy: [-236,-48]},
-	{a: &#39;lefteel&#39;, l: &#39;art&#39;, e: jinx.effects.extend(&quot;easeUp&quot;, {fromPosition: [0,15,0]}),
-	 u: whaleDuration,
-	 xy: [566,46]},
-	{a: &#39;righteel&#39;, l: &#39;art&#39;, e: jinx.effects.extend(&quot;easeUp&quot;, {fromPosition: [0,15,0]}),
-	 u: whaleDuration,
-	 xy: [1238,-48]},
-
-    {a: &#39;trash&#39;, l: &#39;art&#39;, e: &#39;trash&#39;, u: 5000, d: 1500,
-	 xy: [191,100]},
-	{a: &#39;text&#39;, l: &#39;art&#39;, u: 4000, d: 400, e: &#39;easeDown&#39;,
-	 xy: [25,25]},
-);
-
-p.destination.main = &quot;[[1A-old]]&quot;</tw-passagedata></tw-storydata>
+p.destination.main = &quot;[[1A]]&quot;</tw-passagedata></tw-storydata>
 
 <script>require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 

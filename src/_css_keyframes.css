@@ -136,3 +136,23 @@
   0%, 100% { top: 0; }
   50% { top: -7px; }
 }
+
+@-webkit-keyframes translate-background--waves {
+  0% { background-position-x: 0 }
+  100%  { background-position-x: 449px; }
+}
+
+@-moz-keyframes translate-background--waves {
+  0% { background-position-x: 0 }
+  100% { background-position-x: 449px; }
+}
+
+@-o-keyframes translate-background--waves {
+  0% { background-position-x: 0 }
+  100% { background-position-x: 449px; }
+}
+
+@keyframes translate-background--waves {
+  0% { background-position-x: 0 }
+  100% { background-position-x: 449px; }
+}

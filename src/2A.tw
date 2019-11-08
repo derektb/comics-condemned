@@ -133,6 +133,7 @@ p.step.create(
 
   // FISH & TEXT
 
+  enterSealayer("deep-sea"),
 	{
     a: 'fishes', l: 'full-art',
     e: 'easeUp',
@@ -146,7 +147,7 @@ p.step.create(
     d: s.time.MEDIUM,
     u: s.time.XLONG,
     xy: xy.text
-	}
+	},
 );
 
 p.step.transition(
@@ -212,7 +213,8 @@ p.step.transition(
 	  d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.fishes
-	}
+	},
+  exitSealayer("deep-sea"),
 );
 
 p.destination.main = "[[2B]]";

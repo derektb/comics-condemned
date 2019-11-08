@@ -93,6 +93,7 @@ p.step.create(
     u: s.time.SHORT,
     xy: xy.milk
 	},
+  enterSealayer("red-sea"),
   // TEXT
 	{
     a: 'text', l: 'art',
@@ -101,11 +102,12 @@ p.step.create(
     d: s.time.MEDIUM,
     u: s.time.XLONG,
     xy: xy.text
-	}
+	},
 );
 
 p.step.transition(
 	s.autoAdvance(p),
+  exitSealayer("red-sea"),
 	{
     a: 'milk', l: 'art', p: 'remove',
     e: "easeOutUp",
@@ -153,7 +155,7 @@ p.step.transition(
 	  d: s.time.XXSHORT,
     u: s.time.MEDIUM,
     xy: xy.text
-	}
+	},
 );
 
 p.destination.main = "[[1D]]";

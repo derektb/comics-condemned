@@ -56,65 +56,6 @@ body {
 	background-repeat-y: no-repeat;
 }
 
-/********** sealayer setup **********/
-
-.sealayers {
-	position: relative;
-	width: 100%;
-	height: auto;
-
-	transition: top 3s cubic-bezier(.2,0,0,1);
-}
-
-.sealayer-wrapper {
-	position: absolute;
-	z-index: -1;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	overflow: hidden;
-}
-
-.sealayer {
-	position: absolute;
-	display: flex;
-	flex-flow: column nowrap;
-
-	height: calc(80vh + 50px);
-	width: 100%;
-}
-
-.sealayers .skylayer {
-	height: calc(130vh + 96px + 50px);
-	background-color: white;
-}
-
-.sealayers .sealayer.layer-1 {
-	top: calc(130vh + 96px);
-}
-
-.sealayer.layer-1 .top {
-	opacity: 0;
-}
-
-.sealayer.layer-1 {
-	height: calc(120vh + 50px);
-}
-
-.sealayer .top {
-	flex: 0 0 auto;
-	width: 100%;
-	height: 50px;
-}
-
-.sealayer .body {
-	flex: 1 1 auto;
-	width: 100%;
-	height: 100%;
-	background-position-y: 7px;
-}
-
 /* wand */
 
 .wand {
@@ -131,25 +72,6 @@ body {
 	/*box-shadow: 0 8px #f08;*/
 }
 
-/* test shit */
-
-body[currentpassage="1A"],
-body[currentpassage="1B"],
-body[currentpassage="1C"],
-body[currentpassage="1D"] {
-	color: black;
-	text-shadow: 0 0 5px white, 0 0 5px white, 0 0 5px white;
-}
-
-body[currentpassage="2A"],
-body[currentpassage="2B"],
-body[currentpassage="2C"],
-body[currentpassage="2C+"],
-body[currentpassage="2D"] {
-	color: white;
-	text-shadow: 0 0 5px black, 0 0 5px black, 0 0 5px black;
-}
-
 .layer.full-art .asset {
 	width: 100%;
 	height: 400px;
@@ -163,4 +85,18 @@ body[currentpassage="2D"] {
 
 .art-bottom, .full-art-bottom {
 	top: calc(50vh - 200px);
+}
+
+
+
+.credits {
+  color: white;
+  background: rgba(0,0,0,0.8);
+  border-radius: 20px;
+  padding: 1em;
+  width: 30em;
+}
+
+.credits a {
+  color: rgba(255,0,66);
 }

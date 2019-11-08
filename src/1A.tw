@@ -45,6 +45,12 @@ p.step.create(
       createTitleBubbles();
     }
   },
+  resetSealayer("red-clouds"),
+  resetSealayer("pink-clouds"),
+  resetSealayer("white-sea"),
+  resetSealayer("pink-sea"),
+  resetSealayer("red-sea"),
+  resetSealayer("deep-sea"),
   {
     a: 'title', l: 'art',
     e: "easeUp",

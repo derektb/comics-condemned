@@ -1,0 +1,30 @@
+:: SEALAYERS
+
+<div id="sealayers">
+  <div id="red-clouds" class="sealayer">
+    <div class="head"></div>
+    <div class="body"></div>
+  </div>
+  <div id="pink-clouds" class="sealayer">
+    <div class="head"></div>
+    <div class="body"></div>
+  </div>
+
+  <div id="white-sea" class="sealayer">
+    <div class="head"></div>
+    <div class="body"></div>
+  </div>
+  <div id="pink-sea" class="sealayer">
+    <div class="head"></div>
+    <div class="body"></div>
+  </div>
+
+  <div id="red-sea" class="sealayer">
+    <div class="head"></div>
+    <div class="body"></div>
+  </div>
+  <div id="deep-sea" class="sealayer">
+    <div class="head"></div>
+    <div class="body"></div>
+  </div>
+</div>
