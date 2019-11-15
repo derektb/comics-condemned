@@ -1,0 +1,154 @@
+/* special assets */
+
+.asset.looping-fishes {
+  -webkit-animation: looping-background-fishes 6s infinite steps(60);
+  -moz-animation:    looping-background-fishes 6s infinite steps(60);
+  -o-animation:      looping-background-fishes 6s infinite steps(60);
+  animation:         looping-background-fishes 6s infinite steps(60);
+}
+
+.asset.looping-jellies {
+  -webkit-animation: looping-background-jellies 18s infinite linear;
+  -moz-animation:    looping-background-jellies 18s infinite linear;
+  -o-animation:      looping-background-jellies 18s infinite linear;
+  animation:         looping-background-jellies 18s infinite linear;
+}
+
+/* generic animation classes */
+
+.anim-float-down-1 img,
+.anim-float-down-2 img,
+.anim-float-down-3 img,
+.anim-float-down-4 img {
+  position: relative;
+  -webkit-animation: float-down-small 4s infinite both;
+  -moz-animation: float-down-small 4s infinite both;
+  -o-animation: float-down-small 4s infinite both;
+  animation: float-down-small 4s infinite both;
+}
+
+.anim-float-down-2 img {
+  -webkit-animation-delay: -0.75s;
+  -moz-animation-delay: -0.75s;
+  -o-animation-delay: -0.75s;
+  animation-delay: -0.75s;
+}
+
+.anim-float-down-3 img {
+  -webkit-animation-delay: -1.5s;
+  -moz-animation-delay: -1.5s;
+  -o-animation-delay: -1.5s;
+  animation-delay: -1.5s;
+}
+
+.anim-float-down-4 img {
+  -webkit-animation-delay: -2.25s;
+  -moz-animation-delay: -2.25s;
+  -o-animation-delay: -2.25s;
+  animation-delay: -2.25s;
+}
+
+.anim-float-up-1 img,
+.anim-float-up-2 img,
+.anim-float-up-3 img {
+  position: relative;
+  -webkit-animation: float-up-small 4s infinite both;
+  -moz-animation: float-up-small 4s infinite both;
+  -o-animation: float-up-small 4s infinite both;
+  animation: float-up-small 4s infinite both;
+}
+
+.anim-float-up-2 img {
+  -webkit-animation-delay: -0.75s;
+  -moz-animation-delay: -0.75s;
+  -o-animation-delay: -0.75s;
+  animation-delay: -0.75s;
+}
+
+.anim-float-up-3 img {
+  -webkit-animation-delay: -1.5s;
+  -moz-animation-delay: -1.5s;
+  -o-animation-delay: -1.5s;
+  animation-delay: -1.5s;
+}
+
+.anim-float-up-4 img {
+  -webkit-animation-delay: -2.25s;
+  -moz-animation-delay: -2.25s;
+  -o-animation-delay: -2.25s;
+  animation-delay: -2.25s;
+}
+
+.anim-float-right-1 img,
+.anim-float-right-2 img {
+  position: relative;
+  -webkit-animation: float-right-med 4s infinite both;
+  -moz-animation: float-right-med 4s infinite both;
+  -o-animation: float-right-med 4s infinite both;
+  animation: float-right-med 4s infinite both;
+}
+
+.anim-float-right-2 img {
+  -webkit-animation-delay: -0.75s;
+  -moz-animation-delay: -0.75s;
+  -o-animation-delay: -0.75s;
+  animation-delay: -0.75s;
+}
+
+.anim-float-right-sm-1 img,
+.anim-float-right-sm-2 img {
+  position: relative;
+  -webkit-animation: float-right-sm 4s infinite both;
+  -moz-animation: float-right-sm 4s infinite both;
+  -o-animation: float-right-sm 4s infinite both;
+  animation: float-right-sm 4s infinite both;
+}
+
+.anim-float-right-sm-2 img {
+  -webkit-animation-delay: -0.75s;
+  -moz-animation-delay: -0.75s;
+  -o-animation-delay: -0.75s;
+  animation-delay: -0.75s;
+}
+
+.anim-float-left-1 img,
+.anim-float-left-2 img,
+.anim-float-left-3 img {
+  position: relative;
+  -webkit-animation: float-left-small 4s infinite both;
+  -moz-animation: float-left-small 4s infinite both;
+  -o-animation: float-left-small 4s infinite both;
+  animation: float-left-small 4s infinite both;
+}
+
+.anim-float-left-2 img {
+  -webkit-animation-delay: -0.75s;
+  -moz-animation-delay: -0.75s;
+  -o-animation-delay: -0.75s;
+  animation-delay: -0.75s;
+}
+
+.anim-float-left-3 img {
+  -webkit-animation-delay: -1.5s;
+  -moz-animation-delay: -1.5s;
+  -o-animation-delay: -1.5s;
+  animation-delay: -1.5s;
+}
+
+/* good for notes, but we can deprecate this specific stuff now that
+   classnames can be applied directly to assets */
+
+/* .asset[assetname='behemoth'],
+.asset[assetname='downfish'],
+.asset[assetname='righteel'] {
+  animation: float-down-small 4s infinite both;
+}
+.asset[assetname='upfish'],
+.asset[assetname='lefteel'] {
+  animation: float-up-small 4s infinite both;
+  animation-delay: -1.5s;
+} */
+
+.asset[assetname='trash-shadow'] {
+  animation: float-trash-shadow 4s infinite both;
+}

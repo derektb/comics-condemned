@@ -11,7 +11,7 @@ Condemned to the Depths
 
 <div id="passages"></div>
 
-<!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="11" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-35" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "_css_animations.css" */
+<!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="12" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-35" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "animations.css" */
 /* special assets */
 
 .asset.looping-fishes {
@@ -166,7 +166,24 @@ Condemned to the Depths
 .asset[assetname='trash-shadow'] {
   animation: float-trash-shadow 4s infinite both;
 }
-/* twine-user-stylesheet #2: "_css_keyframes.css" */
+/* twine-user-stylesheet #2: "fish-sprites.css" */
+.fish-sprite-wrapper, .fish-sprite {
+  width: 1200px;
+  height: 447px;
+}
+
+.fish-sprite-wrapper {
+  position: relative;
+}
+
+.fish-sprite {
+  position: absolute;
+  background-image: url("ASSETS/2A/fish-spritesheet.jpg");
+  background-position: 0 0;
+  top: 0;
+  left: 0;
+}
+/* twine-user-stylesheet #3: "keyframes.css" */
 /* jellies */
 
 @-webkit-keyframes looping-background-jellies {
@@ -325,7 +342,7 @@ Condemned to the Depths
   0% { background-position-x: 0 }
   100% { background-position-x: 449px; }
 }
-/* twine-user-stylesheet #3: "_css_main.css" */
+/* twine-user-stylesheet #4: "main.css" */
 html, body, #passages {
 	margin: 0;
 	height: 100%;
@@ -428,7 +445,7 @@ body {
 .credits a {
   color: rgba(255,0,66);
 }
-/* twine-user-stylesheet #4: "_css_sealayers.css" */
+/* twine-user-stylesheet #5: "sealayers.css" */
 /********** sealayer setup **********/
 
 #sealayers {
@@ -499,8 +516,9 @@ body {
 }
 
 .sealayer#red-sea.active,
-.sealayer#deep-sea.active {
-  top: calc(100vh - 75px);
+.sealayer#deep-sea.active,
+.sealayer#black-sea.active {
+  top: calc(100vh - 115px);
 }
 
 .sealayer#red-clouds.used {
@@ -520,8 +538,9 @@ body {
 }
 
 .sealayer#red-sea.used,
-.sealayer#deep-sea.used {
-  top: -50px;
+.sealayer#deep-sea.used,
+.sealayer#black-sea.used {
+  top: -100px;
 }
 
 
@@ -552,11 +571,18 @@ body {
 }
 
 .sealayer#red-sea .head {
-
+  background-image: url("ASSETS/sealayers/waves-red.gif");
+  height: 100px;
 }
 
 .sealayer#deep-sea .head {
+  background-image: url("ASSETS/sealayers/waves-deep.gif");
+  height: 100px;
+}
 
+.sealayer#black-sea .head {
+  background-image: url("ASSETS/sealayers/waves-black.gif");
+  height: 100px;
 }
 
 /* body colors */
@@ -578,6 +604,15 @@ body {
 .sealayer#deep-sea .body {
   background-color: rgba(163,0,61)
 }
+
+.sealayer#black-sea .body {
+  background-color: #000000;
+}
+
+.sealayer#black-sea.resetting .body {
+  transition: opacity 1s;
+  opacity: 0;
+}
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "0-1_setup-effects.js" */
 jinx.effects.create("none", {
 	fromOpacity: 1,
@@ -586,6 +621,11 @@ jinx.effects.create("none", {
 jinx.effects.create("hidden", {
 	fromOpacity: 0,
 	opacity: 0
+});
+
+jinx.effects.create("nearly-hidden", {
+	fromOpacity: 0.001,
+	opacity: 0.001
 });
 
 // general
@@ -635,8 +675,19 @@ jinx.effects.extend('fadeIn', 'fadeInTrash', {
 	fromPosition: [30, 50, 0],
 	position: [0,0,0]
 });
+
+//
+
+jinx.effects.extend("easeRight", "easeRightDown", {
+	fromPosition: [-1*easeTransitionAmount, -25, 0],
+	position: [0,0,0]
+});
+jinx.effects.extend("easeLeft", "easeLeftDown", {
+	fromPosition: [easeTransitionAmount, -25, 0],
+	position: [0,0,0]
+});
 /* twine-user-script #2: "0-2_auto-advance-code.js" */
-window.story.state.autoAdvance = function(p) {
+window.autoAdvance = function(p) {
 	return {
 		code: function(){
 			var matchPassageName = /(?:\[\[(?:->)?)(.+)(?:\]\])/;
@@ -649,7 +700,63 @@ window.story.state.autoAdvance = function(p) {
 		}
 	}
 }
-/* twine-user-script #3: "0_setup-jinx.js" */
+/* twine-user-script #3: "0-3_fish-sprite-handler.js" */
+window.fishSpriteHandler = function(){
+  return {
+    code: function() {
+      ensprite(spriteInfo);
+    },
+    s: "with"
+  }
+}
+
+const spriteInfo = {
+  frameWidth: 1200,
+  frameHeight: 447,
+  gridWidth: 6,
+  gridHeight: 12,
+  fps: 12,
+};
+
+function ensprite(hash){
+  const fW = hash.frameWidth
+  const fH = hash.frameHeight
+  const gW = hash.gridWidth
+  const gH = hash.gridHeight
+  const frameNum = hash.frameNum || gW*gH;
+  const fps = hash.fps;
+  const sel = hash.selector;
+
+  let i = 0;
+  const left = document.getElementById("fish-sprite-left");
+  const middle = document.getElementById("fish-sprite-middle");
+  const right = document.getElementById("fish-sprite-right");
+
+  const advanceFrame = function() {
+    if (left && middle && right) {
+      const frameGridX = i % gW;
+      const frameGridY = Math.floor( i / gW );
+      const frameX = -1* frameGridX*fW;
+      const frameY = -1*(frameGridY*fH) % (gH*fH)
+
+      left.setAttribute('style',
+        `background-position: ${frameX}px ${frameY}px;
+        left: ${0 - i*(1200/72)}px`);
+      middle.setAttribute('style',
+        `background-position: ${frameX}px ${frameY}px;
+        left: ${1200 - i*(1200/72)}px`);
+      right.setAttribute('style',
+        `background-position: ${frameX}px ${frameY}px;
+        left: ${2400 - i*(1200/72)}px`);
+
+      window.setTimeout(advanceFrame, 1000/fps)
+      i = (i+1) % (gW*gH);
+    }
+  }
+
+  advanceFrame();
+}
+/* twine-user-script #4: "0_setup-jinx.js" */
 jinx.debug();
 
 jinx.setup({
@@ -674,116 +781,51 @@ window.story.state.time = {
 };
 
 // HACK: start preloading the big fish gif:
-const fishGif = new Image();
-fishGif.src = ('ASSETS/2A/animated-fishes-10.gif');
+const fishImg = new Image();
+fishImg.src = ('ASSETS/2A/fish-spritesheet.jpg');
 
 window.story.preloadedImages = [
-  fishGif
+  fishImg
 ];
-
-window.enterSealayer = function (which, delay) {
+/* twine-user-script #5: "2_sealayersCode.js" */
+window.enterSealayer = function (which, delay, duration, syncWith) {
   const layer = document.getElementById(which);
   return {
     code: ()=> {
       layer.classList.remove("used")
       layer.classList.add("active")
     },
-    s: "after",
+    u: duration || 1,
+    s: syncWith ? "with" : "after",
     d: delay || 0
   };
 }
 
-window.exitSealayer = function(which, delay) {
+window.exitSealayer = function(which, delay, duration, syncWith) {
   const layer = document.getElementById(which);
   return {
     code: ()=> {
       layer.classList.remove("active");
       layer.classList.add("used")
     },
-    s: "after",
+    u: duration || 1,
+    s: syncWith ? "with" : "after",
     d: delay || 0
   };
 }
 
-window.resetSealayer = function(which, delay) {
+window.resetSealayer = function(which, delay, duration, syncWith) {
   const layer = document.getElementById(which);
   return {
     code: ()=> {
       layer.classList.remove("used");
       layer.classList.remove("active");
     },
-    s: "after",
+    u: duration || 1,
+    s: syncWith ? "with" : "after",
     d: delay || 0
   };
 }
-/* twine-user-script #4: "1_setupCode.js" */
-/* sealayers positioning style generation */
-
-$(document).on('showpassage',function(e,d){
-	$('body').attr('currentpassage', d.passage.name);
-});
-
-var panels = ["1A","1B","1C","1D","2A","2B","2C","2C+","2D"];
-var increment = -80;
-
-var topAmount = 0;
-var outputCSS = "";
-
-for (var i = 0; i < panels.length; i++) {
-  var panelName = panels[i];
-  var panelSelector = "body[currentpassage=\""+panelName+"\"]";
-
-  var rules = "top: "+topAmount+"vh;"
-
-  var panelClassCSS = panelSelector+" .sealayers{"+rules+"}"
-  outputCSS+=panelClassCSS;
-  topAmount += increment;
-}
-
-var newStyles = document.createElement('style');
-newStyles.textContent = outputCSS;
-newStyles.id = "sealayer-positioning-classes";
-$('body').append(newStyles);
-/* twine-user-script #5: "2_sealayersCode.js" */
-var layerAmount = 5;
-
-var sealayerOutputCss = "";
-
-for (var i = 1; i <= layerAmount; i++) {
-  var elementClasses = "sealayer layer-"+i;
-  var cssClasses = ".sealayers .sealayer.layer-"+i;
-
-  // element for all but 1, which is included in sealayers for example
-
-  if (i != 1) {
-  	var sealayer = document.createElement('div');
-  	sealayer.className = elementClasses;
-
-  	var top = document.createElement('div');
-  	top.className = "top";
-  	var body = document.createElement('div');
-  	body.className = "body";
-
-  	$('.sealayers').append(sealayer);
-  	$(sealayer).append(top);
-  	$(sealayer).append(body);
-  }
-
-  // style rules
-
-  var rules =  "";
-  if (i != 1) { // 1 gets special cased
-    rules += cssClasses + "{top:calc("+(90+(i*80))+"vh - 25px);}";
-  }
-  rules += cssClasses + " .top{background-image: url('"+jinx.getSetting("rootArtPath")+"sealayer"+i+"top.gif')}";
-  rules += cssClasses + " .body{background-image: url('"+jinx.getSetting("rootArtPath")+"sealayer"+i+".gif')}";
-  sealayerOutputCss += rules;
-}
-
-var sealayerStyles = document.createElement('style')
-sealayerStyles.id = "sealayer-styles";
-sealayerStyles.textContent = sealayerOutputCss;
-$('body').append(sealayerStyles);
 </script><tw-passagedata pid="1" name="1A" tags="panel" position="100,100" size="100,100">// CONDEMNED TO THE DEPTHS
 // Title Panel
 
@@ -830,12 +872,13 @@ p.step.create(
       createTitleBubbles();
     }
   },
-  resetSealayer(&quot;red-clouds&quot;),
-  resetSealayer(&quot;pink-clouds&quot;),
-  resetSealayer(&quot;white-sea&quot;),
-  resetSealayer(&quot;pink-sea&quot;),
-  resetSealayer(&quot;red-sea&quot;),
-  resetSealayer(&quot;deep-sea&quot;),
+  // resetSealayer(&quot;red-clouds&quot;),
+  // resetSealayer(&quot;pink-clouds&quot;),
+  // resetSealayer(&quot;white-sea&quot;),
+  // resetSealayer(&quot;pink-sea&quot;),
+  // resetSealayer(&quot;red-sea&quot;),
+  // resetSealayer(&quot;deep-sea&quot;),
+  // resetSealayer(&quot;black-sea&quot;),
   {
     a: &#39;title&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
@@ -852,7 +895,7 @@ p.step.create(
 );
 
 p.step.transition( // to replace autoAdvance, and to serve as the &quot;pre-transition&quot;
-	s.autoAdvance(p),
+	autoAdvance(p),
   {
     code: function(){
       s.GENERATE_TITLE_BUBBLES = false;
@@ -984,7 +1027,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   exitSealayer(&quot;pink-sea&quot;),
   exitSealayer(&quot;white-sea&quot;),
   exitSealayer(&quot;pink-clouds&quot;),
@@ -1140,7 +1183,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   exitSealayer(&quot;red-sea&quot;),
 	{
     a: &#39;milk&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
@@ -1316,7 +1359,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   {
     a: &#39;text&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
@@ -1380,11 +1423,9 @@ p.art.assets(
     type: &quot;text&quot;,
   },
   {
-    name: &quot;fishes&quot;,
-    src: &quot;animated-fishes-10.gif&quot;,
-    classNames: [&#39;looping-fishes&#39;],
-    type: &quot;asset&quot;,
-    size: [0, 450]
+    name: &quot;fish-sprite-wrapper&quot;,
+    type: &quot;text&quot;,
+    text: story.render(&quot;FISHES&quot;)
   },
   // TRASH
   {
@@ -1427,17 +1468,17 @@ p.art.assets(
 p.art.layers(&quot;full-art&quot;, &quot;art&quot;);
 
 // fish css setup
-
-const fishesSrc = p.art.getAsset(&#39;fishes&#39;).getSrc();
-const fishesRule = (
-`.asset.looping-fishes {
-  background-image: url(&quot;${fishesSrc}&quot;);
-}`
-);
-const fishesStyleEl = document.createElement(&#39;style&#39;);
-fishesStyleEl.id = &quot;fishes-styles&quot;;
-fishesStyleEl.textContent = fishesRule;
-$(&#39;body&#39;).append(fishesStyleEl);
+//
+// const fishesSrc = p.art.getAsset(&#39;fishes&#39;).getSrc();
+// const fishesRule = (
+// `.asset.looping-fishes {
+//   background-image: url(&quot;${fishesSrc}&quot;);
+// }`
+// );
+// const fishesStyleEl = document.createElement(&#39;style&#39;);
+// fishesStyleEl.id = &quot;fishes-styles&quot;;
+// fishesStyleEl.textContent = fishesRule;
+// $(&#39;body&#39;).append(fishesStyleEl);
 
 const xy = {
   fishes: [0,25],
@@ -1450,6 +1491,12 @@ const xy = {
 }
 
 p.step.create(
+  {
+    a: &#39;fish-sprite-wrapper&#39;, l: &#39;full-art&#39;,
+    e: &#39;nearly-hidden&#39;,
+    u: 1,
+  },
+  fishSpriteHandler(),
   {
     a: &quot;asset-gel&quot;, l: &quot;art&quot;,
     e: &quot;fadeIn&quot;,
@@ -1503,8 +1550,15 @@ p.step.create(
   // FISH &amp; TEXT
 
   enterSealayer(&quot;deep-sea&quot;),
-	{
-    a: &#39;fishes&#39;, l: &#39;full-art&#39;,
+	// {
+  //   a: &#39;fishes&#39;, l: &#39;full-art&#39;,
+  //   e: &#39;easeUp&#39;,
+  //   d: s.time.MEDIUM,
+  //   u: s.time.XLONG,
+  //   xy: xy.fishes
+  // },
+  {
+    a: &#39;fish-sprite-wrapper&#39;, l: &#39;full-art&#39;, p: &quot;effect&quot;,
     e: &#39;easeUp&#39;,
     d: s.time.MEDIUM,
     u: s.time.XLONG,
@@ -1520,7 +1574,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   {
     a: &#39;text&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
@@ -1577,7 +1631,7 @@ p.step.transition(
   },
 
 	{
-    a: &#39;fishes&#39;, l: &#39;full-art&#39;, p: &#39;remove&#39;,
+    a: &#39;fish-sprite-wrapper&#39;, l: &#39;full-art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
 	  d: s.time.XSHORT,
     u: s.time.MEDIUM,
@@ -1734,50 +1788,51 @@ p.step.create(
   // outlines
   {
     a: &#39;downfish-white&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;,
+    e: &quot;easeLeftDown&quot;,
     d: s.time.MEDIUM,
     u: s.time.XLONG,
     xy: xy.shark
   },{
     a: &#39;shark-white&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;, s: &#39;with&#39;,
+    e: &quot;easeLeftDown&quot;, s: &#39;with&#39;,
     u: s.time.XLONG,
     xy: xy.shark
   },{
     a: &#39;upfish-white&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;, s: &#39;with&#39;,
+    e: &quot;easeLeftDown&quot;, s: &#39;with&#39;,
     u: s.time.XLONG,
     xy: xy.shark
   },
   {
     a: &#39;downfish&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;,
+    e: &quot;easeLeftDown&quot;,
     u: s.time.XLONG,
     xy: xy.shark
   },{
     a: &#39;shark&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;, s: &#39;with&#39;,
+    e: &quot;easeLeftDown&quot;, s: &#39;with&#39;,
     u: s.time.XLONG,
     xy: xy.shark
   },{
     a: &#39;upfish&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;, s: &#39;with&#39;,
+    e: &quot;easeLeftDown&quot;, s: &#39;with&#39;,
     u: s.time.XLONG,
     xy: xy.shark
   },
 
+  {
+  a: &#39;barracuda#2&#39;, l: &#39;art&#39;,
+  e: &quot;easeRightDown&quot;,
+  d: s.time.SHORT,
+  u: s.time.XLONG,
+  xy: xy.barracuda2
+  },
 	{
     a: &#39;barracuda#1&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;,
-    d: s.time.XSHORT,
+    e: &quot;easeRightDown&quot;,
+    d: s.time.XSHORT+20,
     u: s.time.XLONG,
     xy: xy.barracuda1
-  },{
-    a: &#39;barracuda#2&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;,
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-    xy: xy.barracuda2
   },
 
 	{
@@ -1790,7 +1845,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   // TRASH
   {
     a: &#39;crust&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
@@ -1863,13 +1918,14 @@ p.step.transition(
     xy: xy.shark
   },
 
-	{
-    a: &#39;barracuda#1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
-    e: &quot;easeOutUp&quot;,
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: xy.barracuda1
-  },{
+  {
+  a: &#39;barracuda#1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+  e: &quot;easeOutUp&quot;,
+  d: s.time.XSHORT,
+  u: s.time.XLONG,
+  xy: xy.barracuda1
+  },
+  {
     a: &#39;barracuda#2&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.SHORT,
@@ -1964,7 +2020,7 @@ const xy = {
 p.step.create(
   {
     a: &#39;whale&#39;, l: &#39;art&#39;,
-    e: &#39;easeRight&#39;,
+    e: &#39;easeRightDown&#39;,
     u: 5000,
     xy: xy.whale
   },
@@ -1990,6 +2046,7 @@ p.step.create(
     u: s.time.XLONG,
     xy: xy.text
   },
+  enterSealayer(&quot;black-sea&quot;, 0, 0, true),
   {
     a: &#39;crust2&#39;, l: &#39;art&#39;,
     e: &#39;easeDown&#39;,
@@ -2033,7 +2090,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   {
     a: &#39;whale&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &#39;easeOutUp&#39;,
@@ -2101,6 +2158,7 @@ p.step.transition(
     u: s.time.MEDIUM,
     xy: xy.bag
   },
+  exitSealayer(&quot;black-sea&quot;, 0, 2000, true),
 );
 
 p.destination.main = &quot;[[2D]]&quot;;</tw-passagedata><tw-passagedata pid="8" name="2D" tags="panel" position="975,100" size="100,100">// WOULD THAT MY MEMORIES COULD BE CAST INTO THE COLD EMBRACE OF THE DEEP
@@ -2163,7 +2221,8 @@ $(&#39;body&#39;).append(styleEl);
 
 p.art.layers(&quot;full-art&quot;, &quot;art&quot;);
 
-const whaleDuration = s.time.XLONG;
+const bgDuration = 4000;
+const whaleDuration = 4000;
 
 const xy = {
   mountains: [-200,15],
@@ -2177,13 +2236,13 @@ p.step.create(
 	{
     a: &#39;bg-tile&#39;, l: &#39;full-art&#39;,
     e: &quot;easeUp&quot;,
-    u: s.time.XLONG,
+    u: bgDuration,
     xy: xy.tile
   },
 	{
     a: &#39;bg-mtn&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
-    u: s.time.XLONG,
+    u: bgDuration,
     xy: xy.mountains
   },
 
@@ -2191,7 +2250,7 @@ p.step.create(
 	{
     a: &#39;corpse&#39;, l: &#39;art&#39;,
     e: &quot;easeUp&quot;,
-    d: s.time.MEDIUM,
+    d: bgDuration*0.2,
 	  u: whaleDuration,
 	  xy: xy.whale,
   },{
@@ -2214,7 +2273,7 @@ p.step.create(
 );
 
 const outOfFrame = -750;
-const exitDuration = 2300;
+const exitDuration = 5500;
 
 p.step.create(
   {
@@ -2223,6 +2282,7 @@ p.step.create(
       fromPosition: [0,0,0],
       position: [0,outOfFrame+50,0]
     }),
+    d: 250,
     u: exitDuration,
     xy: xy.tile,
   },
@@ -2290,7 +2350,13 @@ p.step.create(
 )
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
+  resetSealayer(&quot;red-clouds&quot;),
+  resetSealayer(&quot;pink-clouds&quot;),
+  resetSealayer(&quot;white-sea&quot;),
+  resetSealayer(&quot;pink-sea&quot;),
+  resetSealayer(&quot;red-sea&quot;),
+  resetSealayer(&quot;deep-sea&quot;),
   {
     a: &#39;corpse&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
@@ -2327,7 +2393,19 @@ p.step.transition(
     e: &quot;fadeAway&quot;,
     u: s.time.MEDIUM,
     d: s.time.SHORT
-  }
+  },
+  {
+    code: function(){
+      const layer = document.getElementById(&quot;black-sea&quot;);
+      layer.classList.add(&quot;resetting&quot;);
+      window.setTimeout(function(){
+        layer.classList.remove(&quot;used&quot;);
+        layer.classList.remove(&quot;resetting&quot;);
+      }, 1000)
+    },
+    u: 1000,
+    s: &quot;with&quot;,
+  },
 );
 
 p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" name="CREDITS" tags="" position="1100,100" size="100,100">
@@ -2342,7 +2420,13 @@ p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" 
 &lt;p&gt;PATRONS&lt;/p&gt;
 
 &lt;a href=&quot;http://www.patreon.com/wizardtown&quot;&gt;Support Wizard Town&lt;/a&gt;
-&lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;</tw-passagedata><tw-passagedata pid="10" name="SEALAYERS" tags="" position="1225,100" size="100,100">
+&lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;</tw-passagedata><tw-passagedata pid="10" name="FISHES" tags="" position="1225,100" size="100,100">
+&lt;div id=&quot;fish-sprite-left&quot; class=&quot;fish-sprite&quot;&gt;
+&lt;/div&gt;
+&lt;div id=&quot;fish-sprite-middle&quot; class=&quot;fish-sprite&quot;&gt;
+&lt;/div&gt;
+&lt;div id=&quot;fish-sprite-right&quot; class=&quot;fish-sprite&quot;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="SEALAYERS" tags="" position="100,225" size="100,100">
 &lt;div id=&quot;sealayers&quot;&gt;
   &lt;div id=&quot;red-clouds&quot; class=&quot;sealayer&quot;&gt;
     &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
@@ -2370,7 +2454,11 @@ p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" 
     &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
     &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Start" tags="panel" position="100,225" size="100,100">
+  &lt;div id=&quot;black-sea&quot; class=&quot;sealayer&quot;&gt;
+    &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="Start" tags="panel" position="225,225" size="100,100">
 // setup sealayers
 let sealayers = story.render(&#39;SEALAYERS&#39;);
 $(sealayers).insertBefore(&#39;#passages&#39;);

@@ -7,6 +7,11 @@ jinx.effects.create("hidden", {
 	opacity: 0
 });
 
+jinx.effects.create("nearly-hidden", {
+	fromOpacity: 0.001,
+	opacity: 0.001
+});
+
 // general
 
 var easeTransitionAmount = 50;
@@ -52,5 +57,16 @@ jinx.effects.create("fadeAway", {
 
 jinx.effects.extend('fadeIn', 'fadeInTrash', {
 	fromPosition: [30, 50, 0],
+	position: [0,0,0]
+});
+
+//
+
+jinx.effects.extend("easeRight", "easeRightDown", {
+	fromPosition: [-1*easeTransitionAmount, -25, 0],
+	position: [0,0,0]
+});
+jinx.effects.extend("easeLeft", "easeLeftDown", {
+	fromPosition: [easeTransitionAmount, -25, 0],
 	position: [0,0,0]
 });

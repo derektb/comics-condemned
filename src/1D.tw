@@ -123,7 +123,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   {
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",

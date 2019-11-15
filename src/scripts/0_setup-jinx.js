@@ -22,45 +22,9 @@ window.story.state.time = {
 };
 
 // HACK: start preloading the big fish gif:
-const fishGif = new Image();
-fishGif.src = ('ASSETS/2A/animated-fishes-10.gif');
+const fishImg = new Image();
+fishImg.src = ('ASSETS/2A/fish-spritesheet.jpg');
 
 window.story.preloadedImages = [
-  fishGif
+  fishImg
 ];
-
-window.enterSealayer = function (which, delay) {
-  const layer = document.getElementById(which);
-  return {
-    code: ()=> {
-      layer.classList.remove("used")
-      layer.classList.add("active")
-    },
-    s: "after",
-    d: delay || 0
-  };
-}
-
-window.exitSealayer = function(which, delay) {
-  const layer = document.getElementById(which);
-  return {
-    code: ()=> {
-      layer.classList.remove("active");
-      layer.classList.add("used")
-    },
-    s: "after",
-    d: delay || 0
-  };
-}
-
-window.resetSealayer = function(which, delay) {
-  const layer = document.getElementById(which);
-  return {
-    code: ()=> {
-      layer.classList.remove("used");
-      layer.classList.remove("active");
-    },
-    s: "after",
-    d: delay || 0
-  };
-}

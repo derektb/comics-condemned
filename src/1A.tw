@@ -45,12 +45,13 @@ p.step.create(
       createTitleBubbles();
     }
   },
-  resetSealayer("red-clouds"),
-  resetSealayer("pink-clouds"),
-  resetSealayer("white-sea"),
-  resetSealayer("pink-sea"),
-  resetSealayer("red-sea"),
-  resetSealayer("deep-sea"),
+  // resetSealayer("red-clouds"),
+  // resetSealayer("pink-clouds"),
+  // resetSealayer("white-sea"),
+  // resetSealayer("pink-sea"),
+  // resetSealayer("red-sea"),
+  // resetSealayer("deep-sea"),
+  // resetSealayer("black-sea"),
   {
     a: 'title', l: 'art',
     e: "easeUp",
@@ -67,7 +68,7 @@ p.step.create(
 );
 
 p.step.transition( // to replace autoAdvance, and to serve as the "pre-transition"
-	s.autoAdvance(p),
+	autoAdvance(p),
   {
     code: function(){
       s.GENERATE_TITLE_BUBBLES = false;

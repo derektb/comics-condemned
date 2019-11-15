@@ -59,7 +59,8 @@ $('body').append(styleEl);
 
 p.art.layers("full-art", "art");
 
-const whaleDuration = s.time.XLONG;
+const bgDuration = 4000;
+const whaleDuration = 4000;
 
 const xy = {
   mountains: [-200,15],
@@ -73,13 +74,13 @@ p.step.create(
 	{
     a: 'bg-tile', l: 'full-art',
     e: "easeUp",
-    u: s.time.XLONG,
+    u: bgDuration,
     xy: xy.tile
   },
 	{
     a: 'bg-mtn', l: 'art',
     e: "easeUp",
-    u: s.time.XLONG,
+    u: bgDuration,
     xy: xy.mountains
   },
 
@@ -87,7 +88,7 @@ p.step.create(
 	{
     a: 'corpse', l: 'art',
     e: "easeUp",
-    d: s.time.MEDIUM,
+    d: bgDuration*0.2,
 	  u: whaleDuration,
 	  xy: xy.whale,
   },{
@@ -110,7 +111,7 @@ p.step.create(
 );
 
 const outOfFrame = -750;
-const exitDuration = 2300;
+const exitDuration = 5500;
 
 p.step.create(
   {
@@ -119,6 +120,7 @@ p.step.create(
       fromPosition: [0,0,0],
       position: [0,outOfFrame+50,0]
     }),
+    d: 250,
     u: exitDuration,
     xy: xy.tile,
   },
@@ -186,7 +188,13 @@ p.step.create(
 )
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
+  resetSealayer("red-clouds"),
+  resetSealayer("pink-clouds"),
+  resetSealayer("white-sea"),
+  resetSealayer("pink-sea"),
+  resetSealayer("red-sea"),
+  resetSealayer("deep-sea"),
   {
     a: 'corpse', l: 'art', p: "effect",
     e: "fadeAway",
@@ -223,7 +231,19 @@ p.step.transition(
     e: "fadeAway",
     u: s.time.MEDIUM,
     d: s.time.SHORT
-  }
+  },
+  {
+    code: function(){
+      const layer = document.getElementById("black-sea");
+      layer.classList.add("resetting");
+      window.setTimeout(function(){
+        layer.classList.remove("used");
+        layer.classList.remove("resetting");
+      }, 1000)
+    },
+    u: 1000,
+    s: "with",
+  },
 );
 
 p.destination.main = "[[1A]]"

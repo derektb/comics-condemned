@@ -147,50 +147,51 @@ p.step.create(
   // outlines
   {
     a: 'downfish-white', l: 'art',
-    e: "easeUp",
+    e: "easeLeftDown",
     d: s.time.MEDIUM,
     u: s.time.XLONG,
     xy: xy.shark
   },{
     a: 'shark-white', l: 'art',
-    e: "easeUp", s: 'with',
+    e: "easeLeftDown", s: 'with',
     u: s.time.XLONG,
     xy: xy.shark
   },{
     a: 'upfish-white', l: 'art',
-    e: "easeUp", s: 'with',
+    e: "easeLeftDown", s: 'with',
     u: s.time.XLONG,
     xy: xy.shark
   },
   {
     a: 'downfish', l: 'art',
-    e: "easeUp",
+    e: "easeLeftDown",
     u: s.time.XLONG,
     xy: xy.shark
   },{
     a: 'shark', l: 'art',
-    e: "easeUp", s: 'with',
+    e: "easeLeftDown", s: 'with',
     u: s.time.XLONG,
     xy: xy.shark
   },{
     a: 'upfish', l: 'art',
-    e: "easeUp", s: 'with',
+    e: "easeLeftDown", s: 'with',
     u: s.time.XLONG,
     xy: xy.shark
   },
 
+  {
+  a: 'barracuda#2', l: 'art',
+  e: "easeRightDown",
+  d: s.time.SHORT,
+  u: s.time.XLONG,
+  xy: xy.barracuda2
+  },
 	{
     a: 'barracuda#1', l: 'art',
-    e: "easeUp",
-    d: s.time.XSHORT,
+    e: "easeRightDown",
+    d: s.time.XSHORT+20,
     u: s.time.XLONG,
     xy: xy.barracuda1
-  },{
-    a: 'barracuda#2', l: 'art',
-    e: "easeUp",
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-    xy: xy.barracuda2
   },
 
 	{
@@ -203,7 +204,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   // TRASH
   {
     a: 'crust', l: 'art', p: "remove",
@@ -276,13 +277,14 @@ p.step.transition(
     xy: xy.shark
   },
 
-	{
-    a: 'barracuda#1', l: 'art', p: "remove",
-    e: "easeOutUp",
-    d: s.time.XSHORT,
-    u: s.time.XLONG,
-    xy: xy.barracuda1
-  },{
+  {
+  a: 'barracuda#1', l: 'art', p: "remove",
+  e: "easeOutUp",
+  d: s.time.XSHORT,
+  u: s.time.XLONG,
+  xy: xy.barracuda1
+  },
+  {
     a: 'barracuda#2', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.SHORT,

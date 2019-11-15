@@ -11,11 +11,9 @@ p.art.assets(
     type: "text",
   },
   {
-    name: "fishes",
-    src: "animated-fishes-10.gif",
-    classNames: ['looping-fishes'],
-    type: "asset",
-    size: [0, 450]
+    name: "fish-sprite-wrapper",
+    type: "text",
+    text: story.render("FISHES")
   },
   // TRASH
   {
@@ -58,17 +56,17 @@ p.art.assets(
 p.art.layers("full-art", "art");
 
 // fish css setup
-
-const fishesSrc = p.art.getAsset('fishes').getSrc();
-const fishesRule = (
-`.asset.looping-fishes {
-  background-image: url("${fishesSrc}");
-}`
-);
-const fishesStyleEl = document.createElement('style');
-fishesStyleEl.id = "fishes-styles";
-fishesStyleEl.textContent = fishesRule;
-$('body').append(fishesStyleEl);
+//
+// const fishesSrc = p.art.getAsset('fishes').getSrc();
+// const fishesRule = (
+// `.asset.looping-fishes {
+//   background-image: url("${fishesSrc}");
+// }`
+// );
+// const fishesStyleEl = document.createElement('style');
+// fishesStyleEl.id = "fishes-styles";
+// fishesStyleEl.textContent = fishesRule;
+// $('body').append(fishesStyleEl);
 
 const xy = {
   fishes: [0,25],
@@ -81,6 +79,12 @@ const xy = {
 }
 
 p.step.create(
+  {
+    a: 'fish-sprite-wrapper', l: 'full-art',
+    e: 'nearly-hidden',
+    u: 1,
+  },
+  fishSpriteHandler(),
   {
     a: "asset-gel", l: "art",
     e: "fadeIn",
@@ -134,8 +138,15 @@ p.step.create(
   // FISH & TEXT
 
   enterSealayer("deep-sea"),
-	{
-    a: 'fishes', l: 'full-art',
+	// {
+  //   a: 'fishes', l: 'full-art',
+  //   e: 'easeUp',
+  //   d: s.time.MEDIUM,
+  //   u: s.time.XLONG,
+  //   xy: xy.fishes
+  // },
+  {
+    a: 'fish-sprite-wrapper', l: 'full-art', p: "effect",
     e: 'easeUp',
     d: s.time.MEDIUM,
     u: s.time.XLONG,
@@ -151,7 +162,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   {
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",
@@ -208,7 +219,7 @@ p.step.transition(
   },
 
 	{
-    a: 'fishes', l: 'full-art', p: 'remove',
+    a: 'fish-sprite-wrapper', l: 'full-art', p: 'remove',
     e: "easeOutUp",
 	  d: s.time.XSHORT,
     u: s.time.MEDIUM,

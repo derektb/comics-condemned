@@ -1,4 +1,4 @@
-window.story.state.autoAdvance = function(p) {
+window.autoAdvance = function(p) {
 	return {
 		code: function(){
 			var matchPassageName = /(?:\[\[(?:->)?)(.+)(?:\]\])/;

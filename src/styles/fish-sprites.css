@@ -1,0 +1,16 @@
+.fish-sprite-wrapper, .fish-sprite {
+  width: 1200px;
+  height: 447px;
+}
+
+.fish-sprite-wrapper {
+  position: relative;
+}
+
+.fish-sprite {
+  position: absolute;
+  background-image: url("ASSETS/2A/fish-spritesheet.jpg");
+  background-position: 0 0;
+  top: 0;
+  left: 0;
+}

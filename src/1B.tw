@@ -107,7 +107,7 @@ p.step.create(
 );
 
 p.step.transition(
-	s.autoAdvance(p),
+	autoAdvance(p),
   exitSealayer("pink-sea"),
   exitSealayer("white-sea"),
   exitSealayer("pink-clouds"),

@@ -27,4 +27,8 @@
     <div class="head"></div>
     <div class="body"></div>
   </div>
+  <div id="black-sea" class="sealayer">
+    <div class="head"></div>
+    <div class="body"></div>
+  </div>
 </div>
