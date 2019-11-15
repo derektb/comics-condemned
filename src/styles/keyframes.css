@@ -156,3 +156,23 @@
   0% { background-position-x: 0 }
   100% { background-position-x: 449px; }
 }
+
+@-webkit-keyframes fish-sprite-drift {
+  0% { left: 0 }
+  100%  { left: 1200px; }
+}
+
+@-moz-keyframes fish-sprite-drift {
+  0% { left: 0 }
+  100% { left: 1200px; }
+}
+
+@-o-keyframes fish-sprite-drift {
+  0% { left: 0 }
+  100% { left: 1200px; }
+}
+
+@keyframes fish-sprite-drift {
+  0% { left: 0 }
+  100% { left: 1200px; }
+}

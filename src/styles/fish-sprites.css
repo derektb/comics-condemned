@@ -5,11 +5,12 @@
 
 .fish-sprite-wrapper {
   position: relative;
+  animation: fish-sprite-drift 60s linear infinite;
 }
 
 .fish-sprite {
   position: absolute;
-  background-image: url("ASSETS/2A/fish-spritesheet-1.jpg");
+  background-image: url("ASSETS/2A/spriteshees/fish-sprites-1.png");
   background-position: 0 0;
   top: 0;
   left: 0;

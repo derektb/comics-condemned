@@ -1,17 +1,10 @@
 /* special assets */
 
-.asset.looping-fishes {
-  -webkit-animation: looping-background-fishes 6s infinite steps(60);
-  -moz-animation:    looping-background-fishes 6s infinite steps(60);
-  -o-animation:      looping-background-fishes 6s infinite steps(60);
-  animation:         looping-background-fishes 6s infinite steps(60);
-}
-
 .asset.looping-jellies {
-  -webkit-animation: looping-background-jellies 18s infinite linear;
-  -moz-animation:    looping-background-jellies 18s infinite linear;
-  -o-animation:      looping-background-jellies 18s infinite linear;
-  animation:         looping-background-jellies 18s infinite linear;
+  -webkit-animation: looping-background-jellies 28s infinite linear;
+  -moz-animation:    looping-background-jellies 28s infinite linear;
+  -o-animation:      looping-background-jellies 28s infinite linear;
+  animation:         looping-background-jellies 28s infinite linear;
 }
 
 /* generic animation classes */

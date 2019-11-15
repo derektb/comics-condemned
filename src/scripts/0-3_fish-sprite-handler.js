@@ -28,29 +28,35 @@ function ensprite(hash){
   const left = document.getElementById("fish-sprite-left");
   const middle = document.getElementById("fish-sprite-middle");
   const right = document.getElementById("fish-sprite-right");
+  const far = document.getElementById("fish-sprite-far");
 
   const advanceFrame = function() {
-    if (left && middle && right) {
+    if (left && middle && right && far) {
       const frameGridX = i % gridWidth;
       const frameGridY = Math.floor( i / gridWidth );
       const frameX = -1* frameGridX*frameWidth;
-      const frameY = -1*(frameGridY*frameHeight) % (gridHeight*(frameHeight/3))
+      const frameY = -1*(frameGridY*frameHeight) % ((gridHeight/4)*(frameHeight))
       // bad math
       let sheetNum;
-      if (i < 24) sheetNum = 1;
-      else if (i < 48) sheetNum = 2;
-      else sheetNum = 3
+      if (i < 18) sheetNum = 1;
+      else if (i < 36) sheetNum = 2;
+      else if (i < 54) sheetNum = 3;
+      else sheetNum = 4;
 
       left.setAttribute('style',
-        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+        `background-image: url('ASSETS/2A/spritesheets/fish-sprites-${sheetNum}.png');
+        background-position: ${frameX}px ${frameY}px;
+        left: ${-1200 - i*(1200/72)}px`);
+      middle.setAttribute('style',
+        `background-image: url('ASSETS/2A/spritesheets/fish-sprites-${sheetNum}.png');
         background-position: ${frameX}px ${frameY}px;
         left: ${0 - i*(1200/72)}px`);
-      middle.setAttribute('style',
-        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+      right.setAttribute('style',
+        `background-image: url('ASSETS/2A/spritesheets/fish-sprites-${sheetNum}.png');
         background-position: ${frameX}px ${frameY}px;
         left: ${1200 - i*(1200/72)}px`);
-      right.setAttribute('style',
-        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+      far.setAttribute('style',
+        `background-image: url('ASSETS/2A/spritesheets/fish-sprites-${sheetNum}.png');
         background-position: ${frameX}px ${frameY}px;
         left: ${2400 - i*(1200/72)}px`);
 

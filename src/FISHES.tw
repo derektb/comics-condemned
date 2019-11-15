@@ -1,8 +1,11 @@
 ::FISHES
-
-<div id="fish-sprite-left" class="fish-sprite">
-</div>
-<div id="fish-sprite-middle" class="fish-sprite">
-</div>
-<div id="fish-sprite-right" class="fish-sprite">
+<div class="fish-sprite-wrapper">
+  <div id="fish-sprite-left" class="fish-sprite">
+  </div>
+  <div id="fish-sprite-middle" class="fish-sprite">
+  </div>
+  <div id="fish-sprite-right" class="fish-sprite">
+  </div>
+  <div id="fish-sprite-far" class="fish-sprite">
+  </div>
 </div>

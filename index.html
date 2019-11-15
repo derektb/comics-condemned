@@ -14,18 +14,11 @@ Condemned to the Depths
 <!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="12" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-35" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "animations.css" */
 /* special assets */
 
-.asset.looping-fishes {
-  -webkit-animation: looping-background-fishes 6s infinite steps(60);
-  -moz-animation:    looping-background-fishes 6s infinite steps(60);
-  -o-animation:      looping-background-fishes 6s infinite steps(60);
-  animation:         looping-background-fishes 6s infinite steps(60);
-}
-
 .asset.looping-jellies {
-  -webkit-animation: looping-background-jellies 18s infinite linear;
-  -moz-animation:    looping-background-jellies 18s infinite linear;
-  -o-animation:      looping-background-jellies 18s infinite linear;
-  animation:         looping-background-jellies 18s infinite linear;
+  -webkit-animation: looping-background-jellies 28s infinite linear;
+  -moz-animation:    looping-background-jellies 28s infinite linear;
+  -o-animation:      looping-background-jellies 28s infinite linear;
+  animation:         looping-background-jellies 28s infinite linear;
 }
 
 /* generic animation classes */
@@ -174,11 +167,12 @@ Condemned to the Depths
 
 .fish-sprite-wrapper {
   position: relative;
+  animation: fish-sprite-drift 60s linear infinite;
 }
 
 .fish-sprite {
   position: absolute;
-  background-image: url("ASSETS/2A/fish-spritesheet-1.jpg");
+  background-image: url("ASSETS/2A/spriteshees/fish-sprites-1.png");
   background-position: 0 0;
   top: 0;
   left: 0;
@@ -341,6 +335,26 @@ Condemned to the Depths
 @keyframes translate-background--waves {
   0% { background-position-x: 0 }
   100% { background-position-x: 449px; }
+}
+
+@-webkit-keyframes fish-sprite-drift {
+  0% { left: 0 }
+  100%  { left: 1200px; }
+}
+
+@-moz-keyframes fish-sprite-drift {
+  0% { left: 0 }
+  100% { left: 1200px; }
+}
+
+@-o-keyframes fish-sprite-drift {
+  0% { left: 0 }
+  100% { left: 1200px; }
+}
+
+@keyframes fish-sprite-drift {
+  0% { left: 0 }
+  100% { left: 1200px; }
 }
 /* twine-user-stylesheet #4: "main.css" */
 html, body, #passages {
@@ -731,29 +745,35 @@ function ensprite(hash){
   const left = document.getElementById("fish-sprite-left");
   const middle = document.getElementById("fish-sprite-middle");
   const right = document.getElementById("fish-sprite-right");
+  const far = document.getElementById("fish-sprite-far");
 
   const advanceFrame = function() {
-    if (left && middle && right) {
+    if (left && middle && right && far) {
       const frameGridX = i % gridWidth;
       const frameGridY = Math.floor( i / gridWidth );
       const frameX = -1* frameGridX*frameWidth;
-      const frameY = -1*(frameGridY*frameHeight) % (gridHeight*(frameHeight/3))
+      const frameY = -1*(frameGridY*frameHeight) % ((gridHeight/4)*(frameHeight))
       // bad math
       let sheetNum;
-      if (i < 24) sheetNum = 1;
-      else if (i < 48) sheetNum = 2;
-      else sheetNum = 3
+      if (i < 18) sheetNum = 1;
+      else if (i < 36) sheetNum = 2;
+      else if (i < 54) sheetNum = 3;
+      else sheetNum = 4;
 
       left.setAttribute('style',
-        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+        `background-image: url('ASSETS/2A/spritesheets/fish-sprites-${sheetNum}.png');
+        background-position: ${frameX}px ${frameY}px;
+        left: ${-1200 - i*(1200/72)}px`);
+      middle.setAttribute('style',
+        `background-image: url('ASSETS/2A/spritesheets/fish-sprites-${sheetNum}.png');
         background-position: ${frameX}px ${frameY}px;
         left: ${0 - i*(1200/72)}px`);
-      middle.setAttribute('style',
-        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+      right.setAttribute('style',
+        `background-image: url('ASSETS/2A/spritesheets/fish-sprites-${sheetNum}.png');
         background-position: ${frameX}px ${frameY}px;
         left: ${1200 - i*(1200/72)}px`);
-      right.setAttribute('style',
-        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+      far.setAttribute('style',
+        `background-image: url('ASSETS/2A/spritesheets/fish-sprites-${sheetNum}.png');
         background-position: ${frameX}px ${frameY}px;
         left: ${2400 - i*(1200/72)}px`);
 
@@ -788,19 +808,24 @@ window.story.state.time = {
 	XLONG:  defaultTiming*7,
 };
 
-// HACK: start preloading the big fish gif:
-const fishImg1 = new Image();
-fishImg1.src = ('ASSETS/2A/fish-spritesheet-1.jpg');
-const fishImg2 = new Image();
-fishImg2.src = ('ASSETS/2A/fish-spritesheet-2.jpg');
-const fishImg3 = new Image();
-fishImg3.src = ('ASSETS/2A/fish-spritesheet-3.jpg');
 
-window.story.preloadedImages = [
-  fishImg1,
-  fishImg2,
-  fishImg3
-];
+window.story.preloadedImages = [];
+
+function preload() {
+  const srcs = [...arguments];
+  srcs.forEach(src=>{
+    const img = new Image();
+    img.src = src;
+    window.story.preloadedImages.push(img);
+  })
+}
+
+preload(
+  "ASSETS/2A/spritesheets/fish-sprites-1.png",
+  "ASSETS/2A/spritesheets/fish-sprites-2.png",
+  "ASSETS/2A/spritesheets/fish-sprites-3.png",
+  "ASSETS/2A/spritesheets/fish-sprites-4.png"
+);
 /* twine-user-script #5: "2_sealayersCode.js" */
 window.enterSealayer = function (which, delay, duration, syncWith) {
   const layer = document.getElementById(which);
@@ -2434,12 +2459,15 @@ p.destination.main = &quot;[[1A]]&quot;</tw-passagedata><tw-passagedata pid="9" 
 &lt;p&gt;PATRONS&lt;/p&gt;
 
 &lt;a href=&quot;http://www.patreon.com/wizardtown&quot;&gt;Support Wizard Town&lt;/a&gt;
-&lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;</tw-passagedata><tw-passagedata pid="10" name="FISHES" tags="" position="1225,100" size="100,100">
-&lt;div id=&quot;fish-sprite-left&quot; class=&quot;fish-sprite&quot;&gt;
-&lt;/div&gt;
-&lt;div id=&quot;fish-sprite-middle&quot; class=&quot;fish-sprite&quot;&gt;
-&lt;/div&gt;
-&lt;div id=&quot;fish-sprite-right&quot; class=&quot;fish-sprite&quot;&gt;
+&lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;</tw-passagedata><tw-passagedata pid="10" name="FISHES" tags="" position="1225,100" size="100,100">&lt;div class=&quot;fish-sprite-wrapper&quot;&gt;
+  &lt;div id=&quot;fish-sprite-left&quot; class=&quot;fish-sprite&quot;&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;fish-sprite-middle&quot; class=&quot;fish-sprite&quot;&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;fish-sprite-right&quot; class=&quot;fish-sprite&quot;&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;fish-sprite-far&quot; class=&quot;fish-sprite&quot;&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="SEALAYERS" tags="" position="100,225" size="100,100">
 &lt;div id=&quot;sealayers&quot;&gt;
   &lt;div id=&quot;red-clouds&quot; class=&quot;sealayer&quot;&gt;
