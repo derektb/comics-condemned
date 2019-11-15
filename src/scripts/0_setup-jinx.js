@@ -22,9 +22,15 @@ window.story.state.time = {
 };
 
 // HACK: start preloading the big fish gif:
-const fishImg = new Image();
-fishImg.src = ('ASSETS/2A/fish-spritesheet.jpg');
+const fishImg1 = new Image();
+fishImg1.src = ('ASSETS/2A/fish-spritesheet-1.jpg');
+const fishImg2 = new Image();
+fishImg2.src = ('ASSETS/2A/fish-spritesheet-2.jpg');
+const fishImg3 = new Image();
+fishImg3.src = ('ASSETS/2A/fish-spritesheet-3.jpg');
 
 window.story.preloadedImages = [
-  fishImg
+  fishImg1,
+  fishImg2,
+  fishImg3
 ];

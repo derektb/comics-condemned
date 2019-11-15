@@ -16,11 +16,11 @@ const spriteInfo = {
 };
 
 function ensprite(hash){
-  const fW = hash.frameWidth
-  const fH = hash.frameHeight
-  const gW = hash.gridWidth
-  const gH = hash.gridHeight
-  const frameNum = hash.frameNum || gW*gH;
+  const frameWidth = hash.frameWidth
+  const frameHeight = hash.frameHeight
+  const gridWidth = hash.gridWidth
+  const gridHeight = hash.gridHeight
+  const frameNum = hash.frameNum || gridWidth*gridHeight;
   const fps = hash.fps;
   const sel = hash.selector;
 
@@ -31,23 +31,31 @@ function ensprite(hash){
 
   const advanceFrame = function() {
     if (left && middle && right) {
-      const frameGridX = i % gW;
-      const frameGridY = Math.floor( i / gW );
-      const frameX = -1* frameGridX*fW;
-      const frameY = -1*(frameGridY*fH) % (gH*fH)
+      const frameGridX = i % gridWidth;
+      const frameGridY = Math.floor( i / gridWidth );
+      const frameX = -1* frameGridX*frameWidth;
+      const frameY = -1*(frameGridY*frameHeight) % (gridHeight*(frameHeight/3))
+      // bad math
+      let sheetNum;
+      if (i < 24) sheetNum = 1;
+      else if (i < 48) sheetNum = 2;
+      else sheetNum = 3
 
       left.setAttribute('style',
-        `background-position: ${frameX}px ${frameY}px;
+        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+        background-position: ${frameX}px ${frameY}px;
         left: ${0 - i*(1200/72)}px`);
       middle.setAttribute('style',
-        `background-position: ${frameX}px ${frameY}px;
+        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+        background-position: ${frameX}px ${frameY}px;
         left: ${1200 - i*(1200/72)}px`);
       right.setAttribute('style',
-        `background-position: ${frameX}px ${frameY}px;
+        `background-image: url('ASSETS/2A/fish-spritesheet-${sheetNum}.jpg');
+        background-position: ${frameX}px ${frameY}px;
         left: ${2400 - i*(1200/72)}px`);
 
       window.setTimeout(advanceFrame, 1000/fps)
-      i = (i+1) % (gW*gH);
+      i = (i+1) % (gridWidth*gridHeight);
     }
   }
 

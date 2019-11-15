@@ -10,7 +10,10 @@ p.art.assets(
     type: "text",
     text: "setup step",
     size: [100,50]
-  }
+  },
+  // ["fish1", "ASSETS/2A/fish-spritesheet-1"],
+  // ["fish2", "ASSETS/2A/fish-spritesheet-2"],
+  // ["fish3", "ASSETS/2A/fish-spritesheet-3"],
 )
 
 p.art.layers("art")
@@ -19,7 +22,19 @@ p.step.create(
   {
     a: "text", l: "art",
     xy: [500,200]
-  }
+  },
+  // {
+  //   a: "fish1", l: "art",
+  //   e: "nearly-hidden"
+  // },
+  // {
+  //   a: "fish2", l: "art",
+  //   e: "nearly-hidden"
+  // },
+  // {
+  //   a: "fish3", l: "art",
+  //   e: "nearly-hidden"
+  // }
 )
 
 p.destination.main = "[[1A]]"
