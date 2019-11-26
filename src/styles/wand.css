@@ -1,0 +1,13 @@
+#wand {
+  z-index: 1000;
+  bottom: 15px;
+  right: 15px;
+  transition: bottom ease-out 0.2s,
+              opacity 0.4s ease-out,
+              background-color 0.4s ease-out;
+}
+
+#wand.active:hover {
+  cursor: pointer;
+  bottom: 20px;
+}
