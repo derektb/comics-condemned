@@ -204,7 +204,6 @@ p.step.create(
 );
 
 p.step.transition(
-	autoAdvance(p),
   // TRASH
   {
     a: 'crust', l: 'art', p: "remove",

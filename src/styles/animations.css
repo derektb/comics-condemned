@@ -75,10 +75,10 @@
 .anim-float-right-1 img,
 .anim-float-right-2 img {
   position: relative;
-  -webkit-animation: float-right-med 4s infinite both;
-  -moz-animation: float-right-med 4s infinite both;
-  -o-animation: float-right-med 4s infinite both;
-  animation: float-right-med 4s infinite both;
+  -webkit-animation: float-right-med 6s infinite both;
+  -moz-animation: float-right-med 6s infinite both;
+  -o-animation: float-right-med 6s infinite both;
+  animation: float-right-med 6s infinite both;
 }
 
 .anim-float-right-2 img {
@@ -108,10 +108,10 @@
 .anim-float-left-2 img,
 .anim-float-left-3 img {
   position: relative;
-  -webkit-animation: float-left-small 4s infinite both;
-  -moz-animation: float-left-small 4s infinite both;
-  -o-animation: float-left-small 4s infinite both;
-  animation: float-left-small 4s infinite both;
+  -webkit-animation: float-left-small 6s infinite both;
+  -moz-animation: float-left-small 6s infinite both;
+  -o-animation: float-left-small 6s infinite both;
+  animation: float-left-small 6s infinite both;
 }
 
 .anim-float-left-2 img {
@@ -142,6 +142,6 @@
   animation-delay: -1.5s;
 } */
 
-.asset[assetname='trash-shadow'] {
+/* .asset[assetname='trash-shadow'] {
   animation: float-trash-shadow 4s infinite both;
-}
+} */

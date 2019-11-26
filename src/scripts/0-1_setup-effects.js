@@ -62,6 +62,13 @@ jinx.effects.extend('fadeIn', 'fadeInTrash', {
 
 //
 
+jinx.effects.extend("fadeIn", "Bag Bubbles", {
+  fromPosition: [10,25,0],
+  position: [0,0,0]
+}),
+
+//
+
 jinx.effects.extend("easeRight", "easeRightDown", {
 	fromPosition: [-1*easeTransitionAmount, -25, 0],
 	position: [0,0,0]

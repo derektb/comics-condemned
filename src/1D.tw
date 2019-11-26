@@ -70,102 +70,105 @@ const xy = {
 // steps
 
 p.step.create(
-  // TRASH
   {
-    a: 'bag', l: 'art',
-  	e: 'easeDown',
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.bag
-	},
-  {
-    a: 'bubs-a', l: 'art',
-  	e: 'easeUp',
-    d: s.time.XSHORT,
-    u: s.time.MEDIUM,
-    xy: xy.bubs
-	},
-  {
-    a: 'bubs-b', l: 'art',
-  	e: 'easeUp',
-    u: s.time.MEDIUM,
-    xy: xy.bubs
-	},
-  {
-    a: 'rings', l: 'art',
-  	e: 'easeDown',
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.rings
-	},
+    a: 'jellies', l: 'full-art',
+    e: jinx.effects.extend("fadeIn", {
+    	fromPosition: [-175, -50, 0],
+    	position: [0,0,0],
+      easing: function (t) { return t*(2-t) },
+      complete: function() {console.log("jellies done")},
+    }),
+    // d: s.time.SHORT,
+    u: s.time.XLONG*2.5,
+    xy: xy.jellies
+  },
   {
     a: 'silver', l: 'art',
   	e: 'easeDown',
     d: s.time.SHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*1.4,
     xy: xy.silver
 	},
-  // JELLIES & TEXT
-	{
-    a: 'jellies', l: 'full-art',
-    e: "easeUp",
-    d: s.time.MEDIUM,
-    u: s.time.XLONG,
-    xy: xy.jellies
-  },
-	{
-    a: 'text', l: 'art',
-  	e: 'easeDown',
+  {
+    a: 'rings', l: 'art',
+    e: 'easeDown',
     d: s.time.SHORT,
-    u: s.time.XLONG,
+    u: s.time.MEDIUM*1.4,
+    xy: xy.rings
+  },
+  {
+    a: 'bag', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM*1.4,
+    xy: xy.bag
+  },
+  {
+    a: 'text', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.XLONG*2.5,
     xy: xy.text
-	}
+  },
+  {
+    a: 'bubs-a', l: 'art',
+    e: 'Bag Bubbles',
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
+  {
+    a: 'bubs-b', l: 'art',
+    e: 'Bag Bubbles',
+    d: 100,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
 );
 
 p.step.transition(
-	autoAdvance(p),
   {
-    a: 'text', l: 'art', p: 'remove',
+    a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
+    d: s.time.XSHORT,
     u: s.time.MEDIUM,
-    xy: xy.text
+    xy: xy.bag
   },
-
-	{
-    a: 'silver', l: 'art', p: 'remove',
+  {
+    a: 'bubs-b', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.MEDIUM,
-    u: s.time.SHORT,
-    xy: xy.silver
-	},
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
+  {
+    a: 'bubs-a', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
 	{
     a: 'rings', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XSHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.rings
 	},
-	{
-    a: 'bubs-b', l: 'art', p: 'remove',
+  {
+    a: 'silver', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XSHORT,
-    u: s.time.SHORT,
-    xy: xy.bubs
-	},
-	{
-    a: 'bubs-a', l: 'art', p: 'remove',
-    e: "easeOutUp",
-    u: s.time.SHORT,
-    xy: xy.bubs
-	},
-	{
-    a: 'bag', l: 'art', p: 'remove',
-    e: "easeOutUp",
-  	d: s.time.XSHORT,
-    u: s.time.SHORT,
-    xy: xy.bag
-	},
+    u: s.time.MEDIUM,
+    xy: xy.silver
+  },
 
+  {
+    a: 'text', l: 'art', p: 'remove',
+    e: "easeOutUp",
+  	d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.text
+  },
 	{
     a: 'jellies', l: 'full-art', p: 'remove',
     e: "easeOutUp",

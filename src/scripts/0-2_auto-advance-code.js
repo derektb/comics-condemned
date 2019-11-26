@@ -5,8 +5,8 @@ window.autoAdvance = function(p) {
 			var nextPassageName = p.destination.main.match(matchPassageName)[1];
 			$('body').attr('currentpassage', nextPassageName);
 
-			$(document).one('ended-playing-animation', function(){
-				$(document).trigger('panel-clicked', p);
+			$(document).one('jinx.animation.finished', function(){
+				$(document).trigger(`jinx.panel.advance`, p);
 			});
 		}
 	}

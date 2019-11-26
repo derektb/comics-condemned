@@ -147,7 +147,6 @@ p.step.create(
 );
 
 p.step.transition(
-	autoAdvance(p),
   {
     a: 'whale', l: 'art', p: "remove",
     e: 'easeOutUp',

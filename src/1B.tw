@@ -50,8 +50,11 @@ p.step.create(
   //boat
 	{
     a: 'boat', l: 'art',
-    e: 'easeLeft',
-    d: 2500,
+    e: jinx.effects.extend("fadeIn", {
+      	fromPosition: [50, 75, 0],
+      	position: [0,0,0]
+      }),
+    d: 3500,
     u: s.time.XLONG,
     xy: xy.boat
 	},
@@ -62,8 +65,8 @@ p.step.create(
       fromPosition: [30, 50, 0],
     	position: [0,0,0]
     }),
-    d: s.time.LONG,
-    u: s.time.SHORT+130,
+    d: s.time.LONG*1.2,
+    u: s.time.SHORT*1.5,
     xy: xy.bag
 	},
   {
@@ -72,8 +75,8 @@ p.step.create(
       fromPosition: [36, 43, 0],
     	position: [0,0,0]
     }),
-    d: 100,
-    u: s.time.SHORT+160,
+    d: s.time.XSHORT*1.3,
+    u: s.time.SHORT*1.7,
     xy: xy.canA
 	},
   {
@@ -82,8 +85,8 @@ p.step.create(
       fromPosition: [43, 36, 0],
     	position: [0,0,0]
     }),
-    d: 140,
-    u: s.time.SHORT+190,
+    d: s.time.XSHORT*1.6,
+    u: s.time.SHORT*1.9,
     xy: xy.milk
 	},
   {
@@ -92,22 +95,21 @@ p.step.create(
       fromPosition: [50, 30, 0],
     	position: [0,0,0]
     }),
-    d: 180,
-    u: s.time.SHORT+220,
+    d: s.time.XSHORT*1.6,
+    u: s.time.SHORT*2.0,
     xy: xy.canB
 	},
   // TEXT
 	{
     a: 'text', l: 'art',
     e: 'easeDown',
-    d: s.time.MEDIUM,
-    u: s.time.XLONG,
+    d: s.time.XSHORT*4,
+    u: s.time.XLONG*1.35,
     xy: xy.text
 	}
 );
 
 p.step.transition(
-	autoAdvance(p),
   exitSealayer("pink-sea"),
   exitSealayer("white-sea"),
   exitSealayer("pink-clouds"),
@@ -121,39 +123,47 @@ p.step.transition(
 	{
     a: 'milk', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XXSHORT,
-    u: s.time.SHORT,
+  	d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.milk
 	},
 	{
     a: 'canB', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XXSHORT,
-    u: s.time.SHORT,
+  	d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.canB
 	},
 	{
     a: 'canA', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XXSHORT,
-    u: s.time.SHORT,
+  	d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.canA
 	},
 	{
     a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XXSHORT,
-    u: s.time.SHORT,
+  	d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.bag
 	},
 
 	{
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",
-	  d: s.time.XXSHORT,
+	  d: s.time.SHORT,
     u: s.time.MEDIUM,
     xy: xy.text
-	}
+	},
+
+  {
+    code: function(){
+      // buffer
+    },
+    u: 750,
+    s: "after",
+  }
 );
 
 p.destination.main = "[[1C]]";

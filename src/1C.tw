@@ -11,6 +11,12 @@ p.art.assets(
     src: "bag.png",
   },
   {
+    name: "cup",
+    src: "cup.png",
+    classNames: ["anim-float-down-4"],
+    type: "asset"
+  },
+  {
     name: "bubs-a",
     src: "bubs-a.png",
     classNames: ["anim-float-down-1"],
@@ -27,12 +33,6 @@ p.art.assets(
     src: "bubs-c.png",
     classNames: ["anim-float-down-3"],
     type: "asset",
-  },
-  {
-    name: "cup",
-    src: "cup.png",
-    classNames: ["anim-float-down-4"],
-    type: "asset"
   },
   {
     name: "milk",
@@ -54,108 +54,114 @@ const xy = {
 
 p.step.create(
   {
+    a: 'milk', l: 'art',
+    e: 'easeDown',
+    u: s.time.MEDIUM*1.4,
+    xy: xy.milk
+  },
+  {
+    a: 'cup', l: 'art',
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM*1.4,
+    xy: xy.cup
+  },
+  {
     a: 'bag', l: 'art',
-  	e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
+    e: 'easeDown',
+    d: s.time.SHORT,
+    u: s.time.MEDIUM*1.4,
     xy: xy.bag
-	},
+  },
+  {
+    a: 'text', l: 'art',
+    e: jinx.effects.extend('easeDown',
+    {fromPosition: [0, -25, 0]}),
+    d: s.time.SHORT*1.2,
+    u: s.time.XLONG*1.5,
+    xy: xy.text
+  },
+  enterSealayer("red-sea", null, null, true),
   {
     a: 'bubs-a', l: 'art',
-  	e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
+  	e: "Bag Bubbles",
+    d: s.time.SHORT*1.5, s: "with",
+    u: s.time.MEDIUM*1.4,
     xy: xy.bubs
 	},
   {
     a: 'bubs-b', l: 'art',
-  	e: 'easeDown',
-    u: s.time.SHORT,
+  	e: 'Bag Bubbles',
+    d: 100*1.4,
+    u: s.time.MEDIUM*1.4,
     xy: xy.bubs
 	},
   {
     a: 'bubs-c', l: 'art',
-  	e: 'easeDown',
-    u: s.time.SHORT,
+  	e: 'Bag Bubbles',
+    d: 100*1.4,
+    u: s.time.MEDIUM*1.4,
     xy: xy.bubs
-	},
-  {
-    a: 'cup', l: 'art',
-  	e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
-    xy: xy.cup
-	},
-  {
-    a: 'milk', l: 'art',
-  	e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
-    xy: xy.milk
-	},
-  enterSealayer("red-sea"),
-  // TEXT
-	{
-    a: 'text', l: 'art',
-    e: jinx.effects.extend('easeDown',
-	   {fromPosition: [0, -25, 0]}),
-    d: s.time.MEDIUM,
-    u: s.time.XLONG,
-    xy: xy.text
-	},
+	}
 );
 
 p.step.transition(
-	autoAdvance(p),
   exitSealayer("red-sea"),
-	{
-    a: 'milk', l: 'art', p: 'remove',
+  {
+    a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XXSHORT,
-    u: s.time.SHORT,
-    xy: xy.milk
-	},
-	{
-    a: 'cup', l: 'art', p: 'remove',
-    e: "easeOutUp",
-  	d: s.time.XXSHORT,
-    u: s.time.SHORT,
-    xy: xy.cup
-	},
+    u: s.time.MEDIUM,
+    xy: xy.bag
+  },
 	{
     a: 'bubs-c', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XXSHORT,
-    u: s.time.SHORT,
+  	d: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.bubs
 	},
 	{
     a: 'bubs-b', l: 'art', p: 'remove',
     e: "easeOutUp",
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.bubs
 	},
 	{
     a: 'bubs-a', l: 'art', p: 'remove',
     e: "easeOutUp",
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.bubs
 	},
-	{
-    a: 'bag', l: 'art', p: 'remove',
+  {
+    a: 'cup', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XXSHORT,
-    u: s.time.SHORT,
-    xy: xy.bag
-	},
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.cup
+  },
+  {
+    a: 'milk', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    d: s.time.SHORT,
+    u: s.time.MEDIUM,
+    xy: xy.milk
+  },
 
 	{
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",
-	  d: s.time.XXSHORT,
+	  d: s.time.SHORT,
     u: s.time.MEDIUM,
     xy: xy.text
 	},
+
+  {
+    code: function(){
+      // buffer
+    },
+    u: 1000,
+    s: "after",
+  }
 );
 
 p.destination.main = "[[1D]]";

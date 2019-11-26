@@ -9,6 +9,10 @@ body {
 	background-color: rgb(163,0,61);
 }
 
+html.debug {
+  filter: grayscale(0.5);
+}
+
 #passages {
 	align-items: center;
 	justify-content: center;
@@ -54,6 +58,10 @@ body {
 	height: 800px;
 	background-position: top center;
 	background-repeat-y: no-repeat;
+}
+
+.layer.full-art .asset.looping-jellies {
+    width: calc(100% + 200px)
 }
 
 /* wand */

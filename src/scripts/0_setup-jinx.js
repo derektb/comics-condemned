@@ -10,6 +10,8 @@ jinx.setDefaults({
 	effect: 'fadeIn'
 });
 
+jinx.wand.mode("static");
+
 const defaultTiming = 400;
 
 window.story.state.time = {

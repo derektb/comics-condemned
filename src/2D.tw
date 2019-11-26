@@ -122,6 +122,7 @@ p.step.create(
     }),
     d: 250,
     u: exitDuration,
+    s: "after",
     xy: xy.tile,
   },
 	{
@@ -179,16 +180,14 @@ p.step.create(
   {
     s: "after",
     code: function() {
-      jinx.wand.away();
       $(document).one("click", "#restart-story", function(){
-        $(document).trigger("panel-clicked", p)
+        $(document).trigger("jinx.panel.advance", p)
       });
     }
   }
 )
 
 p.step.transition(
-	autoAdvance(p),
   resetSealayer("red-clouds"),
   resetSealayer("pink-clouds"),
   resetSealayer("white-sea"),
@@ -196,9 +195,17 @@ p.step.transition(
   resetSealayer("red-sea"),
   resetSealayer("deep-sea"),
   {
+    code: function(){
+      // here's some wacky shit lol
+      p.destination.to("1A");
+    },
+    s: "after"
+  },
+  {
     a: 'corpse', l: 'art', p: "effect",
     e: "fadeAway",
     u: s.time.MEDIUM,
+    s: "after",
   },
   {
     a: 'lefteel', l: 'art', p: "effect",
@@ -244,6 +251,10 @@ p.step.transition(
     u: 1000,
     s: "with",
   },
+  {
+    code: function(){
+      story.show("1A");
+    },
+    s: "after"
+  }
 );
-
-p.destination.main = "[[1A]]"

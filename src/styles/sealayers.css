@@ -22,10 +22,10 @@
 
 /* Defaults */
 .sealayer.active {
-  transition: top 4s cubic-bezier(0.215, 0.61, 0.355, 1); /* cubic ease out */
+  transition: top 6s cubic-bezier(0.215, 0.61, 0.355, 1); /* cubic ease out */
 }
 .sealayer.used {
-  transition: top 2s cubic-bezier(0.55, 0.055, 0.675, 0.19); /* cubic ease in */
+  transition: top 3s cubic-bezier(0.55, 0.055, 0.675, 0.19); /* cubic ease in */
 }
 
 .sealayer .head {
