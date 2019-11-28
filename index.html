@@ -159,7 +159,31 @@ Condemned to the Depths
 /* .asset[assetname='trash-shadow'] {
   animation: float-trash-shadow 4s infinite both;
 } */
-/* twine-user-stylesheet #2: "fish-sprites.css" */
+/* twine-user-stylesheet #2: "credits.css" */
+.asset.credits {
+  font-family: "Roboto Mono", monospace;
+  text-align: center;
+}
+
+.asset.credits .patrons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.asset.credits .patrons .patron {
+    line-height: 1.2;
+    flex: 1 0 30%;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.asset.credits .footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+/* twine-user-stylesheet #3: "fish-sprites.css" */
 .fish-sprite-wrapper, .fish-sprite {
   width: 1200px;
   height: 447px;
@@ -177,7 +201,7 @@ Condemned to the Depths
   top: 0;
   left: 0;
 }
-/* twine-user-stylesheet #3: "keyframes.css" */
+/* twine-user-stylesheet #4: "keyframes.css" */
 /* jellies */
 
 @-webkit-keyframes looping-background-jellies {
@@ -356,7 +380,9 @@ Condemned to the Depths
   0% { left: 0 }
   100% { left: 1200px; }
 }
-/* twine-user-stylesheet #4: "main.css" */
+/* twine-user-stylesheet #5: "main.css" */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+
 html, body, #passages {
 	margin: 0;
 	height: 100%;
@@ -467,7 +493,7 @@ html.debug {
 .credits a {
   color: rgba(255,0,66);
 }
-/* twine-user-stylesheet #5: "sealayers.css" */
+/* twine-user-stylesheet #6: "sealayers.css" */
 /********** sealayer setup **********/
 
 #sealayers {
@@ -635,19 +661,55 @@ html.debug {
   transition: opacity 1s;
   opacity: 0;
 }
-/* twine-user-stylesheet #6: "wand.css" */
+/* twine-user-stylesheet #7: "wand.css" */
 #wand {
+  background-color: black;
   z-index: 1000;
-  bottom: 15px;
+  bottom: 14px;
   right: 15px;
-  transition: bottom ease-out 0.2s,
+  background-image: url("./ASSETS/wand/waiting.gif");
+  background-size: contain;
+  box-shadow: 0 0 0 2px rgba(163,0,61);
+  transition: bottom ease-out 0.4s,
               opacity 0.4s ease-out,
-              background-color 0.4s ease-out;
+              background-color 0.4s ease-out,
+              box-shadow ease-out 0.4s,
+              background-image ease-out 0.2s;
+}
+
+#wand.active {
+  bottom: 16px;
+  background-image: url("./ASSETS/wand/active.gif");
+  box-shadow: 0 2px rgba(255,0,66),
+              0 0 0 2px rgba(163,0,61),
+              0 2px 0 2px rgba(163,0,61);
 }
 
 #wand.active:hover {
   cursor: pointer;
   bottom: 20px;
+  box-shadow: 0 6px rgba(255,0,66),
+              0 0 0 2px rgba(163,0,61),
+              0 6px 0 2px rgba(163,0,61);
+}
+#wand:focus {
+  outline: none;
+}
+
+#wand.active:focus {
+  box-shadow: 0 2px rgba(255,0,66),
+              0 0 0 2px white,
+              0 2px 0 2px white
+}
+
+#wand.active:hover:focus {
+  box-shadow: 0 6px rgba(255,0,66),
+              0 0 0 2px white,
+              0 6px 0 2px white
+}
+
+#wand.loading {
+  background-image: url("./ASSETS/wand/loading.gif")
 }
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "0-1_setup-effects.js" */
 jinx.effects.create("none", {
@@ -1270,22 +1332,24 @@ p.step.transition(
     u: s.time.MEDIUM,
     xy: xy.bag
   },
+  {
+    a: &#39;bubs-a&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
 	{
     a: &#39;bubs-c&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
-  	d: s.time.SHORT,
+  	d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.bubs
 	},
 	{
     a: &#39;bubs-b&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
-    u: s.time.MEDIUM,
-    xy: xy.bubs
-	},
-	{
-    a: &#39;bubs-a&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
-    e: &quot;easeOutUp&quot;,
+    d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.bubs
 	},
@@ -1450,6 +1514,13 @@ p.step.create(
 
 p.step.transition(
   {
+    a: &#39;jellies&#39;, l: &#39;full-art&#39;, p: &#39;remove&#39;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.jellies
+  },
+  {
     a: &#39;bag&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
@@ -1480,6 +1551,7 @@ p.step.transition(
   {
     a: &#39;silver&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
+  	d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.silver
   },
@@ -1487,17 +1559,18 @@ p.step.transition(
   {
     a: &#39;text&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
-  	d: s.time.XSHORT,
+  	d: s.time.SHORT,
     u: s.time.MEDIUM,
     xy: xy.text
   },
-	{
-    a: &#39;jellies&#39;, l: &#39;full-art&#39;, p: &#39;remove&#39;,
-    e: &quot;easeOutUp&quot;,
-	  d: s.time.XSHORT,
-    u: s.time.MEDIUM,
-    xy: xy.jellies
-	}
+
+  {
+    code: function(){
+      // buffer
+    },
+    u: 1000,
+    s: &quot;after&quot;,
+  }
 );
 
 p.destination.main = &quot;[[2A]]&quot;;</tw-passagedata><tw-passagedata pid="5" name="2A" tags="panel" position="600,100" size="100,100">// 2A MY DEBTS
@@ -2149,29 +2222,31 @@ p.step.create(
     xy: xy.fish1
   },
   {
-    a: &#39;bubs&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-    xy: xy.bubs
-  },
-  {
-    a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    u: s.time.XLONG, s: &#39;with&#39;,
-    xy: xy.bag
-  },
-  {
-    a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;,
-    e: &#39;easeDown&#39;,
-    u: s.time.XLONG, s: &#39;with&#39;,
-    xy: xy.bag
-  },
-  {
     a: &#39;bag&#39;, l: &#39;art&#39;,
     e: &#39;easeDown&#39;,
     d: s.time.SHORT,
     u: s.time.XLONG,
+    xy: xy.bag
+  },
+  {
+    a: &#39;bubs&#39;, l: &#39;art&#39;,
+    e: &#39;Bag Bubbles&#39;,
+    d: s.time.SHORT,
+    u: s.time.LONG,
+    xy: xy.bubs
+  },
+  {
+    a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;,
+    e: &#39;Bag Bubbles&#39;,
+    d: s.time.XSHORT,
+    u: s.time.LONG, s: &#39;with&#39;,
+    xy: xy.bag
+  },
+  {
+    a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;,
+    e: &#39;Bag Bubbles&#39;,
+    d: s.time.XSHORT,
+    u: s.time.LONG,
     xy: xy.bag
   },
 );
@@ -2184,67 +2259,69 @@ p.step.transition(
     xy: xy.whale
   },
   {
-    a: &#39;chixleg&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    a: &#39;bag&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &#39;easeOutUp&#39;,
-    d: s.time.SHORT,
+    d: s.time.XSHORT,
     u: s.time.MEDIUM,
-    xy: xy.chixleg
+    xy: xy.bag
   },
-  {
-    a: &#39;crust1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
-    e: &#39;easeOutUp&#39;,
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.crust1
-  },
-  {
-    a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
-    e: &#39;easeOutUp&#39;,
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.text
-  },
-  {
-    a: &#39;crust2&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
-    e: &#39;easeOutUp&#39;,
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.crust2
-  },
-  {
-    a: &#39;fish1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
-    e: &#39;easeOutUp&#39;,
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.fish1
-  },
-  {
-    a: &#39;bubs&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
-    e: &#39;easeOutUp&#39;,
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.bubs
-  },
+  exitSealayer(&quot;black-sea&quot;, 0, 3000, true),
   {
     a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &#39;easeOutUp&#39;,
-    u: s.time.MEDIUM, s: &#39;with&#39;,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.bag
   },
   {
     a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &#39;easeOutUp&#39;,
-    u: s.time.MEDIUM, s: &#39;with&#39;,
-    xy: xy.bag
-  },
-  {
-    a: &#39;bag&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
-    e: &#39;easeOutUp&#39;,
-    d: s.time.SHORT,
+    d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.bag
   },
-  exitSealayer(&quot;black-sea&quot;, 0, 2000, true),
+  {
+    a: &#39;bubs&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
+  {
+    a: &#39;fish1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.fish1
+  },
+  {
+    a: &#39;crust2&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust2
+  },
+  {
+    a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.text
+  },
+  {
+    a: &#39;crust1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust1
+  },
+  {
+    a: &#39;chixleg&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
+    e: &#39;easeOutUp&#39;,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.chixleg
+  },
 );
 
 p.destination.main = &quot;[[2D]]&quot;;</tw-passagedata><tw-passagedata pid="8" name="2D" tags="panel" position="975,100" size="100,100">// WOULD THAT MY MEMORIES COULD BE CAST INTO THE COLD EMBRACE OF THE DEEP
@@ -2424,10 +2501,13 @@ p.step.create(
     e: &quot;easeUp&quot;,
     d: exitDuration/2,
     u: s.time.LONG,
+    xy: [450,0]
   },
   {
     s: &quot;after&quot;,
     code: function() {
+      jinx.wand.mode(&quot;panel&quot;);
+      jinx.wand.away();
       $(document).one(&quot;click&quot;, &quot;#restart-story&quot;, function(){
         $(document).trigger(&quot;jinx.panel.advance&quot;, p)
       });
@@ -2436,19 +2516,18 @@ p.step.create(
 )
 
 p.step.transition(
+  {
+    code: function(){
+      jinx.wand.mode(&quot;static&quot;);
+    },
+    s: &quot;after&quot;,
+  },
   resetSealayer(&quot;red-clouds&quot;),
   resetSealayer(&quot;pink-clouds&quot;),
   resetSealayer(&quot;white-sea&quot;),
   resetSealayer(&quot;pink-sea&quot;),
   resetSealayer(&quot;red-sea&quot;),
   resetSealayer(&quot;deep-sea&quot;),
-  {
-    code: function(){
-      // here&#39;s some wacky shit lol
-      p.destination.to(&quot;1A&quot;);
-    },
-    s: &quot;after&quot;
-  },
   {
     a: &#39;corpse&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
@@ -2512,12 +2591,27 @@ p.step.transition(
 
 &lt;p&gt;Written and drawn for Twine by Derek Timm-Brock with the Jinx engine. Released November 2019.&lt;/p&gt;
 
-&lt;p&gt;Thanks to the patrons of Wizard Town for making this comic possible&lt;/p&gt;
+&lt;p&gt;Many thanks and love to the patrons of Wizard Town for supporting the development of Jinx and this comic:&lt;/p&gt;
 
-&lt;p&gt;PATRONS&lt;/p&gt;
+&lt;p class=&quot;patrons&quot;&gt;
+  &lt;span class=&quot;patron&quot;&gt;Ben Kicic&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Yung Hui&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Kellan Jett&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Brendan&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Craig Park&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Ian Isaboss&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;David Brock&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Sam Fisher&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Steve Timm&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Paul Timm-Brock&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Barbara Timm-Brock&lt;/span&gt;
+  &lt;span class=&quot;patron&quot;&gt;Denny Post&lt;/span&gt;
+&lt;/p&gt;
 
-&lt;a href=&quot;http://www.patreon.com/wizardtown&quot;&gt;Support Wizard Town&lt;/a&gt;
-&lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;</tw-passagedata><tw-passagedata pid="10" name="FISHES" tags="" position="1225,100" size="100,100">&lt;div class=&quot;fish-sprite-wrapper&quot;&gt;
+&lt;p class=&quot;footer&quot;&gt;
+    &lt;a href=&quot;http://www.patreon.com/wizardtown&quot;&gt;Support Wizard Town&lt;/a&gt;
+    &lt;a href=&quot;http://www.wizard.town&quot;&gt;More Comics&lt;/a&gt;
+&lt;/p&gt;</tw-passagedata><tw-passagedata pid="10" name="FISHES" tags="" position="1225,100" size="100,100">&lt;div class=&quot;fish-sprite-wrapper&quot;&gt;
   &lt;div id=&quot;fish-sprite-left&quot; class=&quot;fish-sprite&quot;&gt;
   &lt;/div&gt;
   &lt;div id=&quot;fish-sprite-middle&quot; class=&quot;fish-sprite&quot;&gt;
@@ -2566,7 +2660,7 @@ p.step.transition(
 let sealayers = story.render(&#39;SEALAYERS&#39;);
 $(sealayers).insertBefore(&#39;#passages&#39;);
 
-story.show(&quot;1A&quot;)
+story.show(&quot;2C&quot;)
 
 })%&gt;</tw-passagedata></tw-storydata>
 

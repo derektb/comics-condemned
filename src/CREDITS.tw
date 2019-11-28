@@ -6,9 +6,24 @@
 
 <p>Written and drawn for Twine by Derek Timm-Brock with the Jinx engine. Released November 2019.</p>
 
-<p>Thanks to the patrons of Wizard Town for making this comic possible</p>
+<p>Many thanks and love to the patrons of Wizard Town for supporting the development of Jinx and this comic:</p>
 
-<p>PATRONS</p>
+<p class="patrons">
+  <span class="patron">Ben Kicic</span>
+  <span class="patron">Yung Hui</span>
+  <span class="patron">Kellan Jett</span>
+  <span class="patron">Brendan</span>
+  <span class="patron">Craig Park</span>
+  <span class="patron">Ian Isaboss</span>
+  <span class="patron">David Brock</span>
+  <span class="patron">Sam Fisher</span>
+  <span class="patron">Steve Timm</span>
+  <span class="patron">Paul Timm-Brock</span>
+  <span class="patron">Barbara Timm-Brock</span>
+  <span class="patron">Denny Post</span>
+</p>
 
-<a href="http://www.patreon.com/wizardtown">Support Wizard Town</a>
-<a href="http://www.wizard.town">More Comics</a>
+<p class="footer">
+    <a href="http://www.patreon.com/wizardtown">Support Wizard Town</a>
+    <a href="http://www.wizard.town">More Comics</a>
+</p>

@@ -176,10 +176,13 @@ p.step.create(
     e: "easeUp",
     d: exitDuration/2,
     u: s.time.LONG,
+    xy: [450,0]
   },
   {
     s: "after",
     code: function() {
+      jinx.wand.mode("panel");
+      jinx.wand.away();
       $(document).one("click", "#restart-story", function(){
         $(document).trigger("jinx.panel.advance", p)
       });
@@ -188,19 +191,18 @@ p.step.create(
 )
 
 p.step.transition(
+  {
+    code: function(){
+      jinx.wand.mode("static");
+    },
+    s: "after",
+  },
   resetSealayer("red-clouds"),
   resetSealayer("pink-clouds"),
   resetSealayer("white-sea"),
   resetSealayer("pink-sea"),
   resetSealayer("red-sea"),
   resetSealayer("deep-sea"),
-  {
-    code: function(){
-      // here's some wacky shit lol
-      p.destination.to("1A");
-    },
-    s: "after"
-  },
   {
     a: 'corpse', l: 'art', p: "effect",
     e: "fadeAway",

@@ -128,6 +128,13 @@ p.step.create(
 
 p.step.transition(
   {
+    a: 'jellies', l: 'full-art', p: 'remove',
+    e: "easeOutUp",
+    d: s.time.SHORT,
+    u: s.time.XLONG,
+    xy: xy.jellies
+  },
+  {
     a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
     d: s.time.XSHORT,
@@ -158,6 +165,7 @@ p.step.transition(
   {
     a: 'silver', l: 'art', p: 'remove',
     e: "easeOutUp",
+  	d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.silver
   },
@@ -165,17 +173,18 @@ p.step.transition(
   {
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.XSHORT,
+  	d: s.time.SHORT,
     u: s.time.MEDIUM,
     xy: xy.text
   },
-	{
-    a: 'jellies', l: 'full-art', p: 'remove',
-    e: "easeOutUp",
-	  d: s.time.XSHORT,
-    u: s.time.MEDIUM,
-    xy: xy.jellies
-	}
+
+  {
+    code: function(){
+      // buffer
+    },
+    u: 1000,
+    s: "after",
+  }
 );
 
 p.destination.main = "[[2A]]";

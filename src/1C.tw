@@ -113,22 +113,24 @@ p.step.transition(
     u: s.time.MEDIUM,
     xy: xy.bag
   },
+  {
+    a: 'bubs-a', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
 	{
     a: 'bubs-c', l: 'art', p: 'remove',
     e: "easeOutUp",
-  	d: s.time.SHORT,
+  	d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.bubs
 	},
 	{
     a: 'bubs-b', l: 'art', p: 'remove',
     e: "easeOutUp",
-    u: s.time.MEDIUM,
-    xy: xy.bubs
-	},
-	{
-    a: 'bubs-a', l: 'art', p: 'remove',
-    e: "easeOutUp",
+    d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.bubs
 	},

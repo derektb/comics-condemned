@@ -119,29 +119,31 @@ p.step.create(
     xy: xy.fish1
   },
   {
-    a: 'bubs', l: 'art',
-    e: 'easeDown',
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-    xy: xy.bubs
-  },
-  {
-    a: 'bag-bubs-a', l: 'art',
-    e: 'easeDown',
-    u: s.time.XLONG, s: 'with',
-    xy: xy.bag
-  },
-  {
-    a: 'bag-bubs-b', l: 'art',
-    e: 'easeDown',
-    u: s.time.XLONG, s: 'with',
-    xy: xy.bag
-  },
-  {
     a: 'bag', l: 'art',
     e: 'easeDown',
     d: s.time.SHORT,
     u: s.time.XLONG,
+    xy: xy.bag
+  },
+  {
+    a: 'bubs', l: 'art',
+    e: 'Bag Bubbles',
+    d: s.time.SHORT,
+    u: s.time.LONG,
+    xy: xy.bubs
+  },
+  {
+    a: 'bag-bubs-a', l: 'art',
+    e: 'Bag Bubbles',
+    d: s.time.XSHORT,
+    u: s.time.LONG, s: 'with',
+    xy: xy.bag
+  },
+  {
+    a: 'bag-bubs-b', l: 'art',
+    e: 'Bag Bubbles',
+    d: s.time.XSHORT,
+    u: s.time.LONG,
     xy: xy.bag
   },
 );
@@ -154,67 +156,69 @@ p.step.transition(
     xy: xy.whale
   },
   {
-    a: 'chixleg', l: 'art', p: "remove",
+    a: 'bag', l: 'art', p: "remove",
     e: 'easeOutUp',
-    d: s.time.SHORT,
+    d: s.time.XSHORT,
     u: s.time.MEDIUM,
-    xy: xy.chixleg
+    xy: xy.bag
   },
-  {
-    a: 'crust1', l: 'art', p: "remove",
-    e: 'easeOutUp',
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.crust1
-  },
-  {
-    a: 'text', l: 'art', p: "remove",
-    e: 'easeOutUp',
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.text
-  },
-  {
-    a: 'crust2', l: 'art', p: "remove",
-    e: 'easeOutUp',
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.crust2
-  },
-  {
-    a: 'fish1', l: 'art', p: "remove",
-    e: 'easeOutUp',
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.fish1
-  },
-  {
-    a: 'bubs', l: 'art', p: "remove",
-    e: 'easeOutUp',
-    d: s.time.SHORT,
-    u: s.time.MEDIUM,
-    xy: xy.bubs
-  },
+  exitSealayer("black-sea", 0, 3000, true),
   {
     a: 'bag-bubs-a', l: 'art', p: "remove",
     e: 'easeOutUp',
-    u: s.time.MEDIUM, s: 'with',
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.bag
   },
   {
     a: 'bag-bubs-b', l: 'art', p: "remove",
     e: 'easeOutUp',
-    u: s.time.MEDIUM, s: 'with',
-    xy: xy.bag
-  },
-  {
-    a: 'bag', l: 'art', p: "remove",
-    e: 'easeOutUp',
-    d: s.time.SHORT,
+    d: s.time.XSHORT,
     u: s.time.MEDIUM,
     xy: xy.bag
   },
-  exitSealayer("black-sea", 0, 2000, true),
+  {
+    a: 'bubs', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bubs
+  },
+  {
+    a: 'fish1', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.fish1
+  },
+  {
+    a: 'crust2', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust2
+  },
+  {
+    a: 'text', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.text
+  },
+  {
+    a: 'crust1', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust1
+  },
+  {
+    a: 'chixleg', l: 'art', p: "remove",
+    e: 'easeOutUp',
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.chixleg
+  },
 );
 
 p.destination.main = "[[2D]]";

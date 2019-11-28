@@ -1,13 +1,49 @@
 #wand {
+  background-color: black;
   z-index: 1000;
-  bottom: 15px;
+  bottom: 14px;
   right: 15px;
-  transition: bottom ease-out 0.2s,
+  background-image: url("./ASSETS/wand/waiting.gif");
+  background-size: contain;
+  box-shadow: 0 0 0 2px rgba(163,0,61);
+  transition: bottom ease-out 0.4s,
               opacity 0.4s ease-out,
-              background-color 0.4s ease-out;
+              background-color 0.4s ease-out,
+              box-shadow ease-out 0.4s,
+              background-image ease-out 0.2s;
+}
+
+#wand.active {
+  bottom: 16px;
+  background-image: url("./ASSETS/wand/active.gif");
+  box-shadow: 0 2px rgba(255,0,66),
+              0 0 0 2px rgba(163,0,61),
+              0 2px 0 2px rgba(163,0,61);
 }
 
 #wand.active:hover {
   cursor: pointer;
   bottom: 20px;
+  box-shadow: 0 6px rgba(255,0,66),
+              0 0 0 2px rgba(163,0,61),
+              0 6px 0 2px rgba(163,0,61);
+}
+#wand:focus {
+  outline: none;
+}
+
+#wand.active:focus {
+  box-shadow: 0 2px rgba(255,0,66),
+              0 0 0 2px white,
+              0 2px 0 2px white
+}
+
+#wand.active:hover:focus {
+  box-shadow: 0 6px rgba(255,0,66),
+              0 0 0 2px white,
+              0 6px 0 2px white
+}
+
+#wand.loading {
+  background-image: url("./ASSETS/wand/loading.gif")
 }
