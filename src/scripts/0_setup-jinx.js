@@ -10,7 +10,7 @@ jinx.setDefaults({
 	effect: 'fadeIn'
 });
 
-jinx.wand.mode("static");
+jinx.wand.mode("button");
 
 const defaultTiming = 400;
 

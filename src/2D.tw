@@ -193,7 +193,7 @@ p.step.create(
 p.step.transition(
   {
     code: function(){
-      jinx.wand.mode("static");
+      jinx.wand.mode("button");
     },
     s: "after",
   },
