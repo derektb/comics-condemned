@@ -18,6 +18,8 @@ p.art.assets(
     type: "asset"
   },
 
+  ["reartrash", "whalefall-reartrash.png"],
+  ["fronttrash", "whalefall-fronttrash.png"],
   ["corpse", "whalefall.png"],
   {
     name: "lefteel",
@@ -85,23 +87,53 @@ p.step.create(
   },
 
   // whale & text
-	{
-    a: 'corpse', l: 'art',
-    e: "easeUpSmall",
+  {
+    a: 'reartrash', l: 'art',
+    e: jinx.effects.extend("fadeIn", {
+      fromPosition: [0,15,0],
+      position: [0,0,0]
+    }),
     d: bgDuration*0.3,
-	  u: whaleDuration,
-	  xy: xy.whale,
-  },{
-    a: 'lefteel', l: 'art',
-    e: "easeUp",
-    u: whaleDuration,
-	  xy: xy.whale,
-  },{
-    a: 'righteel', l: 'art',
-    e: "easeUp",
     u: whaleDuration,
     xy: xy.whale,
-  },{
+  },
+  {
+    a: 'lefteel', l: 'art',
+    e: jinx.effects.extend("fadeIn", {
+      fromPosition: [0,20,0],
+      position: [0,0,0]
+    }),
+    u: whaleDuration+100,
+    xy: xy.whale,
+  },
+	{
+    a: 'corpse', l: 'art',
+    e: jinx.effects.extend("fadeIn", {
+      fromPosition: [0,25,0],
+      position: [0,0,0]
+    }),
+	  u: whaleDuration,
+	  xy: xy.whale,
+  },
+  {
+    a: 'righteel', l: 'art',
+    e: jinx.effects.extend("fadeIn", {
+      fromPosition: [0,30,0],
+      position: [0,0,0]
+    }),
+    u: whaleDuration,
+    xy: xy.whale,
+  },
+  {
+    a: 'fronttrash', l: 'art',
+    e: jinx.effects.extend("fadeIn", {
+      fromPosition: [0,40,0],
+      position: [0,0,0]
+    }),
+    u: whaleDuration,
+    xy: xy.whale,
+  },
+  {
     a: 'text', l: 'art',
     e: 'easeDownSmall',
     d: s.time.LONG*1.5,
@@ -135,6 +167,24 @@ p.step.create(
     xy: xy.mountains,
   },
   {
+    a: 'reartrash', l: 'art', p: "effect",
+    e: jinx.effects.extend("easeBoth", {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame+35,0]
+    }),
+    u: exitDuration,
+    xy: xy.whale,
+  },
+  {
+    a: 'lefteel', l: 'art', p: "effect",
+    e: jinx.effects.extend("easeBoth", {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame+25,0]
+    }),
+    u: exitDuration,
+    xy: xy.whale,
+  },
+  {
     a: 'corpse', l: 'art', p: "effect",
     e: jinx.effects.extend("easeBoth", {
       fromPosition: [0,0,0],
@@ -144,19 +194,19 @@ p.step.create(
     xy: xy.whale,
   },
   {
-    a: 'lefteel', l: 'art', p: "effect",
+    a: 'righteel', l: 'art', p: "effect",
     e: jinx.effects.extend("easeBoth", {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame-25,0]
     }),
     u: exitDuration,
     xy: xy.whale,
   },
   {
-    a: 'righteel', l: 'art', p: "effect",
+    a: 'fronttrash', l: 'art', p: "effect",
     e: jinx.effects.extend("easeBoth", {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame-35,0]
     }),
     u: exitDuration,
     xy: xy.whale,
@@ -183,12 +233,15 @@ p.step.create(
     code: function() {
       jinx.wand.mode("panel");
       jinx.wand.away();
-      $(document).one("click", "#restart-story", function(){
+      document.querySelector(".asset.credits").classList.add("active");
+      $(document).one("click", ".asset.credits.active #restart-story", function(){
         $(document).trigger("jinx.panel.advance", p)
       });
     }
   }
 )
+
+const fadeAwayDuration = 1000;
 
 p.step.transition(
   {
@@ -206,40 +259,50 @@ p.step.transition(
   {
     a: 'corpse', l: 'art', p: "effect",
     e: "fadeAway",
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
     s: "after",
   },
   {
     a: 'lefteel', l: 'art', p: "effect",
     e: "fadeAway",
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
   },
   {
     a: 'righteel', l: 'art', p: "effect",
     e: "fadeAway",
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
+  },
+  {
+    a: 'reartrash', l: 'art', p: "effect",
+    e: "fadeAway",
+    u: fadeAwayDuration,
+  },
+  {
+    a: 'fronttrash', l: 'art', p: "effect",
+    e: "fadeAway",
+    u: fadeAwayDuration,
   },
   {
     a: 'bg-tile', l: 'full-art', p: "effect",
     e: "fadeAway",
-    u: s.time.MEDIUM,
-    d: s.time.SHORT,
+    u: fadeAwayDuration,
+    d: fadeAwayDuration*0.4,
   },
 	{
     a: 'bg-mtn', l: 'art', p: "effect",
     e: "fadeAway",
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
   },
   {
     a: 'text', l: 'art', p: "effect",
     e: "fadeAway",
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
   },
   {
     a: 'credits', l: 'art', p: "effect",
     e: "fadeAway",
-    u: s.time.MEDIUM,
-    d: s.time.SHORT
+    u: fadeAwayDuration,
+    d: fadeAwayDuration*0.4
   },
   {
     code: function(){
@@ -253,10 +316,6 @@ p.step.transition(
     u: 1000,
     s: "with",
   },
-  {
-    code: function(){
-      story.show("1A");
-    },
-    s: "after"
-  }
 );
+
+p.destination.to("1A");

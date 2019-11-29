@@ -203,82 +203,84 @@ p.step.create(
   }
 );
 
+const outDurationConst = 1.2;
+
 p.step.transition(
   // TRASH
   {
     a: 'bag', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.bag
   },
   {
     a: 'banana', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.banana
   },
   {
     a: 'barracuda#2', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.barracuda2
   },
   {
     a: 'downfish-white', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },{
     a: 'shark-white', l: 'art', p: "remove",
     e: "easeOutUp", s: 'with',
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },
   {
     a: 'upfish-white', l: 'art', p: "remove",
     e: "easeOutUp", s: 'with',
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },
   {
     a: 'downfish', l: 'art', p: "remove",
     e: "easeOutUp",
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },{
     a: 'shark', l: 'art', p: "remove",
     e: "easeOutUp", s: 'with',
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },{
     a: 'upfish', l: 'art', p: "remove",
     e: "easeOutUp", s: 'with',
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },
   {
     a: 'orangepeel', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.orangepeel
   },
   {
     a: 'cheese', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.cheese
   },
   {
     a: 'crust', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.crust
   },
   // FISH & TEXT
@@ -288,7 +290,7 @@ p.step.transition(
     a: 'barracuda#1', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.barracuda1
   },
 
@@ -296,7 +298,7 @@ p.step.transition(
     a: 'text', l: 'art', p: "remove",
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
   	xy: xy.text
   },
 

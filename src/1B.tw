@@ -42,6 +42,13 @@ const xy = {
 };
 
 p.step.create(
+  {
+    code: function(){
+      // buffer
+    },
+    u: 250,
+    s: "after",
+  },
   // sealayers
   enterSealayer("red-clouds"),
   enterSealayer("pink-clouds"),
@@ -103,8 +110,8 @@ p.step.create(
 	{
     a: 'text', l: 'art',
     e: 'easeDown',
-    d: s.time.XSHORT*4,
-    u: s.time.XLONG*1.35,
+    d: s.time.XSHORT*4.25,
+    u: s.time.XLONG*1.5,
     xy: xy.text
 	}
 );

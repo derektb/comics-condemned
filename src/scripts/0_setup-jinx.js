@@ -39,5 +39,8 @@ preload(
   "ASSETS/2A/spritesheets/fish-sprites-1.png",
   "ASSETS/2A/spritesheets/fish-sprites-2.png",
   "ASSETS/2A/spritesheets/fish-sprites-3.png",
-  "ASSETS/2A/spritesheets/fish-sprites-4.png"
+  "ASSETS/2A/spritesheets/fish-sprites-4.png",
+  "ASSETS/wand/active.gif",
+  "ASSETS/wand/waiting.gif",
+  "ASSETS/wand/loading.gif",
 );

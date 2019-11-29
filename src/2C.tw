@@ -127,21 +127,21 @@ p.step.create(
   },
   {
     a: 'bubs', l: 'art',
-    e: 'Bag Bubbles',
-    d: s.time.SHORT,
+    e: 'easeUpSmall',
+    d: s.time.MEDIUM,
     u: s.time.LONG,
     xy: xy.bubs
   },
   {
     a: 'bag-bubs-a', l: 'art',
-    e: 'Bag Bubbles',
+    e: 'easeUpSmall',
     d: s.time.XSHORT,
     u: s.time.LONG, s: 'with',
     xy: xy.bag
   },
   {
     a: 'bag-bubs-b', l: 'art',
-    e: 'Bag Bubbles',
+    e: 'easeUpSmall',
     d: s.time.XSHORT,
     u: s.time.LONG,
     xy: xy.bag

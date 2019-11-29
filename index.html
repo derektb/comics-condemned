@@ -161,6 +161,14 @@ Condemned to the Depths
 } */
 /* twine-user-stylesheet #2: "credits.css" */
 .asset.credits {
+  color: white;
+  background: rgba(0,0,0,0.8);
+  border-radius: 20px;
+  padding: 1em;
+  width: 30em;
+}
+
+.asset.credits {
   font-family: "Roboto Mono", monospace;
   text-align: center;
 }
@@ -182,6 +190,28 @@ Condemned to the Depths
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+}
+
+.asset.credits a {
+  color: white;
+  font-style: italic;
+  text-decoration: underline rgba(255,255,255,0);
+  transition: color 1s, text-decoration 1s;
+}
+
+.asset.credits.active a {
+  color: rgba(255,0,66);
+  text-decoration: underline rgba(255,0,66,1);
+}
+
+.asset.credits.active a:hover {
+  cursor: pointer;
+}
+
+.asset.credits.active a:focus {
+  outline: none;
+  transition: color 0.1s;
+  color: rgba(255,144,125);
 }
 /* twine-user-stylesheet #3: "fish-sprites.css" */
 .fish-sprite-wrapper, .fish-sprite {
@@ -478,20 +508,6 @@ html.debug {
 
 .art-bottom, .full-art-bottom {
 	top: calc(50vh - 200px);
-}
-
-
-
-.credits {
-  color: white;
-  background: rgba(0,0,0,0.8);
-  border-radius: 20px;
-  padding: 1em;
-  width: 30em;
-}
-
-.credits a {
-  color: rgba(255,0,66);
 }
 /* twine-user-stylesheet #6: "sealayers.css" */
 /********** sealayer setup **********/
@@ -925,7 +941,10 @@ preload(
   "ASSETS/2A/spritesheets/fish-sprites-1.png",
   "ASSETS/2A/spritesheets/fish-sprites-2.png",
   "ASSETS/2A/spritesheets/fish-sprites-3.png",
-  "ASSETS/2A/spritesheets/fish-sprites-4.png"
+  "ASSETS/2A/spritesheets/fish-sprites-4.png",
+  "ASSETS/wand/active.gif",
+  "ASSETS/wand/waiting.gif",
+  "ASSETS/wand/loading.gif",
 );
 /* twine-user-script #5: "2_sealayersCode.js" */
 window.enterSealayer = function (which, delay, duration, syncWith) {
@@ -1056,7 +1075,7 @@ p.step.transition(
     d: s.time.SHORT,
     u: s.time.LONG*1.2,
     xy: xy.subtitle
-  },
+  }
 );
 
 p.destination.main = &quot;[[1B]]&quot;;</tw-passagedata><tw-passagedata pid="2" name="1B" tags="panel" position="225,100" size="100,100">// I CAST THE TRASH OF MY MEAL INTO THE OCEAN
@@ -1102,6 +1121,13 @@ const xy = {
 };
 
 p.step.create(
+  {
+    code: function(){
+      // buffer
+    },
+    u: 250,
+    s: &quot;after&quot;,
+  },
   // sealayers
   enterSealayer(&quot;red-clouds&quot;),
   enterSealayer(&quot;pink-clouds&quot;),
@@ -1163,8 +1189,8 @@ p.step.create(
 	{
     a: &#39;text&#39;, l: &#39;art&#39;,
     e: &#39;easeDown&#39;,
-    d: s.time.XSHORT*4,
-    u: s.time.XLONG*1.35,
+    d: s.time.XSHORT*4.25,
+    u: s.time.XLONG*1.5,
     xy: xy.text
 	}
 );
@@ -1724,6 +1750,15 @@ p.step.create(
 );
 
 p.step.transition(
+
+  exitSealayer(&quot;deep-sea&quot;),
+  {
+    a: &#39;fish-sprite-wrapper&#39;, l: &#39;full-art&#39;, p: &#39;remove&#39;,
+    e: &quot;easeOutUp&quot;,
+    d: s.time.XSHORT,
+    u: s.time.LONG,
+    xy: xy.fishes
+  },
   {
     a: &#39;bag&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
@@ -1772,15 +1807,6 @@ p.step.transition(
     u: s.time.MEDIUM,
     xy: xy.gel,
   },
-
-  exitSealayer(&quot;deep-sea&quot;),
-	{
-    a: &#39;fish-sprite-wrapper&#39;, l: &#39;full-art&#39;, p: &#39;remove&#39;,
-    e: &quot;easeOutUp&quot;,
-	  d: s.time.XSHORT,
-    u: s.time.LONG,
-    xy: xy.fishes
-	},
   {
     a: &#39;text&#39;, l: &#39;art&#39;, p: &#39;remove&#39;,
     e: &quot;easeOutUp&quot;,
@@ -2002,82 +2028,84 @@ p.step.create(
   }
 );
 
+const outDurationConst = 1.2;
+
 p.step.transition(
   // TRASH
   {
     a: &#39;bag&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.bag
   },
   {
     a: &#39;banana&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.banana
   },
   {
     a: &#39;barracuda#2&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.barracuda2
   },
   {
     a: &#39;downfish-white&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },{
     a: &#39;shark-white&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;, s: &#39;with&#39;,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },
   {
     a: &#39;upfish-white&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;, s: &#39;with&#39;,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },
   {
     a: &#39;downfish&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },{
     a: &#39;shark&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;, s: &#39;with&#39;,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },{
     a: &#39;upfish&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;, s: &#39;with&#39;,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.shark
   },
   {
     a: &#39;orangepeel&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.orangepeel
   },
   {
     a: &#39;cheese&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.cheese
   },
   {
     a: &#39;crust&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.crust
   },
   // FISH &amp; TEXT
@@ -2087,7 +2115,7 @@ p.step.transition(
     a: &#39;barracuda#1&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
     xy: xy.barracuda1
   },
 
@@ -2095,7 +2123,7 @@ p.step.transition(
     a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;remove&quot;,
     e: &quot;easeOutUp&quot;,
     d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.MEDIUM*outDurationConst,
   	xy: xy.text
   },
 
@@ -2236,21 +2264,21 @@ p.step.create(
   },
   {
     a: &#39;bubs&#39;, l: &#39;art&#39;,
-    e: &#39;Bag Bubbles&#39;,
-    d: s.time.SHORT,
+    e: &#39;easeUpSmall&#39;,
+    d: s.time.MEDIUM,
     u: s.time.LONG,
     xy: xy.bubs
   },
   {
     a: &#39;bag-bubs-a&#39;, l: &#39;art&#39;,
-    e: &#39;Bag Bubbles&#39;,
+    e: &#39;easeUpSmall&#39;,
     d: s.time.XSHORT,
     u: s.time.LONG, s: &#39;with&#39;,
     xy: xy.bag
   },
   {
     a: &#39;bag-bubs-b&#39;, l: &#39;art&#39;,
-    e: &#39;Bag Bubbles&#39;,
+    e: &#39;easeUpSmall&#39;,
     d: s.time.XSHORT,
     u: s.time.LONG,
     xy: xy.bag
@@ -2349,6 +2377,8 @@ p.art.assets(
     type: &quot;asset&quot;
   },
 
+  [&quot;reartrash&quot;, &quot;whalefall-reartrash.png&quot;],
+  [&quot;fronttrash&quot;, &quot;whalefall-fronttrash.png&quot;],
   [&quot;corpse&quot;, &quot;whalefall.png&quot;],
   {
     name: &quot;lefteel&quot;,
@@ -2416,23 +2446,53 @@ p.step.create(
   },
 
   // whale &amp; text
-	{
-    a: &#39;corpse&#39;, l: &#39;art&#39;,
-    e: &quot;easeUpSmall&quot;,
+  {
+    a: &#39;reartrash&#39;, l: &#39;art&#39;,
+    e: jinx.effects.extend(&quot;fadeIn&quot;, {
+      fromPosition: [0,15,0],
+      position: [0,0,0]
+    }),
     d: bgDuration*0.3,
-	  u: whaleDuration,
-	  xy: xy.whale,
-  },{
-    a: &#39;lefteel&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;,
-    u: whaleDuration,
-	  xy: xy.whale,
-  },{
-    a: &#39;righteel&#39;, l: &#39;art&#39;,
-    e: &quot;easeUp&quot;,
     u: whaleDuration,
     xy: xy.whale,
-  },{
+  },
+  {
+    a: &#39;lefteel&#39;, l: &#39;art&#39;,
+    e: jinx.effects.extend(&quot;fadeIn&quot;, {
+      fromPosition: [0,20,0],
+      position: [0,0,0]
+    }),
+    u: whaleDuration+100,
+    xy: xy.whale,
+  },
+	{
+    a: &#39;corpse&#39;, l: &#39;art&#39;,
+    e: jinx.effects.extend(&quot;fadeIn&quot;, {
+      fromPosition: [0,25,0],
+      position: [0,0,0]
+    }),
+	  u: whaleDuration,
+	  xy: xy.whale,
+  },
+  {
+    a: &#39;righteel&#39;, l: &#39;art&#39;,
+    e: jinx.effects.extend(&quot;fadeIn&quot;, {
+      fromPosition: [0,30,0],
+      position: [0,0,0]
+    }),
+    u: whaleDuration,
+    xy: xy.whale,
+  },
+  {
+    a: &#39;fronttrash&#39;, l: &#39;art&#39;,
+    e: jinx.effects.extend(&quot;fadeIn&quot;, {
+      fromPosition: [0,40,0],
+      position: [0,0,0]
+    }),
+    u: whaleDuration,
+    xy: xy.whale,
+  },
+  {
     a: &#39;text&#39;, l: &#39;art&#39;,
     e: &#39;easeDownSmall&#39;,
     d: s.time.LONG*1.5,
@@ -2466,6 +2526,24 @@ p.step.create(
     xy: xy.mountains,
   },
   {
+    a: &#39;reartrash&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: jinx.effects.extend(&quot;easeBoth&quot;, {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame+35,0]
+    }),
+    u: exitDuration,
+    xy: xy.whale,
+  },
+  {
+    a: &#39;lefteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: jinx.effects.extend(&quot;easeBoth&quot;, {
+      fromPosition: [0,0,0],
+      position: [0,outOfFrame+25,0]
+    }),
+    u: exitDuration,
+    xy: xy.whale,
+  },
+  {
     a: &#39;corpse&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&quot;easeBoth&quot;, {
       fromPosition: [0,0,0],
@@ -2475,19 +2553,19 @@ p.step.create(
     xy: xy.whale,
   },
   {
-    a: &#39;lefteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    a: &#39;righteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&quot;easeBoth&quot;, {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame-25,0]
     }),
     u: exitDuration,
     xy: xy.whale,
   },
   {
-    a: &#39;righteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    a: &#39;fronttrash&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: jinx.effects.extend(&quot;easeBoth&quot;, {
       fromPosition: [0,0,0],
-      position: [0,outOfFrame,0]
+      position: [0,outOfFrame-35,0]
     }),
     u: exitDuration,
     xy: xy.whale,
@@ -2514,12 +2592,15 @@ p.step.create(
     code: function() {
       jinx.wand.mode(&quot;panel&quot;);
       jinx.wand.away();
-      $(document).one(&quot;click&quot;, &quot;#restart-story&quot;, function(){
+      document.querySelector(&quot;.asset.credits&quot;).classList.add(&quot;active&quot;);
+      $(document).one(&quot;click&quot;, &quot;.asset.credits.active #restart-story&quot;, function(){
         $(document).trigger(&quot;jinx.panel.advance&quot;, p)
       });
     }
   }
 )
+
+const fadeAwayDuration = 1000;
 
 p.step.transition(
   {
@@ -2537,40 +2618,50 @@ p.step.transition(
   {
     a: &#39;corpse&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
     s: &quot;after&quot;,
   },
   {
     a: &#39;lefteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
   },
   {
     a: &#39;righteel&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
+  },
+  {
+    a: &#39;reartrash&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: fadeAwayDuration,
+  },
+  {
+    a: &#39;fronttrash&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
+    e: &quot;fadeAway&quot;,
+    u: fadeAwayDuration,
   },
   {
     a: &#39;bg-tile&#39;, l: &#39;full-art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
-    u: s.time.MEDIUM,
-    d: s.time.SHORT,
+    u: fadeAwayDuration,
+    d: fadeAwayDuration*0.4,
   },
 	{
     a: &#39;bg-mtn&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
   },
   {
     a: &#39;text&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
-    u: s.time.MEDIUM,
+    u: fadeAwayDuration,
   },
   {
     a: &#39;credits&#39;, l: &#39;art&#39;, p: &quot;effect&quot;,
     e: &quot;fadeAway&quot;,
-    u: s.time.MEDIUM,
-    d: s.time.SHORT
+    u: fadeAwayDuration,
+    d: fadeAwayDuration*0.4
   },
   {
     code: function(){
@@ -2584,13 +2675,9 @@ p.step.transition(
     u: 1000,
     s: &quot;with&quot;,
   },
-  {
-    code: function(){
-      story.show(&quot;1A&quot;);
-    },
-    s: &quot;after&quot;
-  }
-);</tw-passagedata><tw-passagedata pid="9" name="CREDITS" tags="" position="1100,100" size="100,100">
+);
+
+p.destination.to(&quot;1A&quot;);</tw-passagedata><tw-passagedata pid="9" name="CREDITS" tags="" position="1100,100" size="100,100">
 &lt;h1&gt;CONDEMNED to the DEPTHS&lt;/h1&gt;
 
 &lt;a id=&quot;restart-story&quot; href=&quot;javascript:void(0)&quot;&gt;Play Again&lt;/a&gt;
@@ -2666,7 +2753,8 @@ p.step.transition(
 let sealayers = story.render(&#39;SEALAYERS&#39;);
 $(sealayers).insertBefore(&#39;#passages&#39;);
 
-story.show(&quot;1A&quot;)
+story.show(&quot;2D&quot;);
+exitSealayer(&quot;black-sea&quot;).code();
 
 })%&gt;</tw-passagedata></tw-storydata>
 

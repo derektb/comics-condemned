@@ -96,17 +96,3 @@ html.debug {
 .art-bottom, .full-art-bottom {
 	top: calc(50vh - 200px);
 }
-
-
-
-.credits {
-  color: white;
-  background: rgba(0,0,0,0.8);
-  border-radius: 20px;
-  padding: 1em;
-  width: 30em;
-}
-
-.credits a {
-  color: rgba(255,0,66);
-}

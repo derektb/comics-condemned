@@ -1,4 +1,12 @@
 .asset.credits {
+  color: white;
+  background: rgba(0,0,0,0.8);
+  border-radius: 20px;
+  padding: 1em;
+  width: 30em;
+}
+
+.asset.credits {
   font-family: "Roboto Mono", monospace;
   text-align: center;
 }
@@ -20,4 +28,26 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+}
+
+.asset.credits a {
+  color: white;
+  font-style: italic;
+  text-decoration: underline rgba(255,255,255,0);
+  transition: color 1s, text-decoration 1s;
+}
+
+.asset.credits.active a {
+  color: rgba(255,0,66);
+  text-decoration: underline rgba(255,0,66,1);
+}
+
+.asset.credits.active a:hover {
+  cursor: pointer;
+}
+
+.asset.credits.active a:focus {
+  outline: none;
+  transition: color 0.1s;
+  color: rgba(255,144,125);
 }

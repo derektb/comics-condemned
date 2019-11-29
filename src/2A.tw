@@ -142,6 +142,15 @@ p.step.create(
 );
 
 p.step.transition(
+
+  exitSealayer("deep-sea"),
+  {
+    a: 'fish-sprite-wrapper', l: 'full-art', p: 'remove',
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.LONG,
+    xy: xy.fishes
+  },
   {
     a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
@@ -190,15 +199,6 @@ p.step.transition(
     u: s.time.MEDIUM,
     xy: xy.gel,
   },
-
-  exitSealayer("deep-sea"),
-	{
-    a: 'fish-sprite-wrapper', l: 'full-art', p: 'remove',
-    e: "easeOutUp",
-	  d: s.time.XSHORT,
-    u: s.time.LONG,
-    xy: xy.fishes
-	},
   {
     a: 'text', l: 'art', p: 'remove',
     e: "easeOutUp",

@@ -89,7 +89,7 @@ p.step.transition(
     d: s.time.SHORT,
     u: s.time.LONG*1.2,
     xy: xy.subtitle
-  },
+  }
 );
 
 p.destination.main = "[[1B]]";
