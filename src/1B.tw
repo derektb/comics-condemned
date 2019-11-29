@@ -46,7 +46,7 @@ p.step.create(
     code: function(){
       // buffer
     },
-    u: 250,
+    u: 1200,
     s: "after",
   },
   // sealayers
@@ -117,7 +117,7 @@ p.step.create(
 );
 
 p.step.transition(
-  exitSealayer("pink-sea"),
+  exitSealayer("pink-sea", 250),
   exitSealayer("white-sea"),
   exitSealayer("pink-clouds"),
   exitSealayer("red-clouds"),

@@ -233,6 +233,10 @@ p.step.create(
     code: function() {
       jinx.wand.mode("panel");
       jinx.wand.away();
+
+      s.GENERATE_TITLE_BUBBLES = true;
+      creatingBubbles();
+
       document.querySelector(".asset.credits").classList.add("active");
       $(document).one("click", ".asset.credits.active #restart-story", function(){
         $(document).trigger("jinx.panel.advance", p)

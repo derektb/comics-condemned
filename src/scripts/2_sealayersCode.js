@@ -1,3 +1,6 @@
+let sealayers = story.render('SEALAYERS');
+$(sealayers).insertBefore('#passages');
+
 window.enterSealayer = function (which, delay, duration, syncWith) {
   const layer = document.getElementById(which);
   return {

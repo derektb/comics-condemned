@@ -159,7 +159,24 @@ Condemned to the Depths
 /* .asset[assetname='trash-shadow'] {
   animation: float-trash-shadow 4s infinite both;
 } */
-/* twine-user-stylesheet #2: "credits.css" */
+/* twine-user-stylesheet #2: "bubbles.css" */
+#bubbles .bubble {
+  position: absolute;
+  -webkit-animation: bubble-fade 7s 1 linear;
+  -moz-animation: bubble-fade 7s 1 linear;
+  -o-animation: bubble-fade 7s 1 linear;
+  animation: bubble-fade 7s 1 linear;
+}
+
+#bubbles .bubble img {
+  position: relative;
+  left: 0;
+  -webkit-animation: bubble-wobble 3s infinite ease-in-out;
+  -moz-animation: bubble-wobble 3s infinite ease-in-out;
+  -o-animation: bubble-wobble 3s infinite ease-in-out;
+  animation: bubble-wobble 3s infinite ease-in-out;
+}
+/* twine-user-stylesheet #3: "credits.css" */
 .asset.credits {
   color: white;
   background: rgba(0,0,0,0.8);
@@ -213,7 +230,7 @@ Condemned to the Depths
   transition: color 0.1s;
   color: rgba(255,144,125);
 }
-/* twine-user-stylesheet #3: "fish-sprites.css" */
+/* twine-user-stylesheet #4: "fish-sprites.css" */
 .fish-sprite-wrapper, .fish-sprite {
   width: 1200px;
   height: 447px;
@@ -231,7 +248,7 @@ Condemned to the Depths
   top: 0;
   left: 0;
 }
-/* twine-user-stylesheet #4: "keyframes.css" */
+/* twine-user-stylesheet #5: "keyframes.css" */
 /* jellies */
 
 @-webkit-keyframes looping-background-jellies {
@@ -410,7 +427,61 @@ Condemned to the Depths
   0% { left: 0 }
   100% { left: 1200px; }
 }
-/* twine-user-stylesheet #5: "main.css" */
+
+/*  bubbles */
+
+@-webkit-keyframes bubble-fade {
+  0% { opacity: 0 }
+  33% { opacity: 1 }
+  66% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+@-moz-keyframes bubble-fade {
+  0% { opacity: 0 }
+  33% { opacity: 1 }
+  66% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+@-o-keyframes bubble-fade {
+  0% { opacity: 0 }
+  33% { opacity: 1 }
+  66% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+@keyframes bubble-fade {
+  0% { opacity: 0 }
+  33% { opacity: 1 }
+  66% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+@-webkit-keyframes bubble-wobble {
+  0% { left: 0 }
+  50% { left: 20px }
+  100% { left: 0 }
+}
+
+@-moz-keyframes bubble-wobble {
+  0% { left: 0 }
+  50% { left: 20px }
+  100% { left: 0 }
+}
+
+@-o-keyframes bubble-wobble {
+  0% { left: 0 }
+  50% { left: 20px }
+  100% { left: 0 }
+}
+
+@keyframes bubble-wobble {
+  0% { left: 0 }
+  50% { left: 20px }
+  100% { left: 0 }
+}
+/* twine-user-stylesheet #6: "main.css" */
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
 
 html, body, #passages {
@@ -509,18 +580,28 @@ html.debug {
 .art-bottom, .full-art-bottom {
 	top: calc(50vh - 200px);
 }
-/* twine-user-stylesheet #6: "sealayers.css" */
-/********** sealayer setup **********/
+
+#bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+}
 
 #sealayers {
 	position: absolute;
-	z-index: -1;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
+  z-index: -2;
 	overflow: hidden;
 }
+/* twine-user-stylesheet #7: "sealayers.css" */
+/********** sealayer setup **********/
 
 .sealayer {
 	position: absolute;
@@ -677,7 +758,7 @@ html.debug {
   transition: opacity 1s;
   opacity: 0;
 }
-/* twine-user-stylesheet #7: "wand.css" */
+/* twine-user-stylesheet #8: "wand.css" */
 #wand {
   background-color: black;
   z-index: 1000;
@@ -946,7 +1027,17 @@ preload(
   "ASSETS/wand/waiting.gif",
   "ASSETS/wand/loading.gif",
 );
+
+let bubblePreload = 1
+
+while (bubblePreload <= 20) {
+  preload(`ASSETS/title-bubbles/bub${bubblePreload}.png`)
+  bubblePreload++;
+}
 /* twine-user-script #5: "2_sealayersCode.js" */
+let sealayers = story.render('SEALAYERS');
+$(sealayers).insertBefore('#passages');
+
 window.enterSealayer = function (which, delay, duration, syncWith) {
   const layer = document.getElementById(which);
   return {
@@ -985,6 +1076,60 @@ window.resetSealayer = function(which, delay, duration, syncWith) {
     d: delay || 0
   };
 }
+/* twine-user-script #6: "3_randomBubble.js" */
+$(`<div id="bubbles"></div>`).insertBefore("#passages");
+const bubbles = document.getElementById("bubbles");
+story.windowWidth = window.innerWidth;
+story.windowHeight = window.innerHeight;
+
+window.creatingBubbles = function() {
+  if (story.state.GENERATE_TITLE_BUBBLES) {
+    makeRandomBubble()
+
+    const short = 100;
+    const long = 600;
+    const delay = 200;
+
+    const nextBubble = (
+      delay +
+      (Math.random()*short + Math.random()*short) +
+      (Math.random()*long + Math.random()*long)
+    );
+    window.setTimeout(creatingBubbles, nextBubble);
+  }
+}
+
+window.makeRandomBubble = function(){
+  const randNum = Math.ceil( Math.random()*20 );
+  const randomBubbleSrc = (
+`ASSETS/title-bubbles/bub${randNum}.png`
+  );
+
+  let img = document.createElement("img");
+  img.src = randomBubbleSrc;
+
+  let imgDiv = document.createElement("div")
+  imgDiv.classList.add("bubble");
+  imgDiv.appendChild(img);
+
+  const randX = Math.random()*story.windowWidth;
+  const randY = (Math.random()*story.windowHeight)+100;
+  const duration = 7000;
+
+  bubbles.insertAdjacentElement("afterbegin", imgDiv);
+
+  snabbt(imgDiv, {
+    fromPosition: [randX, randY, 0],
+    position: [randX, randY-300, 0],
+    duration: duration,
+    complete: function() {
+      img.remove()
+      img = null;
+      imgDiv.remove();
+      imgDiv = null;
+    }
+  })
+}
 </script><tw-passagedata pid="1" name="1A" tags="panel" position="100,100" size="100,100">// CONDEMNED TO THE DEPTHS
 // Title Panel
 
@@ -1010,27 +1155,7 @@ const xy = {
   subtitle: [462,508],
 };
 
-function createTitleBubbles() {
-  if (s.GENERATE_TITLE_BUBBLES) {
-
-    console.log(&quot;bubble!&quot;)
-
-    const nextBubble = (
-      200 +
-      (Math.random()*200 + Math.random()*200) +
-      (Math.random()*1000 + Math.random()*1000)
-    );
-    window.setTimeout(createTitleBubbles, nextBubble);
-  }
-}
-
 p.step.create(
-  {
-    code: function(){
-      // s.GENERATE_TITLE_BUBBLES = true;
-      createTitleBubbles();
-    }
-  },
   // resetSealayer(&quot;red-clouds&quot;),
   // resetSealayer(&quot;pink-clouds&quot;),
   // resetSealayer(&quot;white-sea&quot;),
@@ -1051,6 +1176,14 @@ p.step.create(
     d: s.time.MEDIUM,
     u: s.time.XLONG*1.8,
     xy: xy.subtitle
+  },
+  {
+    code: function(){
+      if (!s.GENERATE_TITLE_BUBBLES) {
+        s.GENERATE_TITLE_BUBBLES = true;
+        creatingBubbles();
+      }
+    }
   },
 );
 
@@ -1125,7 +1258,7 @@ p.step.create(
     code: function(){
       // buffer
     },
-    u: 250,
+    u: 1200,
     s: &quot;after&quot;,
   },
   // sealayers
@@ -1196,7 +1329,7 @@ p.step.create(
 );
 
 p.step.transition(
-  exitSealayer(&quot;pink-sea&quot;),
+  exitSealayer(&quot;pink-sea&quot;, 250),
   exitSealayer(&quot;white-sea&quot;),
   exitSealayer(&quot;pink-clouds&quot;),
   exitSealayer(&quot;red-clouds&quot;),
@@ -2592,6 +2725,10 @@ p.step.create(
     code: function() {
       jinx.wand.mode(&quot;panel&quot;);
       jinx.wand.away();
+
+      s.GENERATE_TITLE_BUBBLES = true;
+      creatingBubbles();
+
       document.querySelector(&quot;.asset.credits&quot;).classList.add(&quot;active&quot;);
       $(document).one(&quot;click&quot;, &quot;.asset.credits.active #restart-story&quot;, function(){
         $(document).trigger(&quot;jinx.panel.advance&quot;, p)
@@ -2749,12 +2886,8 @@ p.destination.to(&quot;1A&quot;);</tw-passagedata><tw-passagedata pid="9" name="
 
 &lt;%$(function(){
 
-// setup sealayers
-let sealayers = story.render(&#39;SEALAYERS&#39;);
-$(sealayers).insertBefore(&#39;#passages&#39;);
-
-story.show(&quot;2D&quot;);
-exitSealayer(&quot;black-sea&quot;).code();
+story.show(&quot;1A&quot;);
+// exitSealayer(&quot;black-sea&quot;).code();
 
 })%&gt;</tw-passagedata></tw-storydata>
 

@@ -1,0 +1,16 @@
+#bubbles .bubble {
+  position: absolute;
+  -webkit-animation: bubble-fade 7s 1 linear;
+  -moz-animation: bubble-fade 7s 1 linear;
+  -o-animation: bubble-fade 7s 1 linear;
+  animation: bubble-fade 7s 1 linear;
+}
+
+#bubbles .bubble img {
+  position: relative;
+  left: 0;
+  -webkit-animation: bubble-wobble 3s infinite ease-in-out;
+  -moz-animation: bubble-wobble 3s infinite ease-in-out;
+  -o-animation: bubble-wobble 3s infinite ease-in-out;
+  animation: bubble-wobble 3s infinite ease-in-out;
+}

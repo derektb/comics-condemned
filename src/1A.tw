@@ -24,27 +24,7 @@ const xy = {
   subtitle: [462,508],
 };
 
-function createTitleBubbles() {
-  if (s.GENERATE_TITLE_BUBBLES) {
-
-    console.log("bubble!")
-
-    const nextBubble = (
-      200 +
-      (Math.random()*200 + Math.random()*200) +
-      (Math.random()*1000 + Math.random()*1000)
-    );
-    window.setTimeout(createTitleBubbles, nextBubble);
-  }
-}
-
 p.step.create(
-  {
-    code: function(){
-      // s.GENERATE_TITLE_BUBBLES = true;
-      createTitleBubbles();
-    }
-  },
   // resetSealayer("red-clouds"),
   // resetSealayer("pink-clouds"),
   // resetSealayer("white-sea"),
@@ -65,6 +45,14 @@ p.step.create(
     d: s.time.MEDIUM,
     u: s.time.XLONG*1.8,
     xy: xy.subtitle
+  },
+  {
+    code: function(){
+      if (!s.GENERATE_TITLE_BUBBLES) {
+        s.GENERATE_TITLE_BUBBLES = true;
+        creatingBubbles();
+      }
+    }
   },
 );
 

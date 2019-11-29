@@ -44,3 +44,10 @@ preload(
   "ASSETS/wand/waiting.gif",
   "ASSETS/wand/loading.gif",
 );
+
+let bubblePreload = 1
+
+while (bubblePreload <= 20) {
+  preload(`ASSETS/title-bubbles/bub${bubblePreload}.png`)
+  bubblePreload++;
+}
