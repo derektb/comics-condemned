@@ -36,7 +36,7 @@ p.art.assets(
   {
     name: "credits",
     type: "text",
-    classNames: ["credits"],
+    classNames: ["credits", "modal"],
     text: story.render("CREDITS"),
   }
 );

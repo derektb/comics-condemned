@@ -5,6 +5,7 @@ html, body, #passages {
 	height: 100%;
 	width: 100%;
 	display: flex;
+  font-family: "Roboto Mono", monospace;
 }
 
 body {
@@ -115,4 +116,13 @@ html.debug {
 	bottom: 0;
   z-index: -2;
 	overflow: hidden;
+}
+
+.modal {
+  color: white;
+  background: rgba(0,0,0,0.8);
+  border-radius: 20px;
+  padding: 1em;
+  width: 30em;
+  text-align: center;
 }

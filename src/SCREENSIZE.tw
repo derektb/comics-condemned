@@ -1,0 +1,9 @@
+:: SCREENSIZE
+
+<div id="screensize-warn">
+  <div class="modal">
+    <h3>Warning!</h3>
+    <p>CONDEMNED to the DEPTHS is an experience intended for large screens.  Please resize your window, zoom out, or view this comic on a larger device.</p>
+    <a id="accept-screensize" href="javascript:void(0)">Play Anyway</a>
+  </div>
+</div>

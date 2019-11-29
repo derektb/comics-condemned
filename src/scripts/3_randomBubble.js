@@ -1,7 +1,5 @@
 $(`<div id="bubbles"></div>`).insertBefore("#passages");
 const bubbles = document.getElementById("bubbles");
-story.windowWidth = window.innerWidth;
-story.windowHeight = window.innerHeight;
 
 window.creatingBubbles = function() {
   if (story.state.GENERATE_TITLE_BUBBLES) {

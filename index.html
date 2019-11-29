@@ -11,7 +11,7 @@ Condemned to the Depths
 
 <div id="passages"></div>
 
-<!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="12" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-78" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "animations.css" */
+<!-- UUID://FA37417C-FCF7-4BB0-BA9F-52152179AAA4// --><tw-storydata name="Condemned to the Depths" startnode="13" creator="Tweego" creator-version="2.0.0+089d4ca77e5b" ifid="FA37417C-FCF7-4BB0-BA9F-52152179AAA4" zoom="1" format="jinx" format-version="0.7.4-78" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "animations.css" */
 /* special assets */
 
 .asset.looping-jellies {
@@ -177,19 +177,6 @@ Condemned to the Depths
   animation: bubble-wobble 3s infinite ease-in-out;
 }
 /* twine-user-stylesheet #3: "credits.css" */
-.asset.credits {
-  color: white;
-  background: rgba(0,0,0,0.8);
-  border-radius: 20px;
-  padding: 1em;
-  width: 30em;
-}
-
-.asset.credits {
-  font-family: "Roboto Mono", monospace;
-  text-align: center;
-}
-
 .asset.credits .patrons {
   display: flex;
   flex-flow: row wrap;
@@ -212,20 +199,26 @@ Condemned to the Depths
 .asset.credits a {
   color: white;
   font-style: italic;
+  font-weight: 500;
   text-decoration: underline rgba(255,255,255,0);
   transition: color 1s, text-decoration 1s;
 }
 
-.asset.credits.active a {
+.asset.credits.active a,
+#screensize-warn .modal a {
   color: rgba(255,0,66);
+  font-style: italic;
+  font-weight: 500;
   text-decoration: underline rgba(255,0,66,1);
 }
 
-.asset.credits.active a:hover {
+.asset.credits.active a:hover,
+#screensize-warn .modal a:hover {
   cursor: pointer;
 }
 
-.asset.credits.active a:focus {
+.asset.credits.active a:focus,
+#screensize-warn .modal a:focus {
   outline: none;
   transition: color 0.1s;
   color: rgba(255,144,125);
@@ -489,6 +482,7 @@ html, body, #passages {
 	height: 100%;
 	width: 100%;
 	display: flex;
+  font-family: "Roboto Mono", monospace;
 }
 
 body {
@@ -600,7 +594,33 @@ html.debug {
   z-index: -2;
 	overflow: hidden;
 }
-/* twine-user-stylesheet #7: "sealayers.css" */
+
+.modal {
+  color: white;
+  background: rgba(0,0,0,0.8);
+  border-radius: 20px;
+  padding: 1em;
+  width: 30em;
+  text-align: center;
+}
+/* twine-user-stylesheet #7: "screensize.css" */
+#screensize-warn {
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+}
+
+#screensize-warn.warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* twine-user-stylesheet #8: "sealayers.css" */
 /********** sealayer setup **********/
 
 .sealayer {
@@ -758,7 +778,7 @@ html.debug {
   transition: opacity 1s;
   opacity: 0;
 }
-/* twine-user-stylesheet #8: "wand.css" */
+/* twine-user-stylesheet #9: "wand.css" */
 #wand {
   background-color: black;
   z-index: 1000;
@@ -1034,7 +1054,31 @@ while (bubblePreload <= 20) {
   preload(`ASSETS/title-bubbles/bub${bubblePreload}.png`)
   bubblePreload++;
 }
-/* twine-user-script #5: "2_sealayersCode.js" */
+/* twine-user-script #5: "1_screensize.js" */
+function handleScreenSize() {
+  story.windowWidth = window.innerWidth;
+  story.windowHeight = window.innerHeight;
+
+  if (story.windowWidth < 1350 || story.windowHeight < 650) {
+    if (!story.state.ACCEPTED_SCREENSIZE) {
+      document.getElementById("screensize-warn").classList.add("warning");
+    }
+  } else {
+    document.getElementById("screensize-warn").classList.remove("warning");
+  }
+}
+
+document.querySelector("body").insertAdjacentHTML("beforeend", story.render("SCREENSIZE"));
+
+$(document).on("click", "#accept-screensize", function(){
+  story.state.ACCEPTED_SCREENSIZE = true;
+  document.getElementById("screensize-warn").classList.remove("warning")
+});
+
+$(window).resize(handleScreenSize);
+
+handleScreenSize();
+/* twine-user-script #6: "2_sealayersCode.js" */
 let sealayers = story.render('SEALAYERS');
 $(sealayers).insertBefore('#passages');
 
@@ -1076,11 +1120,9 @@ window.resetSealayer = function(which, delay, duration, syncWith) {
     d: delay || 0
   };
 }
-/* twine-user-script #6: "3_randomBubble.js" */
+/* twine-user-script #7: "3_randomBubble.js" */
 $(`<div id="bubbles"></div>`).insertBefore("#passages");
 const bubbles = document.getElementById("bubbles");
-story.windowWidth = window.innerWidth;
-story.windowHeight = window.innerHeight;
 
 window.creatingBubbles = function() {
   if (story.state.GENERATE_TITLE_BUBBLES) {
@@ -2528,7 +2570,7 @@ p.art.assets(
   {
     name: &quot;credits&quot;,
     type: &quot;text&quot;,
-    classNames: [&quot;credits&quot;],
+    classNames: [&quot;credits&quot;, &quot;modal&quot;],
     text: story.render(&quot;CREDITS&quot;),
   }
 );
@@ -2850,7 +2892,14 @@ p.destination.to(&quot;1A&quot;);</tw-passagedata><tw-passagedata pid="9" name="
   &lt;/div&gt;
   &lt;div id=&quot;fish-sprite-far&quot; class=&quot;fish-sprite&quot;&gt;
   &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="SEALAYERS" tags="" position="100,225" size="100,100">
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="SCREENSIZE" tags="" position="100,225" size="100,100">
+&lt;div id=&quot;screensize-warn&quot;&gt;
+  &lt;div class=&quot;modal&quot;&gt;
+    &lt;h3&gt;Warning!&lt;/h3&gt;
+    &lt;p&gt;CONDEMNED to the DEPTHS is an experience intended for large screens.  Please resize your window, zoom out, or view this comic on a larger device.&lt;/p&gt;
+    &lt;a id=&quot;accept-screensize&quot; href=&quot;javascript:void(0)&quot;&gt;Play Anyway&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="SEALAYERS" tags="" position="225,225" size="100,100">
 &lt;div id=&quot;sealayers&quot;&gt;
   &lt;div id=&quot;red-clouds&quot; class=&quot;sealayer&quot;&gt;
     &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
@@ -2882,7 +2931,7 @@ p.destination.to(&quot;1A&quot;);</tw-passagedata><tw-passagedata pid="9" name="
     &lt;div class=&quot;head&quot;&gt;&lt;/div&gt;
     &lt;div class=&quot;body&quot;&gt;&lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="Start" tags="" position="225,225" size="100,100">
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Start" tags="" position="350,225" size="100,100">
 
 &lt;%$(function(){
 

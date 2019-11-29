@@ -1,16 +1,3 @@
-.asset.credits {
-  color: white;
-  background: rgba(0,0,0,0.8);
-  border-radius: 20px;
-  padding: 1em;
-  width: 30em;
-}
-
-.asset.credits {
-  font-family: "Roboto Mono", monospace;
-  text-align: center;
-}
-
 .asset.credits .patrons {
   display: flex;
   flex-flow: row wrap;
@@ -33,20 +20,26 @@
 .asset.credits a {
   color: white;
   font-style: italic;
+  font-weight: 500;
   text-decoration: underline rgba(255,255,255,0);
   transition: color 1s, text-decoration 1s;
 }
 
-.asset.credits.active a {
+.asset.credits.active a,
+#screensize-warn .modal a {
   color: rgba(255,0,66);
+  font-style: italic;
+  font-weight: 500;
   text-decoration: underline rgba(255,0,66,1);
 }
 
-.asset.credits.active a:hover {
+.asset.credits.active a:hover,
+#screensize-warn .modal a:hover {
   cursor: pointer;
 }
 
-.asset.credits.active a:focus {
+.asset.credits.active a:focus,
+#screensize-warn .modal a:focus {
   outline: none;
   transition: color 0.1s;
   color: rgba(255,144,125);
