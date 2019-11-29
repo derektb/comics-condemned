@@ -19,8 +19,16 @@ jinx.effects.extend("fadeIn", "easeDown", {
 	fromPosition: [0, -1*easeTransitionAmount, 0],
 	position: [0,0,0]
 });
+jinx.effects.extend("fadeIn", "easeDownSmall", {
+	fromPosition: [0, -0.5*easeTransitionAmount, 0],
+	position: [0,0,0]
+});
 jinx.effects.extend("fadeIn", "easeUp", {
 	fromPosition: [0, easeTransitionAmount, 0],
+	position: [0,0,0]
+});
+jinx.effects.extend("fadeIn", "easeUpSmall", {
+	fromPosition: [0, easeTransitionAmount*0.5, 0],
 	position: [0,0,0]
 });
 jinx.effects.extend("fadeIn", "easeLeft", {

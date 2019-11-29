@@ -59,8 +59,8 @@ $('body').append(styleEl);
 
 p.art.layers("full-art", "art");
 
-const bgDuration = 4000;
-const whaleDuration = 4000;
+const bgDuration = 4500;
+const whaleDuration = 5000;
 
 const xy = {
   mountains: [-200,15],
@@ -87,8 +87,8 @@ p.step.create(
   // whale & text
 	{
     a: 'corpse', l: 'art',
-    e: "easeUp",
-    d: bgDuration*0.2,
+    e: "easeUpSmall",
+    d: bgDuration*0.3,
 	  u: whaleDuration,
 	  xy: xy.whale,
   },{
@@ -103,15 +103,15 @@ p.step.create(
     xy: xy.whale,
   },{
     a: 'text', l: 'art',
-    e: 'easeDown',
-    d: s.time.LONG,
-    u: s.time.XLONG,
+    e: 'easeDownSmall',
+    d: s.time.LONG*1.5,
+    u: s.time.XLONG*1.8,
   	xy: xy.text
   },
 );
 
 const outOfFrame = -750;
-const exitDuration = 5500;
+const exitDuration = 6000;
 
 p.step.create(
   {

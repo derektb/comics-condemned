@@ -55,26 +55,13 @@ p.art.assets(
 
 p.art.layers("full-art", "art");
 
-// fish css setup
-//
-// const fishesSrc = p.art.getAsset('fishes').getSrc();
-// const fishesRule = (
-// `.asset.looping-fishes {
-//   background-image: url("${fishesSrc}");
-// }`
-// );
-// const fishesStyleEl = document.createElement('style');
-// fishesStyleEl.id = "fishes-styles";
-// fishesStyleEl.textContent = fishesRule;
-// $('body').append(fishesStyleEl);
-
 const xy = {
   fishes: [0,25],
   bag: [319,204],
   fries: [301,84],
   ketchup: [169,182],
   sauce: [207,58],
-  text: [552,17],
+  text: [552,50],
   gel: [150,40],
 }
 
@@ -88,126 +75,113 @@ p.step.create(
   {
     a: "asset-gel", l: "art",
     e: "fadeIn",
-    d: s.time.SHORT*5, s: "async",
     u: s.time.LONG,
     xy: xy.gel,
   },
-  // TRASH
+  {
+    a: 'fish-sprite-wrapper', l: 'full-art', p: "effect",
+    e: 'easeUp',
+    s: "async",
+    d: s.time.MEDIUM*1.8,
+    u: s.time.XLONG*2,
+    xy: xy.fishes,
+  },
   {
     a: 'sauce', l: 'art',
     e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
+    d: s.time.SHORT*0.8,
+    u: s.time.LONG,
     xy: xy.sauce
   },
   {
     a: 'fries', l: 'art',
     e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
+    d: s.time.SHORT*0.8,
+    u: s.time.LONG,
     xy: xy.fries
   },
   {
     a: 'ketchup', l: 'art',
     e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
+    d: s.time.SHORT*0.8,
+    u: s.time.LONG,
     xy: xy.ketchup
-  },
-  {
-    a: 'bag-bubs-a', l: 'art',
-    e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
-    xy: xy.bag
-  },
-  {
-    a: 'bag-bubs-b', l: 'art',
-    e: 'easeDown',
-    u: s.time.SHORT,
-    xy: xy.bag
   },
   {
     a: 'bag', l: 'art',
   	e: 'easeDown',
-    d: s.time.SHORT*0.5,
-    u: s.time.SHORT,
+    d: s.time.SHORT*0.8,
+    u: s.time.LONG,
     xy: xy.bag
 	},
+  {
+    a: 'bag-bubs-a', l: 'art',
+    e: 'easeUp',
+    d: s.time.SHORT,
+    u: s.time.LONG,
+    xy: xy.bag
+  },
+  {
+    a: 'bag-bubs-b', l: 'art',
+    e: 'easeUp',
+    d: s.time.XSHORT,
+    u: s.time.LONG,
+    xy: xy.bag
+  },
 
   // FISH & TEXT
 
-  enterSealayer("deep-sea"),
-	// {
-  //   a: 'fishes', l: 'full-art',
-  //   e: 'easeUp',
-  //   d: s.time.MEDIUM,
-  //   u: s.time.XLONG,
-  //   xy: xy.fishes
-  // },
   {
-    a: 'fish-sprite-wrapper', l: 'full-art', p: "effect",
-    e: 'easeUp',
-    d: s.time.MEDIUM,
-    u: s.time.XLONG,
-    xy: xy.fishes
-  },
-	{
     a: 'text', l: 'art',
-  	e: 'easeDown',
-    d: s.time.MEDIUM,
-    u: s.time.XLONG,
+    e: 'easeDown',
+    d: s.time.MEDIUM*2,
+    u: s.time.XLONG*2,
     xy: xy.text
-	},
+  },
+  enterSealayer("deep-sea", null, null, true),
 );
 
 p.step.transition(
   {
-    a: 'text', l: 'art', p: 'remove',
-    e: "easeOutUp",
-    u: s.time.MEDIUM,
-    xy: xy.text
-  },
-
-  {
     a: 'bag', l: 'art', p: 'remove',
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.bag
   },
   {
     a: 'bag-bubs-a', l: 'art', p: 'remove',
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.bag
   },
   {
     a: 'bag-bubs-b', l: 'art', p: 'remove',
     e: "easeOutUp",
-    u: s.time.SHORT,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.bag
   },
   {
     a: 'ketchup', l: 'art', p: 'remove',
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.ketchup
   },
   {
     a: 'fries', l: 'art', p: 'remove',
     e: "easeOutUp",
     d: s.time.XSHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.fries
   },
 	{
     a: 'sauce', l: 'art', p: 'remove',
     e: "easeOutUp",
   	d: s.time.XSHORT,
-    u: s.time.SHORT,
+    u: s.time.MEDIUM,
     xy: xy.sauce
 	},
   {
@@ -217,14 +191,29 @@ p.step.transition(
     xy: xy.gel,
   },
 
+  exitSealayer("deep-sea"),
 	{
     a: 'fish-sprite-wrapper', l: 'full-art', p: 'remove',
     e: "easeOutUp",
 	  d: s.time.XSHORT,
-    u: s.time.MEDIUM,
+    u: s.time.LONG,
     xy: xy.fishes
 	},
-  exitSealayer("deep-sea"),
+  {
+    a: 'text', l: 'art', p: 'remove',
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.text
+  },
+
+  {
+    code: function(){
+      // buffer
+    },
+    u: 1500,
+    s: "after",
+  }
 );
 
 p.destination.main = "[[2B]]";

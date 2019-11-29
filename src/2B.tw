@@ -148,7 +148,7 @@ p.step.create(
   {
     a: 'downfish-white', l: 'art',
     e: "easeLeftDown",
-    d: s.time.MEDIUM,
+    d: s.time.LONG*0.8,
     u: s.time.XLONG,
     xy: xy.shark
   },{
@@ -182,7 +182,7 @@ p.step.create(
   {
   a: 'barracuda#2', l: 'art',
   e: "easeRightDown",
-  d: s.time.SHORT,
+  d: s.time.MEDIUM,
   u: s.time.XLONG,
   xy: xy.barracuda2
   },
@@ -197,8 +197,8 @@ p.step.create(
 	{
     a: 'text', l: 'art',
     e: "easeDown",
-    d: s.time.MEDIUM,
-    u: s.time.XLONG,
+    d: s.time.MEDIUM*1.5,
+    u: s.time.XLONG*1.8,
   	xy: xy.text
   }
 );
@@ -206,97 +206,106 @@ p.step.create(
 p.step.transition(
   // TRASH
   {
-    a: 'crust', l: 'art', p: "remove",
+    a: 'bag', l: 'art', p: "remove",
     e: "easeOutUp",
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-    xy: xy.crust
-  },
-  {
-    a: 'cheese', l: 'art', p: "remove",
-    e: "easeOutUp",
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-  	xy: xy.cheese
-  },
-  {
-    a: 'orangepeel', l: 'art', p: "remove",
-    e: "easeOutUp",
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-  	xy: xy.orangepeel
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.bag
   },
   {
     a: 'banana', l: 'art', p: "remove",
     e: "easeOutUp",
-    d: s.time.SHORT,
-    u: s.time.XLONG,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.banana
   },
   {
-    a: 'bag', l: 'art', p: "remove",
+    a: 'barracuda#2', l: 'art', p: "remove",
     e: "easeOutUp",
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-    xy: xy.bag
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.barracuda2
   },
-  // FISH & TEXT
-  // outlines
   {
     a: 'downfish-white', l: 'art', p: "remove",
     e: "easeOutUp",
-    d: s.time.MEDIUM,
-    u: s.time.XLONG,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
     xy: xy.shark
   },{
     a: 'shark-white', l: 'art', p: "remove",
     e: "easeOutUp", s: 'with',
-    u: s.time.XLONG,
+    u: s.time.MEDIUM,
     xy: xy.shark
-  },{
+  },
+  {
     a: 'upfish-white', l: 'art', p: "remove",
     e: "easeOutUp", s: 'with',
-    u: s.time.XLONG,
+    u: s.time.MEDIUM,
     xy: xy.shark
   },
   {
     a: 'downfish', l: 'art', p: "remove",
     e: "easeOutUp",
-    u: s.time.XLONG,
+    u: s.time.MEDIUM,
     xy: xy.shark
   },{
     a: 'shark', l: 'art', p: "remove",
     e: "easeOutUp", s: 'with',
-    u: s.time.XLONG,
+    u: s.time.MEDIUM,
     xy: xy.shark
   },{
     a: 'upfish', l: 'art', p: "remove",
     e: "easeOutUp", s: 'with',
-    u: s.time.XLONG,
+    u: s.time.MEDIUM,
     xy: xy.shark
   },
-
   {
-  a: 'barracuda#1', l: 'art', p: "remove",
-  e: "easeOutUp",
-  d: s.time.XSHORT,
-  u: s.time.XLONG,
-  xy: xy.barracuda1
+    a: 'orangepeel', l: 'art', p: "remove",
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.orangepeel
   },
   {
-    a: 'barracuda#2', l: 'art', p: "remove",
+    a: 'cheese', l: 'art', p: "remove",
     e: "easeOutUp",
-    d: s.time.SHORT,
-    u: s.time.XLONG,
-    xy: xy.barracuda2
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.cheese
+  },
+  {
+    a: 'crust', l: 'art', p: "remove",
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.crust
+  },
+  // FISH & TEXT
+  // outlines
+
+  {
+    a: 'barracuda#1', l: 'art', p: "remove",
+    e: "easeOutUp",
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
+    xy: xy.barracuda1
   },
 
 	{
     a: 'text', l: 'art', p: "remove",
     e: "easeOutUp",
-    d: s.time.MEDIUM,
-    u: s.time.XLONG,
+    d: s.time.XSHORT,
+    u: s.time.MEDIUM,
   	xy: xy.text
+  },
+
+  {
+    code: function(){
+      // buffer
+    },
+    u: 500,
+    s: "after",
   }
 );
 

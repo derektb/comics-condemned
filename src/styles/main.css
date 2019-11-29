@@ -53,7 +53,7 @@ html.debug {
   width: 340px;
   border-radius: 100px;
   filter: blur(20px);
-  background-color: rgb(255,0,66,0.6);
+  background-color: rgb(255,0,66,0.55);
 }
 
 .layer.full-art .asset.bg-tile {

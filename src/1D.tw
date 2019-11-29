@@ -107,7 +107,7 @@ p.step.create(
     a: 'text', l: 'art',
     e: 'easeDown',
     d: s.time.SHORT,
-    u: s.time.XLONG*2.5,
+    u: s.time.XLONG*1.8,
     xy: xy.text
   },
   {
@@ -130,7 +130,7 @@ p.step.transition(
   {
     a: 'jellies', l: 'full-art', p: 'remove',
     e: "easeOutUp",
-    d: s.time.SHORT,
+    // d: s.time.SHORT,
     u: s.time.XLONG,
     xy: xy.jellies
   },
