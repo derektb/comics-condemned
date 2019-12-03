@@ -1,6 +1,6 @@
 # CONDEMNED to the DEPTHS
 
-A Jinx comic about trash, regret, and the pitiless sea.
+A [Jinx](http://github.com/derektb/jinx) comic about trash, regret, and the pitiless sea.
 
 ## Build
 
